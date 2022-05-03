@@ -1,0 +1,30 @@
+nav{
+    height: 50px;
+    border: 1px solid #000000;
+}
+
+.div-header{
+    width: 80%;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.div-logo{
+    height: 30px;
+    width: 30px;
+    padding: 0 20px;
+}
+
+
+.div-lien{
+    height: 30px;
+    width: 30px;
+    padding: 0 20px;
+}
+
+.button-header{}
