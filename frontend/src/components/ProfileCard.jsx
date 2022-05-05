@@ -28,7 +28,7 @@ import {
             pos={'relative'}
           />
           <Heading fontSize={'2xl'} fontFamily={'body'}>
-            Lindsey James
+            Jane Doe
           </Heading>
           <Text
             textAlign={'center'}

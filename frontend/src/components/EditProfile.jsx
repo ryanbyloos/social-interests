@@ -13,14 +13,20 @@ import {
     Center,
   } from '@chakra-ui/react';
   import { SmallCloseIcon } from '@chakra-ui/icons';
+
+  import { useLocation, useNavigate } from 'react-router-dom';
   
   export default function EditProfile(){
+    const location = useLocation();
+    const navigate = useNavigate();
+
     return (
       <Flex
         minH={'100vh'}
         align={'center'}
         justify={'center'}
-        bg={useColorModeValue('gray.50', 'gray.800')}>
+        // 
+        >
         <Stack
           spacing={4}
           w={'full'}
@@ -31,10 +37,10 @@ import {
           p={6}
           my={12}>
           <Heading lineHeight={1.1} fontSize={{ base: '2xl', sm: '3xl' }}>
-            User Profile Edit
+            Éditer le profil
           </Heading>
           <FormControl id="userName">
-            <FormLabel>User Icon</FormLabel>
+            <FormLabel>Avatar</FormLabel>
             <Stack direction={['column', 'row']} spacing={6}>
               <Center>
                 <Avatar size="xl" src="https://images.unsplash.com/photo-1520810627419-35e362c5dc07?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ">
@@ -50,30 +56,38 @@ import {
                 </Avatar>
               </Center>
               <Center w="full">
-                <Button w="full">Change Icon</Button>
+                <Button w="full">Changer l'avatar</Button>
               </Center>
             </Stack>
           </FormControl>
-          <FormControl id="userName" isRequired>
-            <FormLabel>User name</FormLabel>
+          <FormControl id="firstname" isRequired>
+            <FormLabel>Prénom</FormLabel>
             <Input
-              placeholder="UserName"
+              placeholder="Prénom"
+              _placeholder={{ color: 'gray.500' }}
+              type="text"
+            />
+          </FormControl>
+          <FormControl id="lastname" isRequired>
+            <FormLabel>Nom</FormLabel>
+            <Input
+              placeholder="Nom"
               _placeholder={{ color: 'gray.500' }}
               type="text"
             />
           </FormControl>
           <FormControl id="email" isRequired>
-            <FormLabel>Email address</FormLabel>
+            <FormLabel>Adresse mail</FormLabel>
             <Input
-              placeholder="your-email@example.com"
+              placeholder="email@example.com"
               _placeholder={{ color: 'gray.500' }}
               type="email"
             />
           </FormControl>
           <FormControl id="password" isRequired>
-            <FormLabel>Password</FormLabel>
+            <FormLabel>Mot de passe</FormLabel>
             <Input
-              placeholder="password"
+              placeholder="Mot de passe"
               _placeholder={{ color: 'gray.500' }}
               type="password"
             />
@@ -85,7 +99,8 @@ import {
               w="full"
               _hover={{
                 bg: 'red.500',
-              }}>
+              }}
+              onClick={() => navigate("/myprofile" + location.search)}>
               Cancel
             </Button>
             <Button
@@ -94,7 +109,8 @@ import {
               w="full"
               _hover={{
                 bg: 'blue.500',
-              }}>
+              }}
+              onClick={() => navigate("/myprofile" + location.search)}>
               Submit
             </Button>
           </Stack>
