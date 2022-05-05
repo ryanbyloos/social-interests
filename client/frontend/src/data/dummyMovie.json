@@ -1,0 +1,11 @@
+{
+    "_id": "5d2b7c40e8b8560001e9c9f6",
+    "title": "The Godfather",
+    "year": "1972",
+    "director": ["Francis Ford Coppola"],
+    "genres": [
+        "crime",
+        "drama"
+    ],
+    "poster": "poster.jpg"
+}
