@@ -13,31 +13,10 @@ import {
   MenuDivider,
   useDisclosure,
   useColorModeValue,
-  Stack,
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-// const usePathname = () => {
-//   const location = useLocation();
-//   return location.pathname;
-// }
-
-// const Links = ['Mon profil', 'Explorer'];
-
-const NavLink = ({ children }) => (
-  <Link
-    px={2}
-    py={1}
-    rounded={'md'}
-    _hover={{
-      textDecoration: 'none',
-      bg: useColorModeValue('gray.200', 'gray.700'),
-    }}
-    href={'#'}>
-    {children}
-  </Link>
-);
 
 export default function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();

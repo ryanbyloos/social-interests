@@ -5,8 +5,6 @@ import {
     Center,
     Text,
     useColorModeValue,
-    Stack,
-    Button
   } from '@chakra-ui/react';
   
   export default function SocialProfileSimple() {

@@ -5,15 +5,12 @@ import {
     theme,
     VStack,
     Input,
-    Container,
     Spacer,
     HStack,
     Menu,
     MenuButton,
     MenuList,
     MenuItem,
-    MenuDivider,
-    Text,
     Button
 
 } from '@chakra-ui/react';
