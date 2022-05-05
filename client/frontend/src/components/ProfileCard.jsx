@@ -5,6 +5,8 @@ import {
     Center,
     Text,
     useColorModeValue,
+    Stack,
+    Button
   } from '@chakra-ui/react';
   
   export default function SocialProfileSimple() {
@@ -36,7 +38,6 @@ import {
             px={3}>
             This is my bio and I'm a software engineer.
           </Text>
-  
         </Box>
       </Center>
     );
