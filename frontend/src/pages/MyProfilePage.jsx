@@ -15,7 +15,7 @@ import MovieList from '../components/MovieList';
 function MyProfilePage() {
   return (
     <ChakraProvider theme={theme}>
-      <Navbar />
+      <Navbar location={"hello"}/>
       <div style={{ height: "100vh" }}>
         <Box textAlign="center" fontSize="xl" as="main" paddingTop={'4em'}>
           <ProfileCard />

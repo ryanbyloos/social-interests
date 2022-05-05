@@ -16,8 +16,14 @@ import {
   Stack,
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-const Links = ['Mon profil', 'Explorer'];
+// const usePathname = () => {
+//   const location = useLocation();
+//   return location.pathname;
+// }
+
+// const Links = ['Mon profil', 'Explorer'];
 
 const NavLink = ({ children }) => (
   <Link
@@ -33,9 +39,12 @@ const NavLink = ({ children }) => (
   </Link>
 );
 
-export default function Simple() {
+export default function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-
+  const location = useLocation();
+  const navigate = useNavigate();
+  const pathname = location.pathname;
+  
   return (
     <>
       <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4} as="header" position="fixed" w="100%">
@@ -53,9 +62,11 @@ export default function Simple() {
               as={'nav'}
               spacing={4}
               display={{ base: 'none', md: 'flex' }}>
-              {Links.map((link) => (
+              {/* {Links.map((link) => (
                 <NavLink key={link}>{link}</NavLink>
-              ))}
+              ))} */}
+              <Link onClick={() => navigate("/myprofile" + location.search)}> {pathname==="/myprofile" ? <b>Mon profil</b> : "Mon profil" } </Link>
+              <Link onClick={() => navigate("/explore" + location.search)}> {pathname==="/explore" ? <b>Explorer</b> : "Explorer" } </Link>
             </HStack>
           </HStack>
           <Flex alignItems={'center'}>
@@ -74,24 +85,25 @@ export default function Simple() {
                 />
               </MenuButton>
               <MenuList>
-                <MenuItem>Modifier profil</MenuItem>
-                <MenuItem>Paramètres</MenuItem>
+                <MenuItem onClick={() => navigate("/myprofile/edit" + location.search)}>Modifier profil</MenuItem>
+                <MenuItem onClick={() => navigate("/admin" + location.search)}>Interface admin</MenuItem>
                 <MenuDivider />
-                <MenuItem>Se déconnecter</MenuItem>
+                <MenuItem onClick={() => navigate("/" + location.search)}>Se déconnecter</MenuItem>
               </MenuList>
             </Menu>
           </Flex>
         </Flex>
 
-        {isOpen ? (
+        {/* {isOpen ? (
           <Box pb={4} display={{ md: 'none' }}>
             <Stack as={'nav'} spacing={4}>
               {Links.map((link) => (
                 <NavLink key={link}>{link}</NavLink>
               ))}
+              <NavLink> {"Mon profil"} </NavLink>
             </Stack>
           </Box>
-        ) : null}
+        ) : null} */}
       </Box>
     </>
   );

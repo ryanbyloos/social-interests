@@ -11,6 +11,8 @@ import {
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 
+import { useLocation, useNavigate } from 'react-router-dom';
+
 const Links = [];
 
 const NavLink = ({ children }) => (
@@ -29,6 +31,8 @@ const NavLink = ({ children }) => (
 
 export default function Simple() {
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const location = useLocation();
+    const navigate = useNavigate();
 
     return (
         <>
@@ -67,7 +71,8 @@ export default function Simple() {
                             href={'/'}
                             _hover={{
                                 bg: 'blue.500',
-                            }}>
+                            }}
+                            onClick={() => navigate("/" + location.search)}>
                             Sign In
                         </Button>
                         <Button
@@ -80,7 +85,8 @@ export default function Simple() {
                             href={'/signup'}
                             _hover={{
                                 bg: 'blue.500',
-                            }}>
+                            }}
+                            onClick={() => navigate("/signup" + location.search)}>
                             Sign Up
                         </Button>
                     </Flex>
