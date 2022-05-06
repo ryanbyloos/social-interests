@@ -40,23 +40,23 @@ import {
               <HStack>
                 <Box>
                   <FormControl id="firstName" isRequired>
-                    <FormLabel>First Name</FormLabel>
+                    <FormLabel>Prénom</FormLabel>
                     <Input type="text" />
                   </FormControl>
                 </Box>
                 <Box>
                   <FormControl id="lastName" isRequired>
-                    <FormLabel>Last Name</FormLabel>
+                    <FormLabel>Nom</FormLabel>
                     <Input type="text" />
                   </FormControl>
                 </Box>
               </HStack>
               <FormControl id="email" isRequired>
-                <FormLabel>Email address</FormLabel>
+                <FormLabel>Adresse mail</FormLabel>
                 <Input type="email" />
               </FormControl>
               <FormControl id="password" isRequired>
-                <FormLabel>Password</FormLabel>
+                <FormLabel>Mot de passe</FormLabel>
                 <InputGroup>
                   <Input type={showPassword ? 'text' : 'password'} />
                   <InputRightElement h={'full'}>
@@ -79,7 +79,7 @@ import {
                   _hover={{
                     bg: 'blue.500',
                   }}>
-                  Sign up
+                  S'enregistrer
                 </Button>
               </Stack>
             </Stack>

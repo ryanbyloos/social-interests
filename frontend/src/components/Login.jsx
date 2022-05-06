@@ -27,7 +27,7 @@ export default function SimpleCard() {
       >
       <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
         <Stack align={'center'}>
-          <Heading fontSize={'4xl'}>Sign in to your account</Heading>
+          <Heading fontSize={'4xl'}>Se connecter</Heading>
 
         </Stack>
         <Box
@@ -37,11 +37,11 @@ export default function SimpleCard() {
           p={8}>
           <Stack spacing={4}>
             <FormControl id="email">
-              <FormLabel>Email address</FormLabel>
+              <FormLabel>Adresse mail</FormLabel>
               <Input type="email" />
             </FormControl>
             <FormControl id="password">
-              <FormLabel>Password</FormLabel>
+              <FormLabel>Mot de passe</FormLabel>
               <Input type="password" />
             </FormControl>
             <Stack spacing={10}>
@@ -54,7 +54,7 @@ export default function SimpleCard() {
                 onClick={() => {
                   navigate("/myprofile" + location.search);
                 }}>
-                Sign in
+                Se connecter
               </Button>
             </Stack>
           </Stack>
