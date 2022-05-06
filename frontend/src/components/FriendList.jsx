@@ -10,11 +10,14 @@ import {
     InputLeftElement,
     Input,
 } from '@chakra-ui/react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { SearchIcon } from '@chakra-ui/icons';
 
 function FriendCard(props) {
     const { name, pic } = props;
+    const location = useLocation();
+    const navigate = useNavigate();
     return (
         <Box
             px={{ base: 2, md: 4 }}
@@ -30,6 +33,7 @@ function FriendCard(props) {
                     alt={'Avatar Alt'}
                     mb={4}
                     pos={'relative'}
+                    onClick={() => navigate("/friend" + location.search)}
                 />
                 <Box>
                     <Text>
