@@ -26,11 +26,11 @@ function MyProfilePage() {
         <ChakraProvider theme={theme}>
             <Navbar />
             <div style={{ height: "100vh" }}>
-                <VStack spacing="27vh" >
+                <VStack spacing="30vh" >
                     <Spacer />
-                    <HStack textAlign="center" fontSize="md" paddingTop={'4em'} width={'30%'}>
+                    <HStack textAlign="center" fontSize="md" paddingTop={'4em'} maxW={'900px'}>
                         <Menu>
-                            <MenuButton as={Button}>
+                            <MenuButton shadow={'lg'} as={Button} width={'6em'}>
                                 {Filter}
                             </MenuButton>
                             <MenuList>
@@ -39,7 +39,7 @@ function MyProfilePage() {
                                 <MenuItem onClick={() => setFilter('Films')}>Films</MenuItem>
                             </MenuList>
                         </Menu>
-                        <Input placeholder='Cherchez ...' size='lg' />
+                        <Input placeholder='Cherchez ...' size='lg' shadow={'lg'} />
                     </HStack>
                     <Spacer />
                     <Footer />

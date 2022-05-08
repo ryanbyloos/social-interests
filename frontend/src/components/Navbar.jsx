@@ -4,48 +4,40 @@ import {
   Avatar,
   HStack,
   Link,
-  IconButton,
   Button,
   Menu,
   MenuButton,
   MenuList,
   MenuItem,
   MenuDivider,
-  useDisclosure,
   useColorModeValue,
 } from '@chakra-ui/react';
-import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 
 export default function Navbar() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const location = useLocation();
   const navigate = useNavigate();
   const pathname = location.pathname;
-  
+
   return (
     <>
-      <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4} as="header" position="fixed" w="100%">
-        <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
-          <IconButton
-            size={'md'}
-            icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
-            aria-label={'Open Menu'}
-            display={{ md: 'none' }}
-            onClick={isOpen ? onClose : onOpen}
-          />
+      <Box bg={useColorModeValue('gray.100', 'gray.900')}
+        shadow={'md'}
+        px={4}
+        as="header"
+        position="fixed"
+        zIndex={3}
+        w="100%">
+        <Flex h={16} alignItems={'center'} justifyContent={'space-between'} position="static">
           <HStack spacing={8} alignItems={'center'}>
             <Box><b>Social Interests</b></Box>
             <HStack
               as={'nav'}
               spacing={4}
-              display={{ base: 'none', md: 'flex' }}>
-              {/* {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
-              ))} */}
-              <Link onClick={() => navigate("/myprofile" + location.search)}> {pathname==="/myprofile" ? <b>Mon profil</b> : "Mon profil" } </Link>
-              <Link onClick={() => navigate("/explore" + location.search)}> {pathname==="/explore" ? <b>Explorer</b> : "Explorer" } </Link>
+              display={'flex'}>
+              <Link onClick={() => navigate("/myprofile" + location.search)}> {pathname === "/myprofile" ? <b>Mon profil</b> : "Mon profil"} </Link>
+              <Link onClick={() => navigate("/explore" + location.search)}> {pathname === "/explore" ? <b>Explorer</b> : "Explorer"} </Link>
             </HStack>
           </HStack>
           <Flex alignItems={'center'}>
@@ -72,17 +64,6 @@ export default function Navbar() {
             </Menu>
           </Flex>
         </Flex>
-
-        {/* {isOpen ? (
-          <Box pb={4} display={{ md: 'none' }}>
-            <Stack as={'nav'} spacing={4}>
-              {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
-              ))}
-              <NavLink> {"Mon profil"} </NavLink>
-            </Stack>
-          </Box>
-        ) : null} */}
       </Box>
     </>
   );

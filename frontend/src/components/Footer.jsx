@@ -12,7 +12,12 @@ import {
       <Box
         bg={useColorModeValue('gray.50', 'gray.900')}
         color={useColorModeValue('gray.700', 'gray.200')}
-        width={'100%'}>
+        width={'100%'}
+        position={'static'}
+        bottom={0}
+        left={0}
+        right={0}
+        >
         <Container
           as={Stack}
           maxW={'6xl'}

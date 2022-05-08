@@ -20,9 +20,8 @@ function MyProfilePage() {
     return (
         <ChakraProvider theme={theme}>
             <Navbar />
-            <div style={{ height: "100vh" }}>
-                <VStack spacing={16} >
-                    <TableContainer paddingTop={"5em"} width={"50%"}>
+                <VStack spacing="60vh">
+                    <TableContainer paddingTop={"5em"} maxWidth={"900px"}>
                         <Table variant='simple'>
                             <Thead>
                                 <Tr>
@@ -51,12 +50,17 @@ function MyProfilePage() {
                                     <Td>adresse@mail.com</Td>
                                     <Td><Button>Éditer</Button></Td>
                                 </Tr>
+                                <Tr>
+                                    <Td>Nom</Td>
+                                    <Td>Prenom</Td>
+                                    <Td>adresse@mail.com</Td>
+                                    <Td><Button>Éditer</Button></Td>
+                                </Tr>
                             </Tbody>
                         </Table>
                     </TableContainer>
                     <Footer />
                 </VStack>
-            </div>
         </ChakraProvider>
     );
 }

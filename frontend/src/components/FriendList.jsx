@@ -20,12 +20,12 @@ function FriendCard(props) {
             px={{ base: 2, md: 4 }}
             py={'5'}
             shadow={'xl'}
-            border={'1px solid'}
+            border={'1px '}
             borderColor={useColorModeValue('gray.800', 'gray.500')}
             rounded={'lg'}>
             <Container centerContent>
                 <Avatar
-                    size={'md'}
+                    size={'lg'}
                     src={pic}
                     alt={'Avatar Alt'}
                     mb={4}
@@ -43,7 +43,7 @@ function FriendCard(props) {
 
 export default function FriendList() {
     return (
-        <Container maxW={'900px'} maxH={'230px'}>
+        <Container maxW={'900px'} maxH={'240px'}>
             <Heading fontSize={'2xl'} fontFamily={'body'} textAlign={'left'} paddingBottom={5}>
                 Amis
             </Heading>

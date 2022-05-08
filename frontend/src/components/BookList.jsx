@@ -19,8 +19,8 @@ function BookCard(props) {
         <Box
             px={{ base: 2, md: 4 }}
             py={'5'}
-            // shadow={'xl'}
-            border={'1px solid'}
+            shadow={'xl'}
+            border={'1px '}
             borderColor={useColorModeValue('gray.800', 'gray.500')}
             rounded={'lg'}>
             <Container centerContent>
