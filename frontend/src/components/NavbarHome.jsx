@@ -40,7 +40,7 @@ export default function Simple() {
                                 bg: 'blue.500',
                             }}
                             onClick={() => navigate("/" + location.search)}>
-                            Sign In
+                            Se connecter
                         </Button>
                         <Button
                             display={'inline-flex'}
@@ -52,7 +52,7 @@ export default function Simple() {
                                 bg: 'blue.500',
                             }}
                             onClick={() => navigate("/signup" + location.search)}>
-                            Sign Up
+                            S'enregistrer
                         </Button>
                     </Flex>
                 </Flex>

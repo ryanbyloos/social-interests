@@ -9,6 +9,7 @@ import {
     Button
 } from '@chakra-ui/react';
 
+
 export default function SocialProfileSimple() {
     return (
         <Center py={6}>
