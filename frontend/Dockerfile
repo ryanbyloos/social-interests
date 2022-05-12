@@ -1,7 +1,10 @@
 FROM node:17.6.0-alpine
+
+COPY ./frontend /usr/src/app
 WORKDIR /usr/src/app
-COPY package*.json ./
+
 RUN npm install
-COPY . .
-EXPOSE 3000
-CMD [ "npm", "start" ]
+
+EXPOSE $PORT
+
+CMD npm start

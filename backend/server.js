@@ -1,16 +1,13 @@
 const express = require("express");
 const cors = require("cors");
 const db = require("./app/models");
-const dbConfig = require("./app/config/db.config");
 
 const Role = db.role;
 
 const app = express();
 
-
-
 var corsOptions = {
-  origin: "http://localhost:8081"
+  origin: "http://localhost:3000"
 };
 
 app.use(cors(corsOptions));
@@ -23,19 +20,19 @@ app.get("/", (req, res) => {
 require('./app/routes/auth.routes')(app);
 require('./app/routes/user.routes')(app);
 
-// set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
 
 db.mongoose
-  .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
+  .connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
   .then(() => {
     console.log("Successfully connected to the database");
+    dbInit();	
   })
   .catch(err => {
     console.log("Could not connect to the database. Exiting now...", err);
