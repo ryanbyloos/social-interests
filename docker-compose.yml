@@ -1,0 +1,26 @@
+version: '3'
+services:
+  webtechno-db:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_DATABASE: socialdb
+    ports:
+      - 27017:27017
+  webtechno-backend:
+    build:
+      context: .
+      dockerfile: ./backend/Dockerfile
+    environment:
+      PORT: 8080
+      MONGODB_URI: mongodb://webtechno-db:27017/socialdb
+    ports:
+      - 8080:8080
+  webtechno-backend-frontend:
+    build: 
+      context: .
+      dockerfile: ./frontend/Dockerfile
+    environment:
+      PORT: 3000
+      PROXY_API: http://webtechno-backend:8080/
+    ports:
+      - 3000:3000
