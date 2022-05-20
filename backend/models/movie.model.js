@@ -1,15 +1,15 @@
 const mongoose = require("mongoose");
-const Book = mongoose.model(
-  "Book",
+
+const Movie = mongoose.model(
+  "Movie",
   new mongoose.Schema({
     title: String,
-    isbn: String,
     author: String,
     year: Number,
     genre: [String],
-    author: [String],
     description: String,
     image: String
   })
 );
-module.exports = Book;
+
+module.exports = Movie;
