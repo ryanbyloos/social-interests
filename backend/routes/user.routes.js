@@ -8,6 +8,7 @@ module.exports =  (app) => {
         next();
     });
     
+    app.get("/api/user", controller.getAllUsers);
     app.get("/api/user/:id", controller.getUser);
     app.get("/api/user/:id/books", controller.getUserBooks);
     app.get("/api/user/:id/movies", controller.getUserMovies);
@@ -16,6 +17,7 @@ module.exports =  (app) => {
     app.post("/api/user/:id/movies", controller.addMovie);
     app.post("/api/user/:id/friends", controller.addFriend);
 
+    app.put("/api/user/:id", controller.updateUser);
 
     app.delete("/api/user/:id", controller.deleteUser);
     app.delete("/api/user/:id/books/:bookId", controller.deleteBook);

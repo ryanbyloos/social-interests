@@ -4,6 +4,7 @@ const cors = require('cors');
 const db = require('./models');
 const authRoutes = require('./routes/auth.routes');
 const userRoutes = require('./routes/user.routes');
+const bookRoutes = require('./routes/book.routes');
 
 const port = process.env.PORT || 3000;
 const app = express();
@@ -18,6 +19,7 @@ app.use(bodyParser.json());
 
 authRoutes(app);
 userRoutes(app);
+bookRoutes(app);
 
 app.listen(port, () => console.log(`Hello world app listening on port ${port}!`))
 

@@ -25,19 +25,18 @@ const User = mongoose.model(
                 ref: "Role"
             }
         ],
-        interests: [
-            [
-                {
-                    type: mongoose.Schema.Types.ObjectId,
-                    ref: "Book"
-                }
-            ],
-            [
-                {
-                    type: mongoose.Schema.Types.ObjectId,
-                    ref: "Movie"
-                }
-            ]
+        books: [
+
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Book"
+            }
+        ],
+        movies: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Movie"
+            }
         ]
     })
 );
