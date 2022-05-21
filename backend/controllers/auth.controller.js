@@ -14,7 +14,11 @@ exports.signup = async (req, res) => {
         await User.create({
             username,
             password : bcrypt.hashSync(password, 8),
-            roleId: 1,
+            roles: [
+                await Role.findOne({ name: "user" })
+            ],
+            bio: "",
+            avatar: "",
         });
         res.send({ message: "User created successfully" });
     } catch (err) {
@@ -40,6 +44,7 @@ exports.signin = async (req, res) => {
                         expiresIn: 86400
                     });
                 return res.status(200).send({
+                    success: true,
                     message: "Authentication successful",
                     token: token,
                     userId: user._id

@@ -7,7 +7,7 @@ import {
     useColorModeValue,
   } from '@chakra-ui/react';
   
-  export default function SocialProfileSimple() {
+  export default function ProfileCard({username, bio}) {
     return (
       <Center py={6}>
         <Box
@@ -28,13 +28,13 @@ import {
             pos={'relative'}
           />
           <Heading fontSize={'2xl'} fontFamily={'body'}>
-            Jane Doe
+            {username}
           </Heading>
           <Text
             textAlign={'center'}
             color={useColorModeValue('gray.700', 'gray.400')}
             px={3}>
-            This is my bio and I'm a software engineer.
+            {bio}
           </Text>
         </Box>
       </Center>

@@ -15,7 +15,7 @@ services:
       MONGODB_URI: mongodb://webtechno-db:27017/socialdb
     ports:
       - 8080:8080
-  webtechno-backend-frontend:
+  webtechno-frontend:
     build: 
       context: .
       dockerfile: ./frontend/Dockerfile
