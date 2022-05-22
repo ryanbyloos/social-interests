@@ -10,16 +10,34 @@ import {
 } from "@chakra-ui/react";
 
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { whoami, addFriend } from "../api/userAPI";
 
 export default function ProfileCard({ username, bio, myProfile }) {
   const [friendButton, setFriendButton] = useState(null);
+  const [refresh, setRefresh] = useState(false);
+
+  const { id } = useParams();
+
+  const handleAddFriend = (friendId) => {
+    whoami().then((me) => {
+      addFriend(me.userId, friendId).then(() => {
+        setRefresh(!refresh);
+      });
+    });
+  };
 
   const updateFriendButton = () => {
     if (!myProfile) {
       setFriendButton(
         <Center>
           <Stack mt={8} direction={"row"} spacing={4}>
-            <Button flex={"none"} fontSize={"sm"} rounded={"full"}>
+            <Button
+              flex={"none"}
+              fontSize={"sm"}
+              rounded={"full"}
+              onClick={() => handleAddFriend(id)}
+            >
               {" "}
               Ajouter{" "}
             </Button>
@@ -33,7 +51,7 @@ export default function ProfileCard({ username, bio, myProfile }) {
 
   useEffect(() => {
     updateFriendButton();
-  }, [myProfile]);
+  }, [myProfile, refresh]);
 
   return (
     <Center py={6}>

@@ -22,7 +22,7 @@ import {
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useState, useEffect } from "react";
-import { getAllUsers } from "../api/userAPI";
+import { getAllUsers, addFriend, hasFriend, whoami } from "../api/userAPI";
 import { useNavigate } from "react-router-dom";
 
 function MyProfilePage() {
@@ -33,38 +33,55 @@ function MyProfilePage() {
 
   const navigate = useNavigate();
 
-  const addFriend = (id) => {};
+  const handleAddFriend = (friendId) => {
+    whoami().then((me) => {
+      addFriend(me.userId, friendId).then(() => {
+        setRefresh(!refresh);
+      });
+    });
+  };
 
   const goToProfile = (id) => {
     navigate(`/u/${id}`);
   };
 
   const updateResults = () => {
-    setResults([]);
-    if (filter === "Utilisateurs") {
-      getAllUsers().then((res) => {
-        res.map((user) => {
-          if (user.username.toLowerCase().includes(search.toLowerCase())) {
-            setResults((results) => [
-              ...results,
-              <Tr key={user._id}>
-                <Td>{user.username}</Td>
-                <Td>
-                  <Button onClick={() => goToProfile(user._id)}>
-                    Voir le profil
-                  </Button>
-                </Td>
-                <Td>
-                  <Button onClick={() => addFriend(user._id)}>Ajouter</Button>
-                </Td>
-              </Tr>,
-            ]);
-          }
-        });
+    whoami()
+      .then((user) => {
+        return user;
+      })
+      .then((me) => {
+        setResults([]);
+        if (filter === "Utilisateurs") {
+          getAllUsers().then((res) => {
+            res.map((user) => {
+              if (
+                user.username.toLowerCase().includes(search.toLowerCase()) &&
+                user._id !== me.userId
+              ) {
+                setResults((results) => [
+                  ...results,
+                  <Tr key={user._id}>
+                    <Td>{user.username}</Td>
+                    <Td>
+                      <Button onClick={() => goToProfile(user._id)}>
+                        Voir le profil
+                      </Button>
+                    </Td>
+                    <Td>
+                      <Button onClick={() => handleAddFriend(user._id)}>
+                        Ajouter
+                      </Button>
+                    </Td>
+                  </Tr>,
+                ]);
+              }
+            });
+          });
+        } else if (filter === "Livres") {
+        } else if (filter === "Films") {
+        }
       });
-    } else if (filter === "Livres") {
-    } else if (filter === "Films") {
-    }
   };
 
   useEffect(() => {
