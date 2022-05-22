@@ -52,20 +52,6 @@ exports.getUser = async (req, res) => {
     // }
 };
 
-// exports.getUser = async (req, res) => {
-//     try {
-//         const user = await User.findOne({
-//             _id: req.params.id
-//         });
-//         if (!user) {
-//             return res.status(404).send({ message: "User not found" });
-//         }
-//         res.status(200).send(user);
-//     } catch (err) {
-//         res.status(500).send({ message: err.message });
-//     }
-// }
-
 exports.getUserBooks = async (req, res) => {
     try {
         const user = await User.findOne({
@@ -78,7 +64,7 @@ exports.getUserBooks = async (req, res) => {
     } catch (err) {
         res.status(500).send({ message: err.message });
     }
-}
+};
 
 exports.getUserMovies = async (req, res) => {
     try {
@@ -92,7 +78,7 @@ exports.getUserMovies = async (req, res) => {
     } catch (err) {
         res.status(500).send({ message: err.message });
     }
-}
+};
 
 exports.getUserFriends = async (req, res) => {
     try {
@@ -106,7 +92,7 @@ exports.getUserFriends = async (req, res) => {
     } catch (err) {
         res.status(500).send({ message: err.message });
     }
-}
+};
 
 exports.updateUser = async (req, res) => {
     try {
@@ -125,7 +111,7 @@ exports.updateUser = async (req, res) => {
     } catch (err) {
         res.status(500).send({ message: err.message });
     }
-}
+};
 
 exports.addBook = async (req, res) => {
     try {
@@ -141,7 +127,7 @@ exports.addBook = async (req, res) => {
     } catch (err) {
         res.status(500).send({ message: err.message });
     }
-}
+};
 
 exports.addMovie = async (req, res) => {
     try {
@@ -157,7 +143,7 @@ exports.addMovie = async (req, res) => {
     } catch (err) {
         res.status(500).send({ message: err.message });
     }
-}
+};
 
 exports.addFriend = async (req, res) => {
     try {
@@ -173,7 +159,7 @@ exports.addFriend = async (req, res) => {
     } catch (err) {
         res.status(500).send({ message: err.message });
     }
-}
+};
 
 exports.deleteUser = async (req, res) => {
     try {
@@ -188,7 +174,7 @@ exports.deleteUser = async (req, res) => {
     } catch (err) {
         res.status(500).send({ message: err.message });
     }
-}
+};
 
 exports.deleteBook = async (req, res) => {
     try {
@@ -204,7 +190,7 @@ exports.deleteBook = async (req, res) => {
     } catch (err) {
         res.status(500).send({ message: err.message });
     }
-}
+};
 
 exports.deleteMovie = async (req, res) => {
     try {
@@ -220,7 +206,7 @@ exports.deleteMovie = async (req, res) => {
     } catch (err) {
         res.status(500).send({ message: err.message });
     }
-}
+};
 
 exports.deleteFriend = async (req, res) => {
     try {
@@ -236,4 +222,4 @@ exports.deleteFriend = async (req, res) => {
     } catch (err) {
         res.status(500).send({ message: err.message });
     }
-}
+};
