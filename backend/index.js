@@ -6,7 +6,7 @@ const authRoutes = require('./routes/auth.routes');
 const userRoutes = require('./routes/user.routes');
 const bookRoutes = require('./routes/book.routes');
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8080;
 const app = express();
 
 var corsOptions = {
@@ -21,7 +21,7 @@ authRoutes(app);
 userRoutes(app);
 bookRoutes(app);
 
-app.listen(port, () => console.log(`Hello world app listening on port ${port}!`))
+app.listen(port, () => console.log(`App listening on port ${port}!`))
 
 db.mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/test', {
     useNewUrlParser: true,

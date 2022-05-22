@@ -1,6 +1,7 @@
 const db = require("../models");
 const User = db.user;
 var jwt = require("jsonwebtoken");
+var bcrypt = require("bcrypt");
 
 exports.getUser = async (req, res) => {
     if (req.query.id) {
@@ -109,6 +110,11 @@ exports.getUserFriends = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
     try {
+        const newUser = req.body;
+        if (req.body.password) {
+            newUser.password = bcrypt.hashSync(req.body.password, 8);
+        }
+        console.log(newUser);
         const user = await User.findOneAndUpdate({
             _id: req.params.id
         }, req.body, { new: true });
@@ -192,7 +198,7 @@ exports.deleteBook = async (req, res) => {
         if (!user) {
             return res.status(404).send({ message: "User not found" });
         }
-        user.books.pull(req.body);
+        user.books.pull(req.params.bookId);
         await user.save();
         res.status(200).send(user.books);
     } catch (err) {
@@ -208,7 +214,7 @@ exports.deleteMovie = async (req, res) => {
         if (!user) {
             return res.status(404).send({ message: "User not found" });
         }
-        user.movies.pull(req.body);
+        user.movies.pull(req.params.movieId);
         await user.save();
         res.status(200).send(user.movies);
     } catch (err) {
@@ -224,7 +230,7 @@ exports.deleteFriend = async (req, res) => {
         if (!user) {
             return res.status(404).send({ message: "User not found" });
         }
-        user.friends.pull(req.body);
+        user.friends.pull(req.params.friendId);
         await user.save();
         res.status(200).send(user.friends);
     } catch (err) {

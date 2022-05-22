@@ -22,7 +22,7 @@ root.render(
         <Route path="/" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/u/:id" element={<ProfilePage />} />
-        {/* <Route path="/myprofile/edit" element={<EditProfilePage />} /> */}
+        <Route path="/u/:id/edit" element={<EditProfilePage />} />
         <Route path="/explore" element={<ExplorePage />} />
         <Route path="/admin" element={<AdminPage />} />
       </Routes>

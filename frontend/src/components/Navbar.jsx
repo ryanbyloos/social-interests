@@ -28,6 +28,12 @@ export default function Navbar({ id, myProfile }) {
     });
   };
 
+  const goToEditMyProfile = () => {
+    whoami().then((data) => {
+      navigate(`/u/${data.userId}/edit`);
+    });
+  };
+
   return (
     <>
       <Box bg={useColorModeValue('gray.100', 'gray.900')}
@@ -64,7 +70,7 @@ export default function Navbar({ id, myProfile }) {
                 />
               </MenuButton>
               <MenuList>
-                <MenuItem onClick={() => navigate("/myprofile/edit" + location.search)}>Modifier profil</MenuItem>
+                <MenuItem onClick={goToEditMyProfile}>Modifier profil</MenuItem>
                 <MenuItem onClick={() => navigate("/admin" + location.search)}>Interface admin</MenuItem>
                 <MenuDivider />
                 <MenuItem onClick={() => {
