@@ -28,7 +28,7 @@ npm start
 
 ## Database
 
-The database is built with [MongoDB](https://www.mongodb.com/).
+The database is built with [MongoDB](https://www.mongodb.com/). Make sure that you have a running instance of MongoDB before running the application.
 
 ## Docker
 
