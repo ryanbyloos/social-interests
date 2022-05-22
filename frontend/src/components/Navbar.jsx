@@ -13,12 +13,20 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { whoami } from '../api/userAPI';
 
 
-export default function Navbar() {
+
+export default function Navbar({ id, myProfile }) {
   const location = useLocation();
   const navigate = useNavigate();
   const pathname = location.pathname;
+
+  const goToMyProfile = () => {
+    whoami().then((data) => {
+      navigate(`/u/${data.userId}`);
+    });
+  };
 
   return (
     <>
@@ -36,7 +44,7 @@ export default function Navbar() {
               as={'nav'}
               spacing={4}
               display={'flex'}>
-              <Link onClick={() => navigate("/myprofile" + location.search)}> {pathname === "/myprofile" ? <b>Mon profil</b> : "Mon profil"} </Link>
+              <Link onClick={goToMyProfile}> {myProfile ? <b>Mon profil</b> : "Mon profil"} </Link>
               <Link onClick={() => navigate("/explore" + location.search)}> {pathname === "/explore" ? <b>Explorer</b> : "Explorer"} </Link>
             </HStack>
           </HStack>
@@ -50,16 +58,19 @@ export default function Navbar() {
                 minW={0}>
                 <Avatar
                   size={'sm'}
-                  src={
-                    'https://images.unsplash.com/photo-1520810627419-35e362c5dc07?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ'
-                  }
+                  // src={
+                  //   'https://images.unsplash.com/photo-1520810627419-35e362c5dc07?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ'
+                  // }
                 />
               </MenuButton>
               <MenuList>
                 <MenuItem onClick={() => navigate("/myprofile/edit" + location.search)}>Modifier profil</MenuItem>
                 <MenuItem onClick={() => navigate("/admin" + location.search)}>Interface admin</MenuItem>
                 <MenuDivider />
-                <MenuItem onClick={() => navigate("/" + location.search)}>Se déconnecter</MenuItem>
+                <MenuItem onClick={() => {
+                  navigate("/" + location.search)
+                  localStorage.removeItem("token")
+                }}>Se déconnecter</MenuItem>
               </MenuList>
             </Menu>
           </Flex>

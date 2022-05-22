@@ -16,10 +16,7 @@ import { useState, useEffect, React } from 'react';
 import { SearchIcon } from '@chakra-ui/icons';
 
 
-
-
-function BookCard(props) {
-    const { name, pic } = props;
+function BookCard({ name, pic }) {
     return (
         <Box
             px={{ base: 2, md: 4 }}
@@ -31,7 +28,7 @@ function BookCard(props) {
             <Container centerContent>
                 <Image
                     size={'md'}
-                    src={pic}
+                    src={window.location.origin + '/bookplaceholder.png'}
                     alt={'Book Alt'}
                     mb={4}
                     pos={'relative'}
@@ -46,28 +43,37 @@ function BookCard(props) {
     );
 }
 
-export default function BookList() {
+export default function BookList({ books }) {
 
-    const [bookList, setBookList] = useState([]);
-    const [search, setSearch] = useState('');
+    let [search, setSearch] = useState('');
+    let [bookCardList, setBookCardList] = useState([]);
 
-    function fetchBooks(name) {
-        return fetch(`https://openlibrary.org/search.json?q=${encodeURI(name)}&fields=title,author_name,cover_i&limit=10`)
-            .then(response => response.json())
-            .then(data => {
-                setBookList(data.docs);
+    const updateBooks = () => {
+        setBookCardList([]);
+        for (let index = 0; index < books.length; index++) {
+            const bookId = books[index];
+            fetch(`http://localhost:8080/api/book/${bookId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-access-token': localStorage.getItem('token')
+                },
             })
-            .catch(error => console.log(error));
+                .then((res) => {
+                    if (res.status === 200) {
+                        return res.json();
+                    }
+                    throw new Error(res.statusText);
+                })
+                .then((data) => {
+                    setBookCardList(bookCardList => [...bookCardList, <BookCard name={data.title} pic={data.image} key={data.title} />]);
+                })
+        }
     }
 
     useEffect(() => {
-        fetchBooks(search);
-    }, [search]);
-
-    const books = []
-    for (let i = 0; i < bookList.length; i++) {
-        books.push(<BookCard name={bookList[i].title} pic={`https://covers.openlibrary.org/b/id/${bookList[i].cover_i}.jpg`} />)
-    }
+        updateBooks();
+    }, [books]);
 
     return (
         <Container maxW={'900px'} maxH={'270px'}>
@@ -79,8 +85,7 @@ export default function BookList() {
                     pointerEvents='none'
                     children={<SearchIcon color='gray.300' />}
                 />
-                {/* <Input type='tel' placeholder='Chercher un livre' value={search} onChange={() => setSearch()}/> */}
-                <Input type='text' placeholder='Chercher un livre' value={search} onChange={(e) => setSearch(e.target.value)}/>
+                <Input type='text' placeholder='Chercher un livre' value={search} onChange={(e) => setSearch(e.target.value)} />
 
             </InputGroup>
             <Box
@@ -93,9 +98,8 @@ export default function BookList() {
                 p={6}
                 textAlign={'center'}
                 overflowY="scroll">
-                {/* <Box maxW="10xl" mx={'auto'} pt={5} px={{ base: 2, sm: 12, md: 17 }}> */}
                 <SimpleGrid columns={{ base: 4, md: 6 }} spacing={{ base: 2, lg: 2 }}>
-                    {books}
+                    {bookCardList}
                 </SimpleGrid>
             </Box>
         </Container>

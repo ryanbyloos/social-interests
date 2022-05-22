@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react';
 
 
-export default function SocialProfileSimple() {
+export default function FriendProfileCard() {
     return (
         <Center py={6}>
             <Box

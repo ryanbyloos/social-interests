@@ -47,7 +47,8 @@ exports.signin = async (req, res) => {
                     success: true,
                     message: "Authentication successful",
                     token: token,
-                    userId: user._id
+                    userId: user._id,
+                    username: user.username
                 });
             }
             else {

@@ -11,13 +11,24 @@ import {
     Input,
 } from '@chakra-ui/react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useState, useEffect, React } from 'react';
 
+import { getUserByName } from '../api/userAPI';
 import { SearchIcon } from '@chakra-ui/icons';
 
-function FriendCard(props) {
-    const { name, pic } = props;
+
+
+function FriendCard({ name, pic }) {
     const location = useLocation();
     const navigate = useNavigate();
+
+    function goToProfile(username) {
+        getUserByName(username)
+            .then((data) => {
+                console.log(data._id);
+                navigate(`/u/${data._id}`);
+            })
+    }
     return (
         <Box
             px={{ base: 2, md: 4 }}
@@ -33,7 +44,7 @@ function FriendCard(props) {
                     alt={'Avatar Alt'}
                     mb={4}
                     pos={'relative'}
-                    onClick={() => navigate("/friend" + location.search)}
+                    onClick={() => goToProfile(name)}
                 />
                 <Box>
                     <Text>
@@ -45,7 +56,38 @@ function FriendCard(props) {
     );
 }
 
-export default function FriendList() {
+export default function FriendList({ friends }) {
+
+    let [search, setSearch] = useState('');
+    let [friendCardList, setFriendCardList] = useState([]);
+
+    const updateFriends = () => {
+        setFriendCardList([]);
+        for (let index = 0; index < friends.length; index++) {
+            const friendId = friends[index];
+            fetch(`http://localhost:8080/api/user?id=${friendId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-access-token': localStorage.getItem('token')
+                },
+            })
+                .then((res) => {
+                    if (res.status === 200) {
+                        return res.json();
+                    }
+                    throw new Error(res.statusText);
+                })
+                .then((data) => {
+                    setFriendCardList(friendCardList => [...friendCardList, <FriendCard name={data.username} pic={data.avatar} key={data._id} />]);
+                })
+        }
+    }
+
+    useEffect(() => {
+        updateFriends();
+    }, [friends]);
+
     return (
         <Container maxW={'900px'} maxH={'240px'}>
             <Heading fontSize={'2xl'} fontFamily={'body'} textAlign={'left'} paddingBottom={5}>
@@ -56,7 +98,7 @@ export default function FriendList() {
                     pointerEvents='none'
                     children={<SearchIcon color='gray.300' />}
                 />
-                <Input type='tel' placeholder='Chercher un ami' />
+                <Input type='tel' placeholder='Chercher un ami' value={search} onChange={(e) => setSearch(e.target.value)} />
             </InputGroup>
             <Box
                 maxW={'900px'}
@@ -68,40 +110,8 @@ export default function FriendList() {
                 p={6}
                 textAlign={'center'}
                 overflowY="scroll">
-                {/* <Box maxW="10xl" mx={'auto'} pt={5} px={{ base: 2, sm: 12, md: 17 }}> */}
                 <SimpleGrid columns={{ base: 4, md: 6 }} spacing={{ base: 2, lg: 2 }}>
-                    <FriendCard
-                        name={'FriendName'}
-                        pic={'https://images.unsplash.com/photo-1520810627419-35e362c5dc07?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ'}
-                    />
-                    <FriendCard
-                        name={'FriendName'}
-                        pic={'https://images.unsplash.com/photo-1520810627419-35e362c5dc07?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ'}
-                    />
-                    <FriendCard
-                        name={'FriendName'}
-                        pic={'https://images.unsplash.com/photo-1520810627419-35e362c5dc07?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ'}
-                    />
-                    <FriendCard
-                        name={'FriendName'}
-                        pic={'https://images.unsplash.com/photo-1520810627419-35e362c5dc07?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ'}
-                    />
-                    <FriendCard
-                        name={'FriendName'}
-                        pic={'https://images.unsplash.com/photo-1520810627419-35e362c5dc07?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ'}
-                    />
-                    <FriendCard
-                        name={'FriendName'}
-                        pic={'https://images.unsplash.com/photo-1520810627419-35e362c5dc07?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ'}
-                    />
-                    <FriendCard
-                        name={'FriendName'}
-                        pic={'https://images.unsplash.com/photo-1520810627419-35e362c5dc07?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ'}
-                    />
-                    <FriendCard
-                        name={'FriendName'}
-                        pic={'https://images.unsplash.com/photo-1520810627419-35e362c5dc07?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ'}
-                    />
+                    {friendCardList}
                 </SimpleGrid>
             </Box>
         </Container>

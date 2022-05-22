@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   ChakraProvider,
   Box,
@@ -6,19 +5,30 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import Navbar from '../components/Navbar';
-import FriendCard from '../components/FriendCard';
+import FriendProfileCard from '../components/FriendProfileCard';
 import FriendList from '../components/FriendList';
 import BookList from '../components/BookList';
 import Footer from '../components/Footer';
 import MovieList from '../components/MovieList';
 
+import { useParams } from 'react-router-dom';
+import { useState, useEffect, React } from 'react';
+
 function FriendPage() {
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    console.log(id);
+  }, [id]);
+
+
   return (
     <ChakraProvider theme={theme}>
       <Navbar />
       <div style={{ height: "100vh" }}>
         <Box textAlign="center" fontSize="xl" as="main" paddingTop={'4em'}>
-          <FriendCard />
+          <FriendProfileCard />
         </Box>
         {/* <Container maxW='3xl' centerContent> */}
         {/* <HStack align="center">
@@ -27,9 +37,9 @@ function FriendPage() {
           )}
         </HStack> */}
         <VStack spacing={16} >
-          <FriendList />
+          {/* <FriendList />
           <BookList />
-          <MovieList  />
+          <MovieList  /> */}
           <Footer />
         </VStack>
       </div>

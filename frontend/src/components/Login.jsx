@@ -43,8 +43,9 @@ export default function SimpleCard() {
         throw new Error(res.statusText);
       })
       .then((data) => {
+        console.log(data);
         localStorage.setItem('token', data.token);
-        navigate("/myprofile");
+        navigate(`/u/${data.userId}`);
       })
   };
 
