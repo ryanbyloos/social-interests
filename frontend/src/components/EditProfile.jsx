@@ -11,39 +11,39 @@ import {
   AvatarBadge,
   IconButton,
   Center,
-} from '@chakra-ui/react';
-import { SmallCloseIcon } from '@chakra-ui/icons';
+} from "@chakra-ui/react";
+import { SmallCloseIcon } from "@chakra-ui/icons";
 
-import React from 'react';
+import React from "react";
 
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from "react-router-dom";
 
-import { getUserById, updateUser } from '../api/userAPI';
+import { getUserById, updateUser } from "../api/userAPI";
 
 export default function EditProfile({ id }) {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const [username, setUsername] = React.useState('');
-  const [bio, setBio] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [cpassword, setCpassword] = React.useState('');
+  const [username, setUsername] = React.useState("");
+  const [bio, setBio] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [cpassword, setCpassword] = React.useState("");
   const [user, setUser] = React.useState(null);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     if (password !== cpassword) {
-      alert('Les mots de passe ne correspondent pas');
+      alert("Les mots de passe ne correspondent pas");
       return;
     }
-    const updatedUser = {}
-    if (username !== '') {
+    const updatedUser = {};
+    if (username !== "") {
       updatedUser.username = username;
     }
-    if (bio !== '') {
+    if (bio !== "") {
       updatedUser.bio = bio;
     }
-    if (password !== '') {
+    if (password !== "") {
       updatedUser.password = password;
     }
     updateUser(id, updatedUser).then((data) => {
@@ -58,26 +58,23 @@ export default function EditProfile({ id }) {
   }, [id, location]);
 
   return (
-    <Flex
-      minH={'100vh'}
-      align={'center'}
-      justify={'center'}
-    >
+    <Flex minH={"100vh"} align={"center"} justify={"center"}>
       <Stack
         spacing={4}
-        w={'full'}
-        maxW={'md'}
-        bg={useColorModeValue('white', 'gray.700')}
-        rounded={'xl'}
-        boxShadow={'lg'}
+        w={"full"}
+        maxW={"md"}
+        bg={useColorModeValue("white", "gray.700")}
+        rounded={"xl"}
+        boxShadow={"lg"}
         p={6}
-        my={12}>
-        <Heading lineHeight={1.1} fontSize={{ base: '2xl', sm: '3xl' }}>
+        my={12}
+      >
+        <Heading lineHeight={1.1} fontSize={{ base: "2xl", sm: "3xl" }}>
           Éditer le profil
         </Heading>
         <FormControl id="avatar">
           <FormLabel>Avatar</FormLabel>
-          <Stack direction={['column', 'row']} spacing={6}>
+          <Stack direction={["column", "row"]} spacing={6}>
             <Center>
               <Avatar size="xl">
                 <AvatarBadge
@@ -101,7 +98,7 @@ export default function EditProfile({ id }) {
           <Input
             defaultValue={user?.username}
             placeholder={user?.username}
-            _placeholder={{ color: 'gray.500' }}
+            _placeholder={{ color: "gray.500" }}
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -112,7 +109,7 @@ export default function EditProfile({ id }) {
           <Input
             defaultValue={user?.bio}
             placeholder={user?.bio}
-            _placeholder={{ color: 'gray.500' }}
+            _placeholder={{ color: "gray.500" }}
             type="text"
             value={bio}
             onChange={(e) => setBio(e.target.value)}
@@ -122,7 +119,7 @@ export default function EditProfile({ id }) {
           <FormLabel>Nouveau mot de passe</FormLabel>
           <Input
             placeholder="Mot de passe"
-            _placeholder={{ color: 'gray.500' }}
+            _placeholder={{ color: "gray.500" }}
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -132,31 +129,33 @@ export default function EditProfile({ id }) {
           <FormLabel>Confirmer mot de passe</FormLabel>
           <Input
             placeholder="Mot de passe"
-            _placeholder={{ color: 'gray.500' }}
+            _placeholder={{ color: "gray.500" }}
             type="password"
             value={cpassword}
             onChange={(e) => setCpassword(e.target.value)}
           />
         </FormControl>
-        <Stack spacing={6} direction={['column', 'row']}>
+        <Stack spacing={6} direction={["column", "row"]}>
           <Button
-            bg={'red.400'}
-            color={'white'}
+            bg={"red.400"}
+            color={"white"}
             w="full"
             _hover={{
-              bg: 'red.500',
+              bg: "red.500",
             }}
-            onClick={() => navigate(-1)}>
+            onClick={() => navigate(-1)}
+          >
             Cancel
           </Button>
           <Button
-            bg={'blue.400'}
-            color={'white'}
+            bg={"blue.400"}
+            color={"white"}
             w="full"
             _hover={{
-              bg: 'blue.500',
+              bg: "blue.500",
             }}
-            onClick={handleSubmit}>
+            onClick={handleSubmit}
+          >
             Submit
           </Button>
         </Stack>

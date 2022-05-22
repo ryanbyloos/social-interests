@@ -1,125 +1,141 @@
-
-import React from 'react';
+import React from "react";
 import {
-    ChakraProvider,
-    theme,
-    VStack,
-    Input,
-    Spacer,
-    HStack,
-    Menu,
-    MenuButton,
-    MenuList,
-    MenuItem,
-    Button,
-    Tr,
-    Th,
-    Td,
-    TableContainer,
-    Table,
-    Thead,
-    Tbody,
-
-} from '@chakra-ui/react';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-import { useState, useEffect } from 'react';
-import { getAllUsers } from '../api/userAPI';
-import { useNavigate } from 'react-router-dom';
-
-
+  ChakraProvider,
+  theme,
+  VStack,
+  Input,
+  Spacer,
+  HStack,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  Button,
+  Tr,
+  Th,
+  Td,
+  TableContainer,
+  Table,
+  Thead,
+  Tbody,
+} from "@chakra-ui/react";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import { useState, useEffect } from "react";
+import { getAllUsers } from "../api/userAPI";
+import { useNavigate } from "react-router-dom";
 
 function MyProfilePage() {
-    const [filter, setFilter] = useState("Utilisateurs");
-    const [search, setSearch] = useState("");
-    const [results, setResults] = useState([]);
-    const [refresh, setRefresh] = useState(false);
+  const [filter, setFilter] = useState("Utilisateurs");
+  const [search, setSearch] = useState("");
+  const [results, setResults] = useState([]);
+  const [refresh, setRefresh] = useState(false);
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const handleClick = (id) => {
+  const addFriend = (id) => {};
+
+  const goToProfile = (id) => {
+    navigate(`/u/${id}`);
+  };
+
+  const updateResults = () => {
+    setResults([]);
+    if (filter === "Utilisateurs") {
+      getAllUsers().then((res) => {
+        res.map((user) => {
+          if (user.username.toLowerCase().includes(search.toLowerCase())) {
+            setResults((results) => [
+              ...results,
+              <Tr key={user._id}>
+                <Td>{user.username}</Td>
+                <Td>
+                  <Button onClick={() => goToProfile(user._id)}>
+                    Voir le profil
+                  </Button>
+                </Td>
+                <Td>
+                  <Button onClick={() => addFriend(user._id)}>Ajouter</Button>
+                </Td>
+              </Tr>,
+            ]);
+          }
+        });
+      });
+    } else if (filter === "Livres") {
+    } else if (filter === "Films") {
     }
+  };
 
-    const goToProfile = (id) => {
-        navigate(`/u/${id}`);
-    }
+  useEffect(() => {
+    updateResults();
+  }, [search, refresh]);
 
-    const updateResults = () => {
-        setResults([]);
-        if (filter === "Utilisateurs") {
-            getAllUsers().then(res => {
-                res.map(user => {
-                    if (user.username.toLowerCase().includes(search.toLowerCase())) {
-                        setResults(results => [...results,
-                        <Tr key={user._id}>
-                            <Td>{user.username}</Td>
-                            <Td><Button onClick={() => goToProfile(user._id)}>Voir le profil</Button></Td>
-                            <Td><Button onClick={() => handleClick(user._id)}>Ajouter</Button></Td>
-                        </Tr>]);
-                    }
-                })
-            })
-        }
-        else if (filter === "Livres") {
-
-        }
-        else if (filter === "Films") {
-
-        }
-    }
-
-    useEffect(() => {
-        updateResults();
-    }, [search, refresh]);
-
-    return (
-        <ChakraProvider theme={theme}>
-            <Navbar />
-            <>
-                <VStack paddingTop="30vh" >
-                    <Spacer />
-                    <HStack textAlign="center" fontSize="md" paddingTop={'4em'}>
-                        <Menu>
-                            <MenuButton shadow={'lg'} as={Button} width={'10em'}>
-                                {filter}
-                            </MenuButton>
-                            <MenuList>
-                                <MenuItem onClick={() => {
-                                    setFilter('Utilisateurs')
-                                    setRefresh(!refresh)
-                                }}>Utilisateurs</MenuItem>
-                                <MenuItem onClick={() => {
-                                    setFilter('Livres')
-                                    setRefresh(!refresh)
-                                }}>Livres</MenuItem>
-                                <MenuItem onClick={() => {
-                                    setFilter('Films')
-                                    setRefresh(!refresh)
-                                }}>Films</MenuItem>
-                            </MenuList>
-                        </Menu>
-                        <Input placeholder='Cherchez ...' size='lg' shadow={'lg'} value={search} maxWidth={"900px"} onChange={(e) => setSearch(e.target.value)} />
-                    </HStack>
-                    <TableContainer maxWidth={"900px"} paddingBottom="35vh">
-                        <Table variant='simple'>
-                            <Thead>
-                                <Tr>
-                                    <Th>Utilisateurs</Th>
-                                    <Th></Th>
-                                    <Th></Th>
-                                </Tr>
-                            </Thead>
-                            <Tbody>
-                                {results}
-                            </Tbody>
-                        </Table>
-                    </TableContainer>
-                    <Spacer />
-                    <Footer />
-                </VStack>
-            </>
-        </ChakraProvider>
-    );
+  return (
+    <ChakraProvider theme={theme}>
+      <Navbar />
+      <>
+        <VStack paddingTop="30vh">
+          <Spacer />
+          <HStack textAlign="center" fontSize="md" paddingTop={"4em"}>
+            <Menu>
+              <MenuButton shadow={"lg"} as={Button} width={"10em"}>
+                {filter}
+              </MenuButton>
+              <MenuList>
+                <MenuItem
+                  onClick={() => {
+                    setFilter("Utilisateurs");
+                    setRefresh(!refresh);
+                  }}
+                >
+                  Utilisateurs
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    setFilter("Livres");
+                    setRefresh(!refresh);
+                  }}
+                >
+                  Livres
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    setFilter("Films");
+                    setRefresh(!refresh);
+                  }}
+                >
+                  Films
+                </MenuItem>
+              </MenuList>
+            </Menu>
+            <Input
+              placeholder="Cherchez ..."
+              size="lg"
+              shadow={"lg"}
+              value={search}
+              maxWidth={"900px"}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </HStack>
+          <TableContainer maxWidth={"900px"} paddingBottom="35vh">
+            <Table variant="simple">
+              <Thead>
+                <Tr>
+                  <Th>Utilisateurs</Th>
+                  <Th></Th>
+                  <Th></Th>
+                </Tr>
+              </Thead>
+              <Tbody>{results}</Tbody>
+            </Table>
+          </TableContainer>
+          <Spacer />
+          <Footer />
+        </VStack>
+      </>
+    </ChakraProvider>
+  );
 }
 
 export default MyProfilePage;

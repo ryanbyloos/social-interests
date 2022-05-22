@@ -8,28 +8,25 @@ import {
   Button,
   Heading,
   useColorModeValue,
-} from '@chakra-ui/react';
+} from "@chakra-ui/react";
 
-import {
-  useNavigate,
-  useLocation,
-} from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
-import React from 'react';
+import React from "react";
 
 export default function SimpleCard() {
   let navigate = useNavigate();
   let location = useLocation();
 
-  const [username, setUsername] = React.useState('');
-  const [password, setPassword] = React.useState('');
+  const [username, setUsername] = React.useState("");
+  const [password, setPassword] = React.useState("");
 
   const handleLogin = (e) => {
     e.preventDefault();
-    fetch('http://localhost:8080/api/auth/signin', {
-      method: 'POST',
+    fetch("http://localhost:8080/api/auth/signin", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         username: username,
@@ -44,44 +41,49 @@ export default function SimpleCard() {
       })
       .then((data) => {
         console.log(data);
-        localStorage.setItem('token', data.token);
+        localStorage.setItem("token", data.token);
         navigate(`/u/${data.userId}`);
-      })
+      });
   };
 
   return (
-    <Flex
-      minH={'100vh'}
-      align={'center'}
-      justify={'center'}
-    >
-      <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
-        <Stack align={'center'}>
-          <Heading fontSize={'4xl'}>Se connecter</Heading>
-
+    <Flex minH={"100vh"} align={"center"} justify={"center"}>
+      <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
+        <Stack align={"center"}>
+          <Heading fontSize={"4xl"}>Se connecter</Heading>
         </Stack>
         <Box
-          rounded={'lg'}
-          bg={useColorModeValue('white', 'gray.700')}
-          boxShadow={'lg'}
-          p={8}>
+          rounded={"lg"}
+          bg={useColorModeValue("white", "gray.700")}
+          boxShadow={"lg"}
+          p={8}
+        >
           <Stack spacing={4}>
             <FormControl id="email">
               <FormLabel>Nom d'utilisateur</FormLabel>
-              <Input type="username" value={username} onChange={(e) => setUsername(e.target.value)} />
+              <Input
+                type="username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
             </FormControl>
             <FormControl id="password">
               <FormLabel>Mot de passe</FormLabel>
-              <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+              <Input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </FormControl>
             <Stack spacing={10}>
               <Button
-                bg={'blue.400'}
-                color={'white'}
+                bg={"blue.400"}
+                color={"white"}
                 _hover={{
-                  bg: 'blue.500',
+                  bg: "blue.500",
                 }}
-                onClick={(e) => handleLogin(e)}>
+                onClick={(e) => handleLogin(e)}
+              >
                 Se connecter
               </Button>
             </Stack>

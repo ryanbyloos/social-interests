@@ -8,7 +8,7 @@ const Movie = mongoose.model(
     year: Number,
     genre: [String],
     description: String,
-    image: String
+    image: String,
   })
 );
 
