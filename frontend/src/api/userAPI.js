@@ -103,6 +103,23 @@ exports.addFriend = async (id, friendId) => {
   }
 };
 
+exports.removeFriend = async (id, friendId) => {
+  const res = await fetch(
+    `http://localhost:8080/api/user/${id}/friends/${friendId}`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": localStorage.getItem("token"),
+      },
+    }
+  );
+  if (res.status === 200) {
+    return res.json();
+  }
+  throw new Error(res.statusText);
+};
+
 exports.hasFriend = (id, friendId) =>
   fetch(`http://localhost:8080/api/user/${id}/friends/${friendId}`, {
     method: "GET",

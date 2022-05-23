@@ -45,11 +45,10 @@ function MyProfilePage() {
     navigate(`/u/${id}`);
   };
 
-  async function handleHasFriend(id, friendId) {
+  const handleHasFriend = async (id, friendId) => {
     const res = await hasFriend(id, friendId);
-    console.log(res);
     return res;
-  }
+  };
 
   const updateResults = () => {
     whoami()
