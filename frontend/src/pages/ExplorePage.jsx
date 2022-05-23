@@ -45,6 +45,12 @@ function MyProfilePage() {
     navigate(`/u/${id}`);
   };
 
+  async function handleHasFriend(id, friendId) {
+    const res = await hasFriend(id, friendId);
+    console.log(res);
+    return res;
+  }
+
   const updateResults = () => {
     whoami()
       .then((user) => {
@@ -55,27 +61,30 @@ function MyProfilePage() {
         if (filter === "Utilisateurs") {
           getAllUsers().then((res) => {
             res.map((user) => {
-              if (
-                user.username.toLowerCase().includes(search.toLowerCase()) &&
-                user._id !== me.userId
-              ) {
-                setResults((results) => [
-                  ...results,
-                  <Tr key={user._id}>
-                    <Td>{user.username}</Td>
-                    <Td>
-                      <Button onClick={() => goToProfile(user._id)}>
-                        Voir le profil
-                      </Button>
-                    </Td>
-                    <Td>
-                      <Button onClick={() => handleAddFriend(user._id)}>
-                        Ajouter
-                      </Button>
-                    </Td>
-                  </Tr>,
-                ]);
-              }
+              handleHasFriend(me.userId, user._id).then((res) => {
+                if (
+                  user.username.toLowerCase().includes(search.toLowerCase()) &&
+                  user._id !== me.userId &&
+                  !res
+                ) {
+                  setResults((results) => [
+                    ...results,
+                    <Tr key={user._id}>
+                      <Td>{user.username}</Td>
+                      <Td>
+                        <Button onClick={() => goToProfile(user._id)}>
+                          Voir le profil
+                        </Button>
+                      </Td>
+                      <Td>
+                        <Button onClick={() => handleAddFriend(user._id)}>
+                          Ajouter
+                        </Button>
+                      </Td>
+                    </Tr>,
+                  ]);
+                }
+              });
             });
           });
         } else if (filter === "Livres") {

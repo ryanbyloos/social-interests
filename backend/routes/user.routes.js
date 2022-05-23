@@ -11,6 +11,7 @@ module.exports = (app) => {
   app.get("/api/user", controller.getUser);
   // app.get("/api/user/:id", controller.getUser);
   app.get("/api/user/:id/friends", controller.getUserFriends);
+  app.get("/api/user/:id/friends/:friendId", controller.areFriends);
   app.get("/api/user/:id/books", controller.getUserBooks);
   app.get("/api/user/:id/movies", controller.getUserMovies);
 

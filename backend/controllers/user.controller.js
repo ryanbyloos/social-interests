@@ -225,3 +225,26 @@ exports.deleteFriend = async (req, res) => {
     res.status(500).send({ message: err.message });
   }
 };
+
+exports.areFriends = async (req, res) => {
+  try {
+    const user = await User.findOne({
+      _id: req.params.id,
+    });
+    if (!user) {
+      return res.status(404).send({ message: "User not found" });
+    }
+    const friend = await User.findOne({
+      _id: req.params.friendId,
+    });
+    if (!friend) {
+      return res.status(404).send({ message: "Friend not found" });
+    }
+    const isFriend = user.friends.some((friend) =>
+      friend.equals(req.params.friendId)
+    );
+    res.status(200).send(isFriend);
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+};

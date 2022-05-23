@@ -103,8 +103,8 @@ exports.addFriend = async (id, friendId) => {
   }
 };
 
-exports.hasFriend = (id, friendId) => {
-  fetch(`http://localhost:8080/api/user/${id}/friends/`, {
+exports.hasFriend = (id, friendId) =>
+  fetch(`http://localhost:8080/api/user/${id}/friends/${friendId}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -112,20 +112,14 @@ exports.hasFriend = (id, friendId) => {
     },
   })
     .then((res) => {
-      return res.json();
+      return res.text();
     })
-    .then((data) => {
-      console.log(data);
-      for (let i = 0; i < data.length; i++) {
-        const id = data[i];
-        console.log(id);
-        if (id === friendId) {
-          return true;
-        }
+    .then((res) => {
+      if (res === "true") {
+        return true;
       }
       return false;
     })
     .catch((err) => {
       console.log(err);
     });
-};
