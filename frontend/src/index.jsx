@@ -6,7 +6,7 @@ import ProfilePage from "./pages/ProfilePage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import EditProfilePage from "./pages/EditProfilePage";
-import FriendPage from "./pages/FriendPage";
+// import FriendPage from "./pages/FriendPage";
 import ExplorePage from "./pages/ExplorePage";
 import AdminPage from "./pages/AdminPage";
 
