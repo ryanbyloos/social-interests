@@ -143,13 +143,13 @@ function MyProfilePage() {
               onChange={(e) => setSearch(e.target.value)}
             />
           </HStack>
-          <TableContainer maxWidth={"900px"} paddingBottom="35vh">
+          <TableContainer width={"600px"} paddingBottom="35vh">
             <Table variant="simple">
               <Thead>
                 <Tr>
                   <Th>Utilisateurs</Th>
-                  <Th></Th>
-                  <Th></Th>
+                  <Th> </Th>
+                  <Th> </Th>
                 </Tr>
               </Thead>
               <Tbody>{results}</Tbody>

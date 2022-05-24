@@ -34,6 +34,7 @@ function FriendCard({ name, pic }) {
       border={"1px "}
       borderColor={useColorModeValue("gray.800", "gray.500")}
       rounded={"lg"}
+      
     >
       <Container centerContent>
         <Avatar
@@ -43,6 +44,7 @@ function FriendCard({ name, pic }) {
           mb={4}
           pos={"relative"}
           onClick={() => goToProfile(name)}
+          cursor={"pointer"}	
         />
         <Box>
           <Text>{name}</Text>
