@@ -18,11 +18,13 @@ import {
   Table,
   Thead,
   Tbody,
+  Image,
 } from "@chakra-ui/react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useState, useEffect } from "react";
 import { getAllUsers, addFriend, hasFriend, whoami } from "../api/userAPI";
+import { getBookByName } from "../api/bookAPI";
 import { useNavigate } from "react-router-dom";
 
 function MyProfilePage() {
@@ -51,13 +53,13 @@ function MyProfilePage() {
   };
 
   const updateResults = () => {
-    whoami()
-      .then((user) => {
-        return user;
-      })
-      .then((me) => {
-        setResults([]);
-        if (filter === "Utilisateurs") {
+    if (filter === "Utilisateurs") {
+      whoami()
+        .then((user) => {
+          return user;
+        })
+        .then((me) => {
+          setResults([]);
           getAllUsers().then((res) => {
             res.map((user) => {
               handleHasFriend(me.userId, user._id).then((res) => {
@@ -86,15 +88,37 @@ function MyProfilePage() {
               });
             });
           });
-        } else if (filter === "Livres") {
-        } else if (filter === "Films") {
-        }
+        });
+    } else if (filter === "Livres" && search !== "") {
+      getBookByName(search).then((res) => {
+        setResults([]);
+        console.log(res);
+        res.map((book) => {
+          setResults((results) => [
+            ...results,
+            <Tr key={book._id}>
+              <Td>
+                <Image
+                  src={`https://covers.openlibrary.org/b/id/${book.image}-S.jpg`}
+                  alt={book.title}
+                  // size="sm"
+                />
+              </Td>
+              <Td>{book.title}</Td>
+              <Td>
+                <Button>Voir le livre</Button>
+              </Td>
+            </Tr>,
+          ]);
+        });
       });
+    } else if (filter === "Films") {
+    }
   };
 
   useEffect(() => {
     updateResults();
-  }, [search, refresh]);
+  }, [refresh, search]);
 
   return (
     <ChakraProvider theme={theme}>
@@ -147,7 +171,7 @@ function MyProfilePage() {
             <Table variant="simple">
               <Thead>
                 <Tr>
-                  <Th>Utilisateurs</Th>
+                  <Th>{filter}</Th>
                   <Th> </Th>
                   <Th> </Th>
                 </Tr>
