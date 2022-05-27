@@ -8,12 +8,5 @@ module.exports = (app) => {
     next();
   });
 
-  app.get("/api/movie", controller.getAllMovies);
-  app.get("/api/movie/:id", controller.getMovieById);
-
-  app.post("/api/movie", controller.createMovie);
-
-  app.put("/api/movie/:id", controller.updateMovie);
-
-  app.delete("/api/movie/:id", controller.deleteMovie);
+  app.get("/api/movie", controller.getMovies);
 };

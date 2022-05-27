@@ -8,12 +8,5 @@ module.exports = (app) => {
     next();
   });
 
-  app.get("/api/book", controller.getAllBooks);
-  app.get("/api/book/:id", controller.getBookById);
-
-  app.post("/api/book", controller.createBook);
-
-  app.put("/api/book/:id", controller.updateBook);
-
-  app.delete("/api/book/:id", controller.deleteBook);
+  app.get("/api/book", controller.getBooks);
 };
