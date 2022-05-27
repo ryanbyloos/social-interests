@@ -4,10 +4,10 @@ const Book = mongoose.model(
   "Book",
   new mongoose.Schema({
     title: String,
-    author: String,
+    author: [String],
     year: Number,
-    genre: [String],
-    description: String,
+    // genre: [String],
+    // description: String,
     image: String,
   })
 );

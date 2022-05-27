@@ -6,6 +6,10 @@ const authRoutes = require("./routes/auth.routes");
 const userRoutes = require("./routes/user.routes");
 const bookRoutes = require("./routes/book.routes");
 
+const fs = require("fs");
+const StreamArray = require("stream-json/streamers/StreamArray");
+const { Writable } = require("stream");
+
 const port = process.env.PORT || 8080;
 const app = express();
 
@@ -24,7 +28,7 @@ bookRoutes(app);
 app.listen(port, () => console.log(`App listening on port ${port}!`));
 
 db.mongoose
-  .connect(process.env.MONGODB_URI || "mongodb://localhost:27017/test", {
+  .connect(process.env.MONGODB_URI || "mongodb://localhost:27017/social", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -58,4 +62,63 @@ const dbInit = () => {
       });
     }
   });
+
+  db.book.estimatedDocumentCount((err, count) => {
+    let i = 0;
+    if (!err && count === 0) {
+      const fileStream = fs.createReadStream("./data/books.json");
+      const jsonBookStream = StreamArray.withParser();
+      const processStream = new Writable({
+        objectMode: true,
+        write(chunk, encoding, callback) {
+          const book = chunk.value;
+          console.log(`book n${++i} added`);
+          db.book.create({
+            title: book.title,
+            author: book.author_name,
+            year: book.first_publish_year,
+            image: book.cover_i,
+          });
+          callback();
+        },
+      });
+      fileStream.pipe(jsonBookStream.input);
+      jsonBookStream.pipe(processStream);
+
+      processStream.on("finish", () => {
+        console.log("Books collection seeded");
+      });
+    }
+  });
+
+  db.movie.estimatedDocumentCount((err, count) => {
+    let i = 0;
+    if (!err && count === 0) {
+      const fileStream = fs.createReadStream("./data/movies.json");
+      const jsonMovieStream = StreamArray.withParser();
+      const processStream = new Writable({
+        objectMode: true,
+        write(chunk, encoding, callback) {
+          const movie = chunk.value;
+          db.movie.create({
+            title: movie.title,
+            author: movie.directors,
+            year: movie.year,
+          });
+          setTimeout(() => {
+            console.log(`movie n${++i} added`);
+            callback();
+          }, 1);
+        },
+      });
+      fileStream.pipe(jsonMovieStream.input);
+      jsonMovieStream.pipe(processStream);
+
+      processStream.on("finish", () => {
+        console.log("Movies collection seeded");
+      });
+    }
+  });
+
+  console.log("db init done");
 };
