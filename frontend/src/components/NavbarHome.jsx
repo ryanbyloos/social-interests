@@ -1,4 +1,4 @@
-import { Box, Flex, HStack, Button, useColorModeValue } from "@chakra-ui/react";
+import { Box, Flex, HStack, Button } from "@chakra-ui/react";
 
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -9,7 +9,7 @@ export default function Simple() {
   return (
     <>
       <Box
-        bg={useColorModeValue("gray.100", "gray.900")}
+        bg={"gray.100"}
         px={4}
         as="header"
         position="fixed"

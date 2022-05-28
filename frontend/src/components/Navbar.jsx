@@ -10,7 +10,6 @@ import {
   MenuList,
   MenuItem,
   MenuDivider,
-  useColorModeValue,
 } from "@chakra-ui/react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { whoami } from "../api/userAPI";
@@ -35,7 +34,7 @@ export default function Navbar({ id, myProfile }) {
   return (
     <>
       <Box
-        bg={useColorModeValue("gray.100", "gray.900")}
+        bg={"gray.100"}
         shadow={"md"}
         px={4}
         as="header"

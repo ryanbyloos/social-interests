@@ -7,7 +7,6 @@ import {
   Stack,
   Button,
   Heading,
-  useColorModeValue,
 } from "@chakra-ui/react";
 
 import { useNavigate, useLocation } from "react-router-dom";
@@ -54,7 +53,7 @@ export default function SimpleCard() {
         </Stack>
         <Box
           rounded={"lg"}
-          bg={useColorModeValue("white", "gray.700")}
+          bg={"white"}
           boxShadow={"lg"}
           p={8}
         >

@@ -1,7 +1,6 @@
 import {
   Box,
   SimpleGrid,
-  useColorModeValue,
   Image,
   Container,
   Heading,
@@ -22,7 +21,7 @@ function MovieCard({ name, pic }) {
       py={"5"}
       shadow={"xl"}
       border={"1px "}
-      borderColor={useColorModeValue("gray.800", "gray.500")}
+      borderColor={"gray.800"}
       rounded={"lg"}
     >
       <Container centerContent>
@@ -101,7 +100,7 @@ export default function MovieList(movies) {
         maxW={"900px"}
         maxH={"210px"}
         w={"full"}
-        bg={useColorModeValue("white", "gray.900")}
+        bg={"white"}
         boxShadow={"xl"}
         rounded={"lg"}
         p={6}

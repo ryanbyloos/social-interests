@@ -4,7 +4,6 @@ import {
   Box,
   Center,
   Text,
-  useColorModeValue,
   Button,
 } from "@chakra-ui/react";
 
@@ -74,11 +73,6 @@ export default function ProfileCard({ username, bio, myProfile }) {
         handleFriendButton(id);
       }
     });
-    // if (!myProfile) {
-    //   handleFriendButton(id);
-    // } else {
-    //   setFriendButton(null);
-    // }
   };
 
   useEffect(() => {
@@ -90,7 +84,7 @@ export default function ProfileCard({ username, bio, myProfile }) {
       <Box
         maxW={"900px"}
         w={"full"}
-        bg={useColorModeValue("white", "gray.900")}
+        bg={"white"}
         boxShadow={"2xl"}
         rounded={"lg"}
         p={6}
@@ -98,9 +92,6 @@ export default function ProfileCard({ username, bio, myProfile }) {
       >
         <Avatar
           size={"xl"}
-          // src={
-          //   'https://images.unsplash.com/photo-1520810627419-35e362c5dc07?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ'
-          // }
           alt={"Avatar Alt"}
           mb={4}
           pos={"relative"}
@@ -110,7 +101,7 @@ export default function ProfileCard({ username, bio, myProfile }) {
         </Heading>
         <Text
           textAlign={"center"}
-          color={useColorModeValue("gray.700", "gray.400")}
+          color={"gray.700"}
           px={3}
         >
           {bio}

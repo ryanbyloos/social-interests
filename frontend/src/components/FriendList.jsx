@@ -1,7 +1,6 @@
 import {
   Box,
   SimpleGrid,
-  useColorModeValue,
   Avatar,
   Container,
   Heading,
@@ -32,7 +31,7 @@ function FriendCard({ name, pic }) {
       py={"5"}
       shadow={"xl"}
       border={"1px "}
-      borderColor={useColorModeValue("gray.800", "gray.500")}
+      borderColor={"gray.800"}
       rounded={"lg"}
       
     >
@@ -118,7 +117,7 @@ export default function FriendList({ friends }) {
         maxW={"900px"}
         maxH={"160px"}
         w={"full"}
-        bg={useColorModeValue("white", "gray.900")}
+        bg={"white"}
         boxShadow={"xl"}
         rounded={"lg"}
         p={6}

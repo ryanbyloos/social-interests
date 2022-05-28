@@ -140,3 +140,32 @@ exports.hasFriend = (id, friendId) =>
     .catch((err) => {
       console.log(err);
     });
+
+exports.addBook = async (id, bookId) => {
+  const res = await fetch(`http://localhost:8080/api/user/${id}/books/`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-access-token": localStorage.getItem("token"),
+    },
+    body: JSON.stringify({ _id: bookId }),
+  });
+  if (res.status === 200) {
+    return res.json();
+  }
+  throw new Error(res.statusText);
+};
+
+exports.getBooks = async (id) => {
+  const res = await fetch(`http://localhost:8080/api/book?id=${id}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "x-access-token": localStorage.getItem("token"),
+    },
+  });
+  if (res.status === 200) {
+    return res.json();
+  }
+  throw new Error(res.statusText);
+};

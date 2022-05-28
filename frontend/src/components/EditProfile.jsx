@@ -6,13 +6,7 @@ import {
   Heading,
   Input,
   Stack,
-  useColorModeValue,
-  Avatar,
-  AvatarBadge,
-  IconButton,
-  Center,
 } from "@chakra-ui/react";
-import { SmallCloseIcon } from "@chakra-ui/icons";
 
 import React from "react";
 
@@ -63,7 +57,7 @@ export default function EditProfile({ id }) {
         spacing={4}
         w={"full"}
         maxW={"md"}
-        bg={useColorModeValue("white", "gray.700")}
+        bg={"white"}
         rounded={"xl"}
         boxShadow={"lg"}
         p={6}
@@ -72,27 +66,6 @@ export default function EditProfile({ id }) {
         <Heading lineHeight={1.1} fontSize={{ base: "2xl", sm: "3xl" }}>
           Éditer le profil
         </Heading>
-        <FormControl id="avatar">
-          <FormLabel>Avatar</FormLabel>
-          <Stack direction={["column", "row"]} spacing={6}>
-            <Center>
-              <Avatar size="xl">
-                <AvatarBadge
-                  as={IconButton}
-                  size="sm"
-                  rounded="full"
-                  top="-10px"
-                  colorScheme="red"
-                  aria-label="remove Image"
-                  icon={<SmallCloseIcon />}
-                />
-              </Avatar>
-            </Center>
-            <Center w="full">
-              <Button w="full">Changer l'avatar</Button>
-            </Center>
-          </Stack>
-        </FormControl>
         <FormControl id="username">
           <FormLabel>Nom d'utilisateur</FormLabel>
           <Input

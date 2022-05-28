@@ -5,12 +5,10 @@ import {
   FormLabel,
   Input,
   InputGroup,
-  HStack,
   InputRightElement,
   Stack,
   Button,
   Heading,
-  useColorModeValue,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
@@ -46,7 +44,6 @@ export default function SignupCard() {
       minH={"100vh"}
       align={"center"}
       justify={"center"}
-      // bg={useColorModeValue('gray.50', 'gray.800')}
     >
       <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
         <Stack align={"center"}>
@@ -56,7 +53,7 @@ export default function SignupCard() {
         </Stack>
         <Box
           rounded={"lg"}
-          bg={useColorModeValue("white", "gray.700")}
+          bg={"white"}
           boxShadow={"lg"}
           p={8}
         >

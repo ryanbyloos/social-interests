@@ -23,11 +23,11 @@ import {
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useState, useEffect } from "react";
-import { getAllUsers, addFriend, hasFriend, whoami } from "../api/userAPI";
+import { getAllUsers, addFriend, hasFriend, whoami, addBook } from "../api/userAPI";
 import { getBookByName } from "../api/bookAPI";
 import { useNavigate } from "react-router-dom";
 
-function MyProfilePage() {
+function ExplorePage() {
   const [filter, setFilter] = useState("Utilisateurs");
   const [search, setSearch] = useState("");
   const [results, setResults] = useState([]);
@@ -38,6 +38,14 @@ function MyProfilePage() {
   const handleAddFriend = (friendId) => {
     whoami().then((me) => {
       addFriend(me.userId, friendId).then(() => {
+        setRefresh(!refresh);
+      });
+    });
+  };
+
+  const handleAddBook = (bookId) => {
+    whoami().then((me) => {
+      addBook(me.userId, bookId).then(() => {
         setRefresh(!refresh);
       });
     });
@@ -101,12 +109,12 @@ function MyProfilePage() {
                 <Image
                   src={`https://covers.openlibrary.org/b/id/${book.image}-S.jpg`}
                   alt={book.title}
-                  // size="sm"
+                  
                 />
               </Td>
               <Td>{book.title}</Td>
               <Td>
-                <Button>Voir le livre</Button>
+                <Button onClick={() => handleAddBook(book._id)}>Ajouter le livre</Button>
               </Td>
             </Tr>,
           ]);
@@ -187,4 +195,4 @@ function MyProfilePage() {
   );
 }
 
-export default MyProfilePage;
+export default ExplorePage;

@@ -1,7 +1,6 @@
 import {
   Box,
   SimpleGrid,
-  useColorModeValue,
   Image,
   Container,
   Heading,
@@ -10,6 +9,8 @@ import {
   InputLeftElement,
   Input,
 } from "@chakra-ui/react";
+
+import { getBooks } from "../api/userAPI";
 
 import { useState, useEffect, React } from "react";
 
@@ -22,13 +23,14 @@ function BookCard({ name, pic }) {
       py={"5"}
       shadow={"xl"}
       border={"1px "}
-      borderColor={useColorModeValue("gray.800", "gray.500")}
+      borderColor={"gray.800"}
       rounded={"lg"}
     >
       <Container centerContent>
         <Image
           size={"md"}
-          src={window.location.origin + "/bookplaceholder.png"}
+          // src={window.location.origin + "/bookplaceholder.png"}
+          src={`https://covers.openlibrary.org/b/id/${pic}-S.jpg`}
           alt={"Book Alt"}
           mb={4}
           pos={"relative"}
@@ -49,25 +51,12 @@ export default function BookList({ books }) {
     setBookCardList([]);
     for (let index = 0; index < books.length; index++) {
       const bookId = books[index];
-      fetch(`http://localhost:8080/api/book/${bookId}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "x-access-token": localStorage.getItem("token"),
-        },
-      })
-        .then((res) => {
-          if (res.status === 200) {
-            return res.json();
-          }
-          throw new Error(res.statusText);
-        })
-        .then((data) => {
-          setBookCardList((bookCardList) => [
-            ...bookCardList,
-            <BookCard name={data.title} pic={data.image} key={data.title} />,
-          ]);
-        });
+      getBooks(bookId).then((data) => {
+        setBookCardList((bookCardList) => [
+          ...bookCardList,
+          <BookCard name={data.title} pic={data.image} key={data.title} />,
+        ]);
+      });
     }
   };
 
@@ -101,7 +90,7 @@ export default function BookList({ books }) {
         maxW={"900px"}
         maxH={"210px"}
         w={"full"}
-        bg={useColorModeValue("white", "gray.900")}
+        bg={"white"}
         boxShadow={"xl"}
         rounded={"lg"}
         p={6}
