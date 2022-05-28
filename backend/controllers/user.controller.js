@@ -309,3 +309,41 @@ exports.getSimilarity = async (req, res) => {
     res.status(500).send({ message: "Similarity computation failed" });
   }
 };
+
+exports.getTenMostSimilar = async (req, res) => {
+  try {
+    const user = await User.findOne({
+      _id: req.query.id,
+    });
+    if (!user) {
+      return res.status(404).send({ message: "User not found" });
+    }
+    const friends = await User.find({
+      _id: { $nin: [req.query.id] },
+    });
+    if (!friends) {
+      return res.status(404).send({ message: "Friends not found" });
+    }
+    const similarity = friends.map((friend) => {
+      const commonBooks = user.books.filter((book) =>
+        friend.books.includes(book)
+      );
+      const commonMovies = user.movies.filter((movie) =>
+        friend.movies.includes(movie)
+      );
+      return {
+        id: friend._id,
+        username: friend.username,
+        similarity: commonBooks.length + commonMovies.length,
+      };
+    });
+    const sortedSimilarity = similarity.sort((a, b) => {
+      return b.similarity - a.similarity;
+    });
+    const tenMostSimilar = sortedSimilarity.slice(0, 10);
+    res.status(200).send(tenMostSimilar);
+  } catch (err) {
+    res.status(500).send({ message: "Similarity computation failed" });
+  }
+}
+  

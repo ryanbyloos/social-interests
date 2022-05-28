@@ -15,6 +15,7 @@ module.exports = (app) => {
   app.get("/api/user/:id/movies", controller.getUserMovies);
 
   app.get("/api/user/similarity", controller.getSimilarity);
+  app.get("/api/user/mostsimilar", controller.getTenMostSimilar);
 
   app.post("/api/user/:id/books", controller.addBook);
   app.post("/api/user/:id/movies", controller.addMovie);

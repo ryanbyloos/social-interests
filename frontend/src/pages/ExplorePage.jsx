@@ -17,6 +17,7 @@ import {
   Thead,
   Tbody,
   Image,
+  Text,
 } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import Navbar from "../components/Navbar";
@@ -25,6 +26,7 @@ import { useState, useEffect } from "react";
 import {
   getAllUsers,
   getSimilarity,
+  getMostSimilar,
   addFriend,
   hasFriend,
   whoami,
@@ -39,6 +41,7 @@ function ExplorePage() {
   const [filter, setFilter] = useState("Utilisateurs");
   const [search, setSearch] = useState("");
   const [results, setResults] = useState([]);
+  const [suggestions, setSuggestions] = useState([]);
   const [refresh, setRefresh] = useState(false);
 
   const navigate = useNavigate();
@@ -82,6 +85,21 @@ function ExplorePage() {
   };
 
   const updateResults = () => {
+    setSuggestions([]);
+    whoami().then((me) => {
+      getMostSimilar(me.userId).then((res) => {
+        res.map((user) => {
+          setSuggestions((prev) => [
+            ...prev,
+            <Tr key={user.id}>
+              <Td>{user.username}</Td>
+              <Td>{user.similarity}</Td>
+            </Tr>
+          ]);
+        });
+      });
+    });
+
     if (filter === "Utilisateurs") {
       whoami()
         .then((user) => {
@@ -104,16 +122,14 @@ function ExplorePage() {
                     setResults((results) => [
                       ...results,
                       <Tr key={user._id}>
-                        <Td>{user.username +` (${similarity})`}</Td>
+                        <Td>{user.username + ` (${similarity})`}</Td>
                         <Td>
                           <Button onClick={() => goToProfile(user._id)}>
                             Voir le profil
                           </Button>
                         </Td>
                         <Td>
-                          <Button
-                            onClick={() => handleAddFriend(user._id)}
-                          >
+                          <Button onClick={() => handleAddFriend(user._id)}>
                             Ajouter
                           </Button>
                         </Td>
@@ -198,7 +214,20 @@ function ExplorePage() {
     <>
       <Navbar />
       <>
-        <VStack paddingTop="30vh">
+        <VStack paddingTop="20vh">
+          {/* <Spacer /> */}
+          <Text fontSize={"xl"}>Suggestions</Text>
+          <TableContainer>
+            <Table variant="stripped" size="sm">
+              <Thead>
+                <Tr>
+                  <Th>Utilisateurs</Th>
+                  <Th>Score de similarité</Th>
+                </Tr>
+              </Thead>
+              <Tbody>{suggestions}</Tbody>
+            </Table>
+          </TableContainer>
           <Spacer />
           <HStack textAlign="center" fontSize="md" paddingTop={"4em"}>
             <Menu>

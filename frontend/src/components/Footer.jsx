@@ -8,7 +8,7 @@ import {
 export default function SmallWithLogoLeft() {
   return (
     <Box
-      bg={"gray.50"}
+      // bg={"gray.50"}
       color={"gray.700"}
       width={"100%"}
       position={"static"}
