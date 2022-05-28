@@ -86,7 +86,7 @@ exports.getUserFriends = async (req, res) => {
     if (!user) {
       return res.status(404).send({ message: "User not found" });
     }
-    res.status(200).send(user.friends);
+    res.status(200).send(user.following);
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
@@ -147,7 +147,7 @@ exports.addMovie = async (req, res) => {
   }
 };
 
-exports.addFriend = async (req, res) => {
+exports.followFriend = async (req, res) => {
   try {
     const user = await User.findOne({
       _id: req.params.id,
@@ -155,9 +155,19 @@ exports.addFriend = async (req, res) => {
     if (!user) {
       return res.status(404).send({ message: "User not found" });
     }
-    user.friends.push(req.body);
+    const friend = await User.findOne({
+      _id: req.body._id,
+    });
+    if (!friend) {
+      return res.status(404).send({ message: "Friend not found" });
+    }
+    user.following.push(friend._id);
+    friend.followers.push(user._id);
+
     await user.save();
-    res.status(200).send(user.friends);
+    await friend.save();
+
+    res.status(200).send(user.following);
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
@@ -218,9 +228,19 @@ exports.deleteFriend = async (req, res) => {
     if (!user) {
       return res.status(404).send({ message: "User not found" });
     }
-    user.friends.pull(req.params.friendId);
+    const friend = await User.findOne({
+      _id: req.params.friendId,
+    });
+    if (!friend) {
+      return res.status(404).send({ message: "Friend not found" });
+    }
+    user.following.pull(req.params.friendId);
+    friend.followers.pull(req.params.id);
+
     await user.save();
-    res.status(200).send(user.friends);
+    await friend.save();
+
+    res.status(200).send(user.following);
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
@@ -240,7 +260,7 @@ exports.areFriends = async (req, res) => {
     if (!friend) {
       return res.status(404).send({ message: "Friend not found" });
     }
-    const isFriend = user.friends.some((friend) =>
+    const isFriend = user.following.some((friend) =>
       friend.equals(req.params.friendId)
     );
     res.status(200).send(isFriend);

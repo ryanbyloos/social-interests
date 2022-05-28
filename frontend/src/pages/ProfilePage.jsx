@@ -20,7 +20,8 @@ function ProfilePage() {
     bio: "",
     books: [],
     movies: [],
-    friends: [],
+    following: [],
+    followers: [],
   });
 
   const getUser = () => {
@@ -29,12 +30,13 @@ function ProfilePage() {
       getUserById(id).then((data) => {
         console.log(data);
         setUser({
-          id: data._id,
+          id: data.userId,
           userName: data.username,
           bio: data.bio,
           books: data.books,
           movies: data.movies,
-          friends: data.friends,
+          following: data.following,
+          followers: data.followers,
         });
       });
     });
@@ -56,7 +58,7 @@ function ProfilePage() {
           />
         </Box>
         <VStack spacing={16}>
-          <FriendList friends={user.friends} />
+          <FriendList following={user.following} followers={user.followers}/>
           <BookList books={user.books} />
           <MovieList movies={user.movies} />
           <Footer />

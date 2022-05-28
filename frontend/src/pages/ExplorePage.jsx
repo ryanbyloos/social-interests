@@ -18,6 +18,7 @@ import {
   Tbody,
   Image,
 } from "@chakra-ui/react";
+import { AddIcon } from "@chakra-ui/icons";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useState, useEffect } from "react";
@@ -91,7 +92,7 @@ function ExplorePage() {
                       </Td>
                       <Td>
                         <Button onClick={() => handleAddFriend(user._id)}>
-                          Ajouter
+                          
                         </Button>
                       </Td>
                     </Tr>,
@@ -115,10 +116,11 @@ function ExplorePage() {
                   alt={book.title}
                 />
               </Td>
-              <Td>{book.title}</Td>
+              <Td>{book.title.length > 40 ? book.title.substring(0, 36)+'...' : book.title}</Td>
+              <Td>{book.author[0]}</Td>
               <Td>
                 <Button onClick={() => handleAddBook(book._id)}>
-                  Ajouter le livre
+                  <AddIcon />
                 </Button>
               </Td>
             </Tr>,
@@ -141,7 +143,7 @@ function ExplorePage() {
           <Spacer />
           <HStack textAlign="center" fontSize="md" paddingTop={"4em"}>
             <Menu>
-              <MenuButton shadow={"lg"} as={Button} width={"10em"}>
+              <MenuButton shadow={"md"} as={Button} width={"10em"}>
                 {filter}
               </MenuButton>
               <MenuList>
@@ -174,13 +176,13 @@ function ExplorePage() {
             <Input
               placeholder="Cherchez ..."
               size="lg"
-              shadow={"lg"}
+              shadow={"md"}
               value={search}
               maxWidth={"900px"}
               onChange={(e) => setSearch(e.target.value)}
             />
           </HStack>
-          <TableContainer width={"600px"} paddingBottom="35vh">
+          <TableContainer width={"700px"} paddingBottom="35vh">
             <Table variant="simple">
               <Thead>
                 <Tr>

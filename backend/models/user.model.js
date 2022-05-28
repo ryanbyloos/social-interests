@@ -13,7 +13,13 @@ const User = mongoose.model(
     password: String,
     bio: String,
     avatar: String,
-    friends: [
+    following: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
+    followers: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",

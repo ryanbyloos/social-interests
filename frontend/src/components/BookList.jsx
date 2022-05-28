@@ -16,7 +16,7 @@ import { useState, useEffect, React } from "react";
 
 import { SearchIcon } from "@chakra-ui/icons";
 
-function BookCard({ name, pic }) {
+function BookCard({ name, author, pic }) {
   return (
     <Box
       px={{ base: 2, md: 4 }}
@@ -35,9 +35,10 @@ function BookCard({ name, pic }) {
           mb={4}
           pos={"relative"}
         />
-        <Box>
+        {/* <Box> */}
           <Text>{name}</Text>
-        </Box>
+          <Text fontSize={"xs"} color={"gray.500"}>{author}</Text>
+        {/* </Box> */}
       </Container>
     </Box>
   );
@@ -54,7 +55,7 @@ export default function BookList({ books }) {
       getBooks(bookId).then((data) => {
         setBookCardList((bookCardList) => [
           ...bookCardList,
-          <BookCard name={data.title} pic={data.image} key={data.title} />,
+          <BookCard name={data.title} author={data.author[0]} pic={data.image} key={data.title} />,
         ]);
       });
     }

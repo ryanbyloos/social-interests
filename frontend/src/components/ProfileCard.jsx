@@ -49,13 +49,13 @@ export default function ProfileCard({ username, bio, myProfile }) {
         if (res) {
           return (
             <Button onClick={() => handleRemoveFriend(friendId)}>
-              Supprimer de mes amis
+              Arrêter de suivre
             </Button>
           );
         } else {
           return (
             <Button onClick={() => handleAddFriend(friendId)}>
-              Ajouter à mes amis
+              Suivre
             </Button>
           );
         }

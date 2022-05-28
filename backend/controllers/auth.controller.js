@@ -16,7 +16,6 @@ exports.signup = async (req, res) => {
       password: bcrypt.hashSync(password, 8),
       roles: [await Role.findOne({ name: "user" })],
       bio: "",
-      avatar: "",
     });
     res.send({ message: "User created successfully" });
   } catch (err) {

@@ -9,7 +9,6 @@ module.exports = (app) => {
   });
 
   app.get("/api/user", controller.getUser);
-  // app.get("/api/user/:id", controller.getUser);
   app.get("/api/user/:id/friends", controller.getUserFriends);
   app.get("/api/user/:id/friends/:friendId", controller.areFriends);
   app.get("/api/user/:id/books", controller.getUserBooks);
@@ -17,7 +16,7 @@ module.exports = (app) => {
 
   app.post("/api/user/:id/books", controller.addBook);
   app.post("/api/user/:id/movies", controller.addMovie);
-  app.post("/api/user/:id/friends", controller.addFriend);
+  app.post("/api/user/:id/friends", controller.followFriend);
 
   app.put("/api/user/:id", controller.updateUser);
 
