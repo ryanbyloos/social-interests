@@ -27,15 +27,10 @@ function FriendCard({ name, pic }) {
   }
   return (
     <Box
-      // px={10}
-      // py={"5"}
-      width={"8em"}
+      width={"6em"}
       shadow={"md"}
-      border={"1px "}
-      borderColor={"gray.800"}
       rounded={"lg"}
     >
-      <Container centerContent>
         <Avatar
           size={"lg"}
           src={pic}
@@ -46,7 +41,6 @@ function FriendCard({ name, pic }) {
           cursor={"pointer"}
         />
         <Text>{name}</Text>
-      </Container>
     </Box>
   );
 }
@@ -118,8 +112,8 @@ export default function FriendList({ following, followers }) {
   }, [following, followers]);
 
   return (
-    <HStack>
-      <Container maxW={"450px"} maxH={"240px"}>
+    <HStack width={'80%'} maxW={'900px'}>
+      <Container maxW={"600px"} maxH={"240px"}>
         <Heading
           fontSize={"2xl"}
           fontFamily={"body"}
@@ -151,12 +145,12 @@ export default function FriendList({ following, followers }) {
           textAlign={"center"}
           overflowY="scroll"
         >
-          <SimpleGrid columns={{ base: 4, md: 6 }} spacing={{ base: 2, lg: 2 }}>
+          <SimpleGrid minChildWidth={'5.6em'} spacing={1}>
             {followingCardList}
           </SimpleGrid>
         </Box>
       </Container>
-      <Container maxW={"450px"}>
+      <Container maxW={"600px"} maxH={"240px"}>
         <Heading
           fontSize={"2xl"}
           fontFamily={"body"}
@@ -188,7 +182,7 @@ export default function FriendList({ following, followers }) {
           textAlign={"center"}
           overflowY="scroll"
         >
-          <SimpleGrid columns={{ base: 4, md: 6 }} spacing={{ base: 2, lg: 2 }}>
+          <SimpleGrid minChildWidth={'5.6em'} spacing={1}>
             {followersCardList}
           </SimpleGrid>
         </Box>
