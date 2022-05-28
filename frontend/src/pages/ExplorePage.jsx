@@ -24,11 +24,12 @@ import Footer from "../components/Footer";
 import { useState, useEffect } from "react";
 import {
   getAllUsers,
+  getSimilarity,
   addFriend,
   hasFriend,
   whoami,
   addBook,
-  addMovie
+  addMovie,
 } from "../api/userAPI";
 import { getBookByName } from "../api/bookAPI";
 import { getMovieByName } from "../api/movieAPI";
@@ -75,6 +76,11 @@ function ExplorePage() {
     return res;
   };
 
+  const handleSimilarity = async (id, friendId) => {
+    const res = await getSimilarity(id, friendId);
+    return res.result;
+  };
+
   const updateResults = () => {
     if (filter === "Utilisateurs") {
       whoami()
@@ -86,29 +92,35 @@ function ExplorePage() {
           getAllUsers().then((res) => {
             res.map((user) => {
               handleHasFriend(me.userId, user._id).then((res) => {
-                if (
-                  search !== "" &&
-                  user.username.toLowerCase().includes(search.toLowerCase()) &&
-                  user._id !== me.userId &&
-                  !res
-                ) {
-                  setResults((results) => [
-                    ...results,
-                    <Tr key={user._id}>
-                      <Td>{user.username}</Td>
-                      <Td>
-                        <Button onClick={() => goToProfile(user._id)}>
-                          Voir le profil
-                        </Button>
-                      </Td>
-                      <Td>
-                        <Button onClick={() => handleAddFriend(user._id)}>
-                          
-                        </Button>
-                      </Td>
-                    </Tr>,
-                  ]);
-                }
+                handleSimilarity(me.userId, user._id).then((similarity) => {
+                  if (
+                    search !== "" &&
+                    user.username
+                      .toLowerCase()
+                      .includes(search.toLowerCase()) &&
+                    user._id !== me.userId &&
+                    !res
+                  ) {
+                    setResults((results) => [
+                      ...results,
+                      <Tr key={user._id}>
+                        <Td>{user.username +` (${similarity})`}</Td>
+                        <Td>
+                          <Button onClick={() => goToProfile(user._id)}>
+                            Voir le profil
+                          </Button>
+                        </Td>
+                        <Td>
+                          <Button
+                            onClick={() => handleAddFriend(user._id)}
+                          >
+                            Ajouter
+                          </Button>
+                        </Td>
+                      </Tr>,
+                    ]);
+                  }
+                });
               });
             });
           });
@@ -127,7 +139,11 @@ function ExplorePage() {
                   alt={book.title}
                 />
               </Td>
-              <Td>{book.title.length > 40 ? book.title.substring(0, 36)+'...' : book.title}</Td>
+              <Td>
+                {book.title.length > 40
+                  ? book.title.substring(0, 36) + "..."
+                  : book.title}
+              </Td>
               <Td>{book.author[0]}</Td>
               <Td>
                 <Button onClick={() => handleAddBook(book._id)}>
@@ -152,8 +168,16 @@ function ExplorePage() {
                   alt={movie.title}
                 />
               </Td>
-              <Td>{movie.title.length > 40 ? movie.title.substring(0, 36)+'...' : movie.title}</Td>
-              <Td>{movie.author[0] > 30 ? movie.author[0].substring(0, 36)+'...' : movie.author[0]}</Td>
+              <Td>
+                {movie.title.length > 40
+                  ? movie.title.substring(0, 36) + "..."
+                  : movie.title}
+              </Td>
+              <Td>
+                {movie.author[0] > 30
+                  ? movie.author[0].substring(0, 36) + "..."
+                  : movie.author[0]}
+              </Td>
               <Td>
                 <Button onClick={() => handleAddMovie(movie._id)}>
                   <AddIcon />

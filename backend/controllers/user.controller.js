@@ -282,3 +282,30 @@ exports.areFriends = async (req, res) => {
     res.status(500).send({ message: err.message });
   }
 };
+
+exports.getSimilarity = async (req, res) => {
+  try {
+    const user = await User.findOne({
+      _id: req.query.id,
+    });
+    if (!user) {
+      return res.status(404).send({ message: "User not found" });
+    }
+    const friend = await User.findOne({
+      _id: req.query.friendId,
+    });
+    if (!friend) {
+      return res.status(404).send({ message: "Friend not found" });
+    }
+    const commonBooks = user.books.filter((book) =>
+      friend.books.includes(book)
+    );
+    const commonMovies = user.movies.filter((movie) =>
+      friend.movies.includes(movie)
+    );
+    const similarity = commonBooks.length + commonMovies.length;
+    res.status(200).send({ result: similarity });
+  } catch (err) {
+    res.status(500).send({ message: "Similarity computation failed" });
+  }
+};

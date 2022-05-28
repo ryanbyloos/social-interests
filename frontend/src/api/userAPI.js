@@ -141,6 +141,23 @@ exports.hasFriend = (id, friendId) =>
       console.log(err);
     });
 
+exports.getSimilarity = async (id, friendId) => {
+  const res = await fetch(
+    `http://localhost:8080/api/user/similarity?id=${id}&friendId=${friendId}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": localStorage.getItem("token"),
+      },
+    }
+  );
+  if (res.status === 200) {
+    return res.json();
+  }
+  throw new Error(res.statusText);
+};
+
 exports.addBook = async (id, bookId) => {
   const res = await fetch(`http://localhost:8080/api/user/${id}/books/`, {
     method: "POST",
