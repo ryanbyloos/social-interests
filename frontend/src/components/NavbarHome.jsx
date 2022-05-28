@@ -37,11 +37,7 @@ export default function Simple() {
               display={"inline-flex"}
               fontSize={"sm"}
               margin={3}
-              color={"white"}
-              bg={"blue.400"}
-              _hover={{
-                bg: "blue.500",
-              }}
+              shadow="md"
               onClick={() => navigate("/" + location.search)}
             >
               Se connecter
@@ -50,11 +46,7 @@ export default function Simple() {
               display={"inline-flex"}
               fontSize={"sm"}
               margin={3}
-              color={"white"}
-              bg={"blue.400"}
-              _hover={{
-                bg: "blue.500",
-              }}
+              shadow="md"
               onClick={() => navigate("/signup" + location.search)}
             >
               S'enregistrer

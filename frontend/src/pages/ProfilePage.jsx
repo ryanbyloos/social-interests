@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { ChakraProvider, Box, theme, VStack } from "@chakra-ui/react";
+import { Box, VStack } from "@chakra-ui/react";
 import Navbar from "../components/Navbar";
 import ProfileCard from "../components/ProfileCard";
 import FriendList from "../components/FriendList";
@@ -45,7 +45,7 @@ function ProfilePage() {
   }, [id]);
 
   return (
-    <ChakraProvider theme={theme}>
+    <>
       <Navbar myProfile={myProfile} id={user.id} />
       <div style={{ height: "100vh" }}>
         <Box textAlign="center" fontSize="xl" as="main" paddingTop={"4em"}>
@@ -62,7 +62,7 @@ function ProfilePage() {
           <Footer />
         </VStack>
       </div>
-    </ChakraProvider>
+    </>
   );
 }
 

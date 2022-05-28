@@ -51,12 +51,7 @@ export default function SimpleCard() {
         <Stack align={"center"}>
           <Heading fontSize={"4xl"}>Se connecter</Heading>
         </Stack>
-        <Box
-          rounded={"lg"}
-          bg={"white"}
-          boxShadow={"lg"}
-          p={8}
-        >
+        <Box rounded={"lg"} bg={"white"} boxShadow={"lg"} p={8}>
           <Stack spacing={4}>
             <FormControl id="email">
               <FormLabel>Nom d'utilisateur</FormLabel>
@@ -75,14 +70,7 @@ export default function SimpleCard() {
               />
             </FormControl>
             <Stack spacing={10}>
-              <Button
-                bg={"blue.400"}
-                color={"white"}
-                _hover={{
-                  bg: "blue.500",
-                }}
-                onClick={(e) => handleLogin(e)}
-              >
+              <Button shadow={"md"} onClick={(e) => handleLogin(e)}>
                 Se connecter
               </Button>
             </Stack>

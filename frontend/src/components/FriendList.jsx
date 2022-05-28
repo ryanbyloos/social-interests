@@ -9,14 +9,13 @@ import {
   InputLeftElement,
   Input,
 } from "@chakra-ui/react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect, React } from "react";
 
 import { getUserByName } from "../api/userAPI";
 import { SearchIcon } from "@chakra-ui/icons";
 
 function FriendCard({ name, pic }) {
-  const location = useLocation();
   const navigate = useNavigate();
 
   function goToProfile(username) {

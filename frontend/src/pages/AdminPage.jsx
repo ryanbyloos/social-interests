@@ -1,7 +1,5 @@
 import React from "react";
 import {
-  ChakraProvider,
-  theme,
   VStack,
   TableContainer,
   Table,
@@ -17,7 +15,6 @@ import Footer from "../components/Footer";
 import { getAllUsers, deleteUser } from "../api/userAPI";
 
 function MyProfilePage() {
-  // const [users, setUsers] = React.useState([]);
   const [tr, setTr] = React.useState([]);
   const [refresh, setRefresh] = React.useState(false);
 
@@ -44,7 +41,7 @@ function MyProfilePage() {
   }, [refresh]);
 
   return (
-    <ChakraProvider theme={theme}>
+    <>
       <Navbar />
       <VStack spacing="60vh">
         <TableContainer paddingTop={"5em"} maxWidth={"900px"}>
@@ -60,7 +57,7 @@ function MyProfilePage() {
         </TableContainer>
         <Footer />
       </VStack>
-    </ChakraProvider>
+    </>
   );
 }
 

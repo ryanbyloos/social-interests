@@ -4,12 +4,12 @@ import Footer from "../components/Footer";
 
 import { useParams } from "react-router-dom";
 
-import { ChakraProvider, theme, VStack } from "@chakra-ui/react";
+import { VStack } from "@chakra-ui/react";
 function EditProfilePage() {
   const { id } = useParams();
 
   return (
-    <ChakraProvider theme={theme}>
+    <>
       <Navbar />
       <div style={{ height: "100vh" }}>
         <VStack spacing={16}>
@@ -17,7 +17,7 @@ function EditProfilePage() {
           <Footer />
         </VStack>
       </div>
-    </ChakraProvider>
+    </>
   );
 }
 

@@ -40,38 +40,15 @@ export default function SignupCard() {
   };
 
   return (
-    <Flex
-      minH={"100vh"}
-      align={"center"}
-      justify={"center"}
-    >
+    <Flex minH={"100vh"} align={"center"} justify={"center"}>
       <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
         <Stack align={"center"}>
           <Heading fontSize={"4xl"} textAlign={"center"}>
             S'enregister
           </Heading>
         </Stack>
-        <Box
-          rounded={"lg"}
-          bg={"white"}
-          boxShadow={"lg"}
-          p={8}
-        >
+        <Box rounded={"lg"} bg={"white"} boxShadow={"lg"} p={8}>
           <Stack spacing={4}>
-            {/* <HStack>
-                <Box>
-                  <FormControl id="firstName" isRequired>
-                    <FormLabel>Prénom</FormLabel>
-                    <Input type="text" />
-                  </FormControl>
-                </Box>
-                <Box>
-                  <FormControl id="lastName" isRequired>
-                    <FormLabel>Nom</FormLabel>
-                    <Input type="text" />
-                  </FormControl>
-                </Box>
-              </HStack> */}
             <FormControl id="username" isRequired>
               <FormLabel>Nom d'utilisateur</FormLabel>
               <Input
@@ -102,13 +79,7 @@ export default function SignupCard() {
             </FormControl>
             <Stack spacing={10} pt={2}>
               <Button
-                loadingText="Submitting"
-                size="lg"
-                bg={"blue.400"}
-                color={"white"}
-                _hover={{
-                  bg: "blue.500",
-                }}
+                shadow={"md"}
                 onClick={(e) => handleSignup(e)}
               >
                 S'enregistrer
