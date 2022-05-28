@@ -40,14 +40,6 @@ exports.getUser = async (req, res) => {
         res.status(500).send({ message: err.message });
       });
   }
-  // try {
-  //     const users = await User.find({});
-  //     res.status(200).json(users);
-  // } catch (err) {
-  //     res.status(500).json({
-  //         message: err.message
-  //     });
-  // }
 };
 
 exports.getUserBooks = async (req, res) => {
@@ -180,6 +172,28 @@ exports.deleteUser = async (req, res) => {
     });
     if (!user) {
       return res.status(404).send({ message: "User not found" });
+    }
+    for (let i = 0; i < user.followers.length; i++) {
+      const followerId = user.followers[i];
+      const follower = await User.findOne({
+        _id: followerId,
+      });
+      if (!follower) {
+        return res.status(404).send({ message: "Follower not found" });
+      }
+      follower.following.pull(user._id);
+      await follower.save();
+    }
+    for (let i = 0; i < user.following.length; i++) {
+      const followingId = user.following[i];
+      const following = await User.findOne({
+        _id: followingId,
+      });
+      if (!following) {
+        return res.status(404).send({ message: "Following not found" });
+      }
+      following.followers.pull(user._id);
+      await following.save();
     }
     await user.remove();
     res.status(200).send({ message: "User deleted successfully" });
