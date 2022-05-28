@@ -26,21 +26,17 @@ function FriendCard({ name, pic }) {
     });
   }
   return (
-    <Box
-      width={"6em"}
-      shadow={"md"}
-      rounded={"lg"}
-    >
-        <Avatar
-          size={"lg"}
-          src={pic}
-          alt={"Avatar Alt"}
-          mb={4}
-          pos={"relative"}
-          onClick={() => goToProfile(name)}
-          cursor={"pointer"}
-        />
-        <Text>{name}</Text>
+    <Box width={"6em"} shadow={"md"} rounded={"lg"}>
+      <Avatar
+        size={"lg"}
+        src={pic}
+        alt={"Avatar Alt"}
+        mb={4}
+        pos={"relative"}
+        onClick={() => goToProfile(name)}
+        cursor={"pointer"}
+      />
+      <Text>{name}</Text>
     </Box>
   );
 }
@@ -112,16 +108,21 @@ export default function FriendList({ following, followers }) {
   }, [following, followers]);
 
   return (
-    <HStack width={'80%'} maxW={'900px'}>
+    <HStack width={"80%"} maxW={"900px"}>
       <Container maxW={"600px"} maxH={"240px"}>
-        <Heading
-          fontSize={"2xl"}
-          fontFamily={"body"}
-          textAlign={"left"}
-          paddingBottom={5}
-        >
-          Following
-        </Heading>
+        <HStack>
+          <Text
+            fontSize={"2xl"}
+            fontFamily={"body"}
+            textAlign={"left"}
+            paddingBottom={5}
+          >
+            Following{" "}
+          </Text>{" "}
+          <Text paddingBottom={4} color={"gray.500"}>
+            {following.length}
+          </Text>
+        </HStack>
         <InputGroup>
           <InputLeftElement
             pointerEvents="none"
@@ -145,20 +146,25 @@ export default function FriendList({ following, followers }) {
           textAlign={"center"}
           overflowY="scroll"
         >
-          <SimpleGrid minChildWidth={'5.6em'} spacing={1}>
+          <SimpleGrid minChildWidth={"5.6em"} spacing={1}>
             {followingCardList}
           </SimpleGrid>
         </Box>
       </Container>
       <Container maxW={"600px"} maxH={"240px"}>
-        <Heading
-          fontSize={"2xl"}
-          fontFamily={"body"}
-          textAlign={"left"}
-          paddingBottom={5}
-        >
-          Followers
-        </Heading>
+        <HStack>
+          <Text
+            fontSize={"2xl"}
+            fontFamily={"body"}
+            textAlign={"left"}
+            paddingBottom={5}
+          >
+            Followers{" "}
+          </Text>{" "}
+          <Text paddingBottom={4} color={"gray.500"}>
+            {followers.length}
+          </Text>
+        </HStack>
         <InputGroup>
           <InputLeftElement
             pointerEvents="none"
@@ -182,7 +188,7 @@ export default function FriendList({ following, followers }) {
           textAlign={"center"}
           overflowY="scroll"
         >
-          <SimpleGrid minChildWidth={'5.6em'} spacing={1}>
+          <SimpleGrid minChildWidth={"5.6em"} spacing={1}>
             {followersCardList}
           </SimpleGrid>
         </Box>

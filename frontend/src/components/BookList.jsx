@@ -8,15 +8,21 @@ import {
   InputGroup,
   InputLeftElement,
   Input,
+  CloseButton,
 } from "@chakra-ui/react";
 
-import { getBooks } from "../api/userAPI";
-
+import { getBooks, removeBook, whoami } from "../api/userAPI";
 import { useState, useEffect, React } from "react";
-
 import { SearchIcon } from "@chakra-ui/icons";
 
-function BookCard({ name, author, pic }) {
+function BookCard({ name, author, pic, id, refresh, setRefresh }) {
+  const handleDeleteBook = (id) => {
+    whoami().then((user) => {
+      removeBook(user.userId, id);
+      setRefresh(!refresh);
+    });
+  };
+
   return (
     <Box
       px={{ base: 2, md: 4 }}
@@ -26,19 +32,29 @@ function BookCard({ name, author, pic }) {
       borderColor={"gray.800"}
       rounded={"lg"}
     >
+      <CloseButton
+        float={"right"}
+        size="sm"
+        color={"gray.300"}
+        _hover={{
+          color: "red.500",
+        }}
+        onClick={() => {
+          handleDeleteBook(id)
+        }}
+      />
       <Container centerContent>
         <Image
           size={"md"}
-          // src={window.location.origin + "/bookplaceholder.png"}
           src={`https://covers.openlibrary.org/b/id/${pic}-S.jpg`}
           alt={"Book Alt"}
           mb={4}
           pos={"relative"}
-        />
-        {/* <Box> */}
-          <Text>{name}</Text>
-          <Text fontSize={"xs"} color={"gray.500"}>{author}</Text>
-        {/* </Box> */}
+        ></Image>
+        <Text>{name}</Text>
+        <Text fontSize={"xs"} color={"gray.500"}>
+          {author}
+        </Text>
       </Container>
     </Box>
   );
@@ -47,6 +63,7 @@ function BookCard({ name, author, pic }) {
 export default function BookList({ books }) {
   let [search, setSearch] = useState("");
   let [bookCardList, setBookCardList] = useState([]);
+  let [refresh, setRefresh] = useState(false);
 
   const updateBooks = () => {
     setBookCardList([]);
@@ -55,7 +72,15 @@ export default function BookList({ books }) {
       getBooks(bookId).then((data) => {
         setBookCardList((bookCardList) => [
           ...bookCardList,
-          <BookCard name={data.title} author={data.author[0]} pic={data.image} key={data.title} />,
+          <BookCard
+            name={data.title}
+            author={data.author[0]}
+            pic={data.image}
+            id={data._id}
+            key={data.title}
+            setRefresh={setRefresh}
+            refresh={refresh}
+          />,
         ]);
       });
     }
@@ -63,7 +88,7 @@ export default function BookList({ books }) {
 
   useEffect(() => {
     updateBooks();
-  }, [books]);
+  }, [books, refresh]);
 
   return (
     <Container maxW={"900px"} maxH={"270px"}>

@@ -170,6 +170,23 @@ exports.getBooks = async (id) => {
   throw new Error(res.statusText);
 };
 
+exports.removeBook = async (id, bookId) => {
+  const res = await fetch(
+    `http://localhost:8080/api/user/${id}/books/${bookId}`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": localStorage.getItem("token"),
+      },
+    }
+  );
+  if (res.status === 200) {
+    return res.json();
+  }
+  throw new Error(res.statusText);
+};
+
 exports.getMovies = async (id) => {
   console.log("getMovies");
   const res = await fetch(`http://localhost:8080/api/movie?id=${id}`, {

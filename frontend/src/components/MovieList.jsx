@@ -8,6 +8,7 @@ import {
   InputGroup,
   InputLeftElement,
   Input,
+  CloseButton,
 } from "@chakra-ui/react";
 
 import { SearchIcon } from "@chakra-ui/icons";
@@ -26,6 +27,14 @@ function MovieCard({ name, pic }) {
       borderColor={"gray.800"}
       rounded={"lg"}
     >
+      <CloseButton
+        float={"right"}
+        size="sm"
+        color={"gray.300"}
+        _hover={{
+          color: "red.500",
+        }}
+      />
       <Container centerContent>
         <Image
           size={"md"}
@@ -50,14 +59,14 @@ export default function MovieList({ movies }) {
     console.log("updateMovies", movies);
     setMovieCardList([]);
     for (let index = 0; index < movies.length; index++) {
-      console.log( "movies[index]", movies[index]);
+      console.log("movies[index]", movies[index]);
       const movieId = movies[index];
       getMovies(movieId).then((data) => {
-          setMovieCardList((movieCardList) => [
-            ...movieCardList,
-            <MovieCard name={data.title} pic={data.image} key={data.title} />,
-          ]);
-        });
+        setMovieCardList((movieCardList) => [
+          ...movieCardList,
+          <MovieCard name={data.title} pic={data.image} key={data.title} />,
+        ]);
+      });
     }
   };
 

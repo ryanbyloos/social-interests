@@ -6,6 +6,7 @@ import {
   Heading,
   Input,
   Stack,
+  HStack
 } from "@chakra-ui/react";
 
 import React from "react";
@@ -63,7 +64,7 @@ export default function EditProfile({ id }) {
         p={6}
         my={12}
       >
-        <Heading lineHeight={1.1} fontSize={{ base: "2xl", sm: "3xl" }}>
+        <Heading lineHeight={1.1} fontSize={"2xl"}>
           Éditer le profil
         </Heading>
         <FormControl id="username">
@@ -108,30 +109,20 @@ export default function EditProfile({ id }) {
             onChange={(e) => setCpassword(e.target.value)}
           />
         </FormControl>
-        <Stack spacing={6} direction={["column", "row"]}>
+        <HStack spacing={6}>
           <Button
-            bg={"red.400"}
-            color={"white"}
             w="full"
-            _hover={{
-              bg: "red.500",
-            }}
             onClick={() => navigate(-1)}
           >
             Cancel
           </Button>
           <Button
-            bg={"blue.400"}
-            color={"white"}
             w="full"
-            _hover={{
-              bg: "blue.500",
-            }}
             onClick={handleSubmit}
           >
             Submit
           </Button>
-        </Stack>
+        </HStack>
       </Stack>
     </Flex>
   );
