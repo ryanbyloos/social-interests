@@ -77,6 +77,7 @@ function ExplorePage() {
             res.map((user) => {
               handleHasFriend(me.userId, user._id).then((res) => {
                 if (
+                  search !== "" &&
                   user.username.toLowerCase().includes(search.toLowerCase()) &&
                   user._id !== me.userId &&
                   !res

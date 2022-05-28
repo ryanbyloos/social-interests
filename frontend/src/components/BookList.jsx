@@ -89,7 +89,7 @@ export default function BookList({ books }) {
       </InputGroup>
       <Box
         maxW={"900px"}
-        maxH={"210px"}
+        maxH={"230px"}
         w={"full"}
         bg={"white"}
         boxShadow={"xl"}
