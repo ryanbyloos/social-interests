@@ -5,6 +5,7 @@ const db = require("./models");
 const authRoutes = require("./routes/auth.routes");
 const userRoutes = require("./routes/user.routes");
 const bookRoutes = require("./routes/book.routes");
+const movieRoutes = require("./routes/movie.routes");
 
 const fs = require("fs");
 const StreamArray = require("stream-json/streamers/StreamArray");
@@ -24,6 +25,7 @@ app.use(bodyParser.json());
 authRoutes(app);
 userRoutes(app);
 bookRoutes(app);
+movieRoutes(app);
 
 app.listen(port, () => console.log(`App listening on port ${port}!`));
 

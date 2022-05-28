@@ -12,6 +12,8 @@ import {
 
 import { SearchIcon } from "@chakra-ui/icons";
 
+import { getMovies } from "../api/userAPI";
+
 import { useState, useEffect, React } from "react";
 
 function MovieCard({ name, pic }) {
@@ -27,7 +29,7 @@ function MovieCard({ name, pic }) {
       <Container centerContent>
         <Image
           size={"md"}
-          src={"movieplaceholder.png"}
+          src={`${window.location.origin}/movieplaceholder.png`}
           alt={"Book Alt"}
           mb={4}
           pos={"relative"}
@@ -40,28 +42,17 @@ function MovieCard({ name, pic }) {
   );
 }
 
-export default function MovieList(movies) {
+export default function MovieList({ movies }) {
   let [search, setSearch] = useState("");
   let [movieCardList, setMovieCardList] = useState([]);
 
   const updateMovies = () => {
+    console.log("updateMovies", movies);
     setMovieCardList([]);
     for (let index = 0; index < movies.length; index++) {
+      console.log( "movies[index]", movies[index]);
       const movieId = movies[index];
-      fetch(`http://localhost:8080/api/movie/${movieId}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "x-access-token": localStorage.getItem("token"),
-        },
-      })
-        .then((res) => {
-          if (res.status === 200) {
-            return res.json();
-          }
-          throw new Error(res.statusText);
-        })
-        .then((data) => {
+      getMovies(movieId).then((data) => {
           setMovieCardList((movieCardList) => [
             ...movieCardList,
             <MovieCard name={data.title} pic={data.image} key={data.title} />,

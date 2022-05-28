@@ -28,8 +28,10 @@ import {
   hasFriend,
   whoami,
   addBook,
+  addMovie
 } from "../api/userAPI";
 import { getBookByName } from "../api/bookAPI";
+import { getMovieByName } from "../api/movieAPI";
 import { useNavigate } from "react-router-dom";
 
 function ExplorePage() {
@@ -51,6 +53,14 @@ function ExplorePage() {
   const handleAddBook = (bookId) => {
     whoami().then((me) => {
       addBook(me.userId, bookId).then(() => {
+        setRefresh(!refresh);
+      });
+    });
+  };
+
+  const handleAddMovie = (movieId) => {
+    whoami().then((me) => {
+      addMovie(me.userId, movieId).then(() => {
         setRefresh(!refresh);
       });
     });
@@ -128,7 +138,31 @@ function ExplorePage() {
           ]);
         });
       });
-    } else if (filter === "Films") {
+    } else if (filter === "Films" && search !== "") {
+      getMovieByName(search).then((res) => {
+        setResults([]);
+        res.map((movie) => {
+          setResults((results) => [
+            ...results,
+            <Tr key={movie._id}>
+              <Td>
+                <Image
+                  src={`movieplaceholder.png`}
+                  maxWidth="48px"
+                  alt={movie.title}
+                />
+              </Td>
+              <Td>{movie.title.length > 40 ? movie.title.substring(0, 36)+'...' : movie.title}</Td>
+              <Td>{movie.author[0] > 30 ? movie.author[0].substring(0, 36)+'...' : movie.author[0]}</Td>
+              <Td>
+                <Button onClick={() => handleAddMovie(movie._id)}>
+                  <AddIcon />
+                </Button>
+              </Td>
+            </Tr>,
+          ]);
+        });
+      });
     }
   };
 

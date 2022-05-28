@@ -169,3 +169,47 @@ exports.getBooks = async (id) => {
   }
   throw new Error(res.statusText);
 };
+
+exports.getMovies = async (id) => {
+  console.log("getMovies");
+  const res = await fetch(`http://localhost:8080/api/movie?id=${id}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "x-access-token": localStorage.getItem("token"),
+    },
+  });
+  if (res.status === 200) {
+    return res.json();
+  }
+  throw new Error(res.statusText);
+};
+
+exports.addMovie = async (id, movieId) => {
+  const res = await fetch(`http://localhost:8080/api/user/${id}/movies/`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-access-token": localStorage.getItem("token"),
+    },
+    body: JSON.stringify({ _id: movieId }),
+  });
+  if (res.status === 200) {
+    return res.json();
+  }
+  throw new Error(res.statusText);
+}
+
+exports.getMovies = async (id) => {
+  const res = await fetch(`http://localhost:8080/api/movie?id=${id}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "x-access-token": localStorage.getItem("token"),
+    },
+  });
+  if (res.status === 200) {
+    return res.json();
+  }
+  throw new Error(res.statusText);
+}
