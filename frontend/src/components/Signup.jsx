@@ -13,6 +13,7 @@ import {
 import { useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
+import { signUp } from "../api/authAPI";
 
 export default function SignupCard() {
   const navigate = useNavigate();
@@ -22,20 +23,8 @@ export default function SignupCard() {
 
   const handleSignup = (e) => {
     e.preventDefault();
-    fetch("http://localhost:8080/api/auth/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: username,
-        password: password,
-      }),
-    }).then((res) => {
-      if (res.status === 200) {
-        navigate("/");
-        throw new Error(res.statusText);
-      }
+    signUp(username, password).then((data) => {
+      navigate(`/`);
     });
   };
 
@@ -78,10 +67,7 @@ export default function SignupCard() {
               </InputGroup>
             </FormControl>
             <Stack spacing={10} pt={2}>
-              <Button
-                shadow={"md"}
-                onClick={(e) => handleSignup(e)}
-              >
+              <Button shadow={"md"} onClick={(e) => handleSignup(e)}>
                 S'enregistrer
               </Button>
             </Stack>

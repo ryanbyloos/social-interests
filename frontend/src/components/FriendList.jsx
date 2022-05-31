@@ -13,7 +13,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect, React } from "react";
 
-import { getUserByName } from "../api/userAPI";
+import { getUserByName, getUserById } from "../api/userAPI";
 import { SearchIcon } from "@chakra-ui/icons";
 
 function FriendCard({ name, pic }) {
@@ -51,55 +51,21 @@ export default function FriendList({ following, followers }) {
     setFollowingCardList([]);
     for (let index = 0; index < following.length; index++) {
       const friendId = following[index];
-      fetch(`http://localhost:8080/api/user?id=${friendId}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "x-access-token": localStorage.getItem("token"),
-        },
-      })
-        .then((res) => {
-          if (res.status === 200) {
-            return res.json();
-          }
-          throw new Error(res.statusText);
-        })
-        .then((data) => {
-          setFollowingCardList((friendCardList) => [
-            ...friendCardList,
-            <FriendCard
-              name={data.username}
-              pic={data.avatar}
-              key={data._id}
-            />,
-          ]);
-        });
+      getUserById(friendId).then((data) => {
+        setFollowingCardList((friendCardList) => [
+          ...friendCardList,
+          <FriendCard name={data.username} pic={data.avatar} key={data._id} />,
+        ]);
+      });
     }
     for (let index = 0; index < followers.length; index++) {
       const friendId = followers[index];
-      fetch(`http://localhost:8080/api/user?id=${friendId}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "x-access-token": localStorage.getItem("token"),
-        },
-      })
-        .then((res) => {
-          if (res.status === 200) {
-            return res.json();
-          }
-          throw new Error(res.statusText);
-        })
-        .then((data) => {
-          setFollowersCardList((friendCardList) => [
-            ...friendCardList,
-            <FriendCard
-              name={data.username}
-              pic={data.avatar}
-              key={data._id}
-            />,
-          ]);
-        });
+      getUserById(friendId).then((data) => {
+        setFollowersCardList((friendCardList) => [
+          ...friendCardList,
+          <FriendCard name={data.username} pic={data.avatar} key={data._id} />,
+        ]);
+      });
     }
   };
 

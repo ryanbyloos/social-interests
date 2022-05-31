@@ -9,40 +9,23 @@ import {
   Heading,
 } from "@chakra-ui/react";
 
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { logIn } from "../api/authAPI";
 
 import React from "react";
 
 export default function SimpleCard() {
   let navigate = useNavigate();
-  let location = useLocation();
 
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
 
   const handleLogin = (e) => {
     e.preventDefault();
-    fetch("http://localhost:8080/api/auth/signin", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: username,
-        password: password,
-      }),
-    })
-      .then((res) => {
-        if (res.status === 200) {
-          return res.json();
-        }
-        throw new Error(res.statusText);
-      })
-      .then((data) => {
-        console.log(data);
-        localStorage.setItem("token", data.token);
-        navigate(`/u/${data.userId}`);
-      });
+    logIn(username, password).then((data) => {
+      localStorage.setItem("token", data.token);
+      navigate(`/u/${data.userId}`);
+    });
   };
 
   return (
