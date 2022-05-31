@@ -7,7 +7,7 @@ import FriendList from "../components/FriendList";
 import BookList from "../components/BookList";
 import Footer from "../components/Footer";
 import MovieList from "../components/MovieList";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import { getUserById, whoami } from "../api/userAPI";
 
@@ -17,6 +17,7 @@ function ProfilePage() {
   const [refresh, setRefresh] = React.useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [user, setUser] = React.useState({
     id: "",
@@ -59,7 +60,7 @@ function ProfilePage() {
   return (
     <>
       <Navbar myProfile={myProfile} id={user.id} />
-      <div style={{ height: "100vh" }}>
+      <Box height="100vh">
         <Box textAlign="center" fontSize="xl" as="main" paddingTop={"4em"}>
           <ProfileCard
             username={user.userName}
@@ -83,7 +84,7 @@ function ProfilePage() {
           />
           <Footer />
         </VStack>
-      </div>
+      </Box>
     </>
   );
 }

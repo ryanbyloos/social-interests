@@ -32,14 +32,22 @@ export default function EditProfile({ id }) {
       return;
     }
     const updatedUser = {};
-    if (username !== "") {
+    if (username.match(/^[a-zA-Z0-9_]{3,20}$/) !== null) {
       updatedUser.username = username;
+    } else if (username === "") {
+    } else {
+      alert("Nom d'utilisateur invalide");
+      return;
     }
     if (bio !== "") {
       updatedUser.bio = bio;
     }
-    if (password !== "") {
+    if (password.length >= 8) {
       updatedUser.password = password;
+    } else if (password === "") {
+    } else {
+      alert("Le mot de passe doit contenir au moins 8 caractères");
+      return;
     }
     updateUser(id, updatedUser).then((data) => {
       navigate(`/u/${id}`);
