@@ -3,35 +3,21 @@ import {
   SimpleGrid,
   Image,
   Container,
-  Heading,
   Text,
   InputGroup,
   InputLeftElement,
   Input,
   CloseButton,
+  HStack,
 } from "@chakra-ui/react";
 
 import { getBooks, removeBook, whoami } from "../api/userAPI";
 import { useState, useEffect, React } from "react";
 import { SearchIcon } from "@chakra-ui/icons";
 
-function BookCard({ name, author, pic, id, refresh, setRefresh }) {
-  const handleDeleteBook = (id) => {
-    whoami().then((user) => {
-      removeBook(user.userId, id);
-      setRefresh(!refresh);
-    });
-  };
-
+function BookCard({ name, author, pic, id, handleDeleteBook }) {
   return (
-    <Box
-      px={{ base: 2, md: 4 }}
-      py={"5"}
-      shadow={"xl"}
-      border={"1px "}
-      borderColor={"gray.800"}
-      rounded={"lg"}
-    >
+    <Box px={{ base: 2, md: 4 }} py={"5"} shadow={"md"} rounded={"lg"}>
       <CloseButton
         float={"right"}
         size="sm"
@@ -60,10 +46,15 @@ function BookCard({ name, author, pic, id, refresh, setRefresh }) {
   );
 }
 
-export default function BookList({ books }) {
-  let [search, setSearch] = useState("");
-  let [bookCardList, setBookCardList] = useState([]);
-  let [refresh, setRefresh] = useState(false);
+export default function BookList({ books, refresh, setRefresh }) {
+  const [search, setSearch] = useState("");
+  const [bookCardList, setBookCardList] = useState([]);
+
+  const handleDeleteBook = (id) =>
+    whoami().then((user) => {
+      removeBook(user.userId, id);
+      setRefresh(!refresh);
+    });
 
   const updateBooks = () => {
     setBookCardList([]);
@@ -79,8 +70,7 @@ export default function BookList({ books }) {
               pic={data.image}
               id={data._id}
               key={data.title}
-              setRefresh={setRefresh}
-              refresh={refresh}
+              handleDeleteBook={handleDeleteBook}
             />,
           ]);
         }
@@ -90,18 +80,23 @@ export default function BookList({ books }) {
 
   useEffect(() => {
     updateBooks();
-  }, [books, refresh, search]);
+  }, [books, search]);
 
   return (
     <Container maxW={"900px"} maxH={"270px"}>
-      <Heading
-        fontSize={"2xl"}
-        fontFamily={"body"}
-        textAlign={"left"}
-        paddingBottom={5}
-      >
-        Livres
-      </Heading>
+      <HStack>
+        <Text
+          fontSize={"2xl"}
+          fontFamily={"body"}
+          textAlign={"left"}
+          paddingBottom={5}
+        >
+          Livres
+        </Text>{" "}
+        <Text paddingBottom={4} color={"gray.500"}>
+          {books.length}
+        </Text>
+      </HStack>
       <InputGroup>
         <InputLeftElement
           pointerEvents="none"
@@ -119,7 +114,7 @@ export default function BookList({ books }) {
         maxH={"230px"}
         w={"full"}
         bg={"white"}
-        boxShadow={"xl"}
+        boxShadow={"md"}
         rounded={"lg"}
         p={6}
         textAlign={"center"}

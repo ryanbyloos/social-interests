@@ -13,6 +13,7 @@ import { getUserById, whoami } from "../api/userAPI";
 function ProfilePage() {
   const { id } = useParams();
   const [myProfile, setMyProfile] = React.useState(false);
+  const [refresh, setRefresh] = React.useState(false);
 
   const [user, setUser] = React.useState({
     id: "",
@@ -44,7 +45,7 @@ function ProfilePage() {
 
   React.useEffect(() => {
     getUser();
-  }, [id]);
+  }, [id, refresh]);
 
   return (
     <>
@@ -58,9 +59,17 @@ function ProfilePage() {
           />
         </Box>
         <VStack spacing={16}>
-          <FriendList following={user.following} followers={user.followers}/>
-          <BookList books={user.books} />
-          <MovieList movies={user.movies} />
+          <FriendList following={user.following} followers={user.followers} />
+          <BookList
+            books={user.books}
+            refresh={refresh}
+            setRefresh={setRefresh}
+          />
+          <MovieList
+            movies={user.movies}
+            refresh={refresh}
+            setRefresh={setRefresh}
+          />
           <Footer />
         </VStack>
       </div>

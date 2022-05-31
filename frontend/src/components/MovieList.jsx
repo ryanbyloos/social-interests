@@ -3,36 +3,32 @@ import {
   SimpleGrid,
   Image,
   Container,
-  Heading,
   Text,
   InputGroup,
   InputLeftElement,
   Input,
   CloseButton,
+  HStack,
 } from "@chakra-ui/react";
 
 import { SearchIcon } from "@chakra-ui/icons";
 
-import { getMovies } from "../api/userAPI";
+import { getMovies, removeMovie, whoami } from "../api/userAPI";
 
 import { useState, useEffect, React } from "react";
 
-function MovieCard({ name, pic }) {
+function MovieCard({ name, id, handleDeleteMovie }) {
   return (
-    <Box
-      px={{ base: 2, md: 4 }}
-      py={"5"}
-      shadow={"xl"}
-      border={"1px "}
-      borderColor={"gray.800"}
-      rounded={"lg"}
-    >
+    <Box px={{ base: 2, md: 4 }} py={"5"} shadow={"md"} rounded={"lg"}>
       <CloseButton
         float={"right"}
         size="sm"
         color={"gray.300"}
         _hover={{
           color: "red.500",
+        }}
+        onClick={() => {
+          handleDeleteMovie(id);
         }}
       />
       <Container centerContent>
@@ -51,9 +47,15 @@ function MovieCard({ name, pic }) {
   );
 }
 
-export default function MovieList({ movies }) {
+export default function MovieList({ movies, refresh, setRefresh }) {
   let [search, setSearch] = useState("");
   let [movieCardList, setMovieCardList] = useState([]);
+
+  const handleDeleteMovie = (id) =>
+    whoami().then((user) => {
+      removeMovie(user.userId, id);
+      setRefresh(!refresh);
+    });
 
   const updateMovies = () => {
     console.log("updateMovies", movies);
@@ -65,7 +67,12 @@ export default function MovieList({ movies }) {
         if (data.title.toLowerCase().includes(search.toLowerCase())) {
           setMovieCardList((movieCardList) => [
             ...movieCardList,
-            <MovieCard name={data.title} pic={data.image} key={data.title} />,
+            <MovieCard
+              name={data.title}
+              id={data._id}
+              key={data.title}
+              handleDeleteMovie={handleDeleteMovie}
+            />,
           ]);
         }
       });
@@ -78,14 +85,19 @@ export default function MovieList({ movies }) {
 
   return (
     <Container maxW={"900px"} maxH={"270px"}>
-      <Heading
-        fontSize={"2xl"}
-        fontFamily={"body"}
-        textAlign={"left"}
-        paddingBottom={5}
-      >
-        Films
-      </Heading>
+      <HStack>
+        <Text
+          fontSize={"2xl"}
+          fontFamily={"body"}
+          textAlign={"left"}
+          paddingBottom={5}
+        >
+          Films
+        </Text>{" "}
+        <Text paddingBottom={4} color={"gray.500"}>
+          {movies.length}
+        </Text>
+      </HStack>
       <InputGroup>
         <InputLeftElement
           pointerEvents="none"
@@ -103,7 +115,7 @@ export default function MovieList({ movies }) {
         maxH={"210px"}
         w={"full"}
         bg={"white"}
-        boxShadow={"xl"}
+        boxShadow={"md"}
         rounded={"lg"}
         p={6}
         textAlign={"center"}

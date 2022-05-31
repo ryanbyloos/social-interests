@@ -249,7 +249,7 @@ exports.addMovie = async (id, movieId) => {
     return res.json();
   }
   throw new Error(res.statusText);
-}
+};
 
 exports.getMovies = async (id) => {
   const res = await fetch(`http://localhost:8080/api/movie?id=${id}`, {
@@ -263,4 +263,21 @@ exports.getMovies = async (id) => {
     return res.json();
   }
   throw new Error(res.statusText);
-}
+};
+
+exports.removeMovie = async (id, movieId) => {
+  const res = await fetch(
+    `http://localhost:8080/api/user/${id}/movies/${movieId}`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": localStorage.getItem("token"),
+      },
+    }
+  );
+  if (res.status === 200) {
+    return res.json();
+  }
+  throw new Error(res.statusText);
+};

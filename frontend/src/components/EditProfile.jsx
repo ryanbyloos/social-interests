@@ -6,7 +6,7 @@ import {
   Heading,
   Input,
   Stack,
-  HStack
+  HStack,
 } from "@chakra-ui/react";
 
 import React from "react";
@@ -60,7 +60,7 @@ export default function EditProfile({ id }) {
         maxW={"md"}
         bg={"white"}
         rounded={"xl"}
-        boxShadow={"lg"}
+        boxShadow={"md"}
         p={6}
         my={12}
       >
@@ -76,6 +76,7 @@ export default function EditProfile({ id }) {
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            boxShadow={"md"}
           />
         </FormControl>
         <FormControl id="bio">
@@ -87,6 +88,7 @@ export default function EditProfile({ id }) {
             type="text"
             value={bio}
             onChange={(e) => setBio(e.target.value)}
+            boxShadow={"md"}
           />
         </FormControl>
         <FormControl id="password">
@@ -97,6 +99,7 @@ export default function EditProfile({ id }) {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            boxShadow={"md"}
           />
         </FormControl>
         <FormControl id="cpassword">
@@ -107,19 +110,14 @@ export default function EditProfile({ id }) {
             type="password"
             value={cpassword}
             onChange={(e) => setCpassword(e.target.value)}
+            boxShadow={"md"}
           />
         </FormControl>
         <HStack spacing={6}>
-          <Button
-            w="full"
-            onClick={() => navigate(-1)}
-          >
+          <Button w="full" boxShadow={"md"} onClick={() => navigate(-1)}>
             Cancel
           </Button>
-          <Button
-            w="full"
-            onClick={handleSubmit}
-          >
+          <Button w="full" boxShadow={"md"} onClick={handleSubmit}>
             Submit
           </Button>
         </HStack>

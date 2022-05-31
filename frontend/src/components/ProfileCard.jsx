@@ -1,11 +1,4 @@
-import {
-  Heading,
-  Avatar,
-  Box,
-  Center,
-  Text,
-  Button,
-} from "@chakra-ui/react";
+import { Heading, Avatar, Box, Center, Text, Button } from "@chakra-ui/react";
 
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -54,9 +47,7 @@ export default function ProfileCard({ username, bio, myProfile }) {
           );
         } else {
           return (
-            <Button onClick={() => handleAddFriend(friendId)}>
-              Suivre
-            </Button>
+            <Button onClick={() => handleAddFriend(friendId)}>Suivre</Button>
           );
         }
       })
@@ -85,25 +76,16 @@ export default function ProfileCard({ username, bio, myProfile }) {
         maxW={"900px"}
         w={"full"}
         bg={"white"}
-        boxShadow={"2xl"}
+        boxShadow={"md"}
         rounded={"lg"}
         p={6}
         textAlign={"center"}
       >
-        <Avatar
-          size={"xl"}
-          alt={"Avatar Alt"}
-          mb={4}
-          pos={"relative"}
-        />
+        <Avatar size={"xl"} alt={"Avatar Alt"} mb={4} pos={"relative"} />
         <Heading fontSize={"2xl"} fontFamily={"body"}>
           {username}
         </Heading>
-        <Text
-          textAlign={"center"}
-          color={"gray.700"}
-          px={3}
-        >
+        <Text textAlign={"center"} color={"gray.700"} px={3}>
           {bio}
         </Text>
         {friendButton}
