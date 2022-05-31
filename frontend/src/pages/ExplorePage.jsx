@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  Box,
   VStack,
   Input,
   Spacer,
@@ -22,7 +23,7 @@ import {
 import { AddIcon } from "@chakra-ui/icons";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
 import {
   getAllUsers,
   getSimilarity,
@@ -84,7 +85,7 @@ function ExplorePage() {
     return res.result;
   };
 
-  const updateResults = () => {
+  const updateSuggestions = () => {
     setSuggestions([]);
     whoami().then((me) => {
       getMostSimilar(me.userId).then((res) => {
@@ -94,12 +95,14 @@ function ExplorePage() {
             <Tr key={user.id}>
               <Td>{user.username}</Td>
               <Td>{user.similarity}</Td>
-            </Tr>
+            </Tr>,
           ]);
         });
       });
     });
+  };
 
+  const updateResults = () => {
     if (filter === "Utilisateurs") {
       whoami()
         .then((user) => {
@@ -160,7 +163,13 @@ function ExplorePage() {
                   ? book.title.substring(0, 36) + "..."
                   : book.title}
               </Td>
-              <Td>{book.author[0]}</Td>
+              <Td>
+                {book.author.length < 1
+                  ? ""
+                  : book.author[0].length > 24
+                  ? book.author[0].substring(0, 20) + "..."
+                  : book.author[0]}
+              </Td>
               <Td>
                 <Button onClick={() => handleAddBook(book._id)}>
                   <AddIcon />
@@ -206,16 +215,19 @@ function ExplorePage() {
     }
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     updateResults();
   }, [refresh, search]);
+
+  useEffect(() => {
+    updateSuggestions();
+  }, []);
 
   return (
     <>
       <Navbar />
       <>
-        <VStack paddingTop="20vh">
-          {/* <Spacer /> */}
+        <VStack paddingTop="15vh">
           <Text fontSize={"xl"}>Suggestions</Text>
           <TableContainer>
             <Table variant="stripped" size="sm">
@@ -270,7 +282,7 @@ function ExplorePage() {
               onChange={(e) => setSearch(e.target.value)}
             />
           </HStack>
-          <TableContainer width={"700px"} paddingBottom="35vh">
+          <TableContainer width={"60em"} height={"25em"} overflowY={"scroll"}>
             <Table variant="simple">
               <Thead>
                 <Tr>
