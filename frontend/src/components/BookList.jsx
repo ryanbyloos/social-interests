@@ -7,6 +7,7 @@ import {
   InputLeftElement,
   Input,
   HStack,
+  Center,
 } from "@chakra-ui/react";
 
 import { useState, useEffect, React } from "react";
@@ -100,9 +101,15 @@ export default function BookList({ books, refresh, setRefresh }) {
         textAlign={"center"}
         overflowY="scroll"
       >
-        <SimpleGrid columns={{ base: 2, md: 4 }} spacing={{ base: 2, lg: 2 }}>
-          {bookCardList}
-        </SimpleGrid>
+        {bookCardList.length > 0 ? (
+          <SimpleGrid columns={{ base: 2, md: 4 }} spacing={{ base: 2, lg: 2 }}>
+            {bookCardList}
+          </SimpleGrid>
+        ) : (
+          <Center>
+            <Text fontSize={"xl"}>Aucun livre</Text>
+          </Center>
+        )}
       </Box>
     </Container>
   );

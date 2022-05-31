@@ -102,9 +102,13 @@ export default function MovieList({ movies, refresh, setRefresh }) {
         textAlign={"center"}
         overflowY="scroll"
       >
-        <SimpleGrid columns={{ base: 2, md: 4 }} spacing={{ base: 2, lg: 2 }}>
-          {movieCardList}
-        </SimpleGrid>
+        {movieCardList.length > 0 ? (
+          <SimpleGrid columns={{ base: 2, md: 4 }} spacing={{ base: 2, lg: 2 }}>
+            {movieCardList}
+          </SimpleGrid>
+        ) : (
+          <Text fontSize={"xl"}>Aucun film</Text>
+        )}
       </Box>
     </Container>
   );

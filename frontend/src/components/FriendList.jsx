@@ -62,6 +62,7 @@ export default function FriendList({ following, followers }) {
         search={searchFollowing}
         setSearch={setSearchFollowing}
         cardList={followingCardList}
+        placeholder={"Aucun utilisateur"}
       />
       <UserList
         title={"Followers"}
@@ -69,6 +70,7 @@ export default function FriendList({ following, followers }) {
         search={searchFollowers}
         setSearch={setSearchFollowers}
         cardList={followersCardList}
+        placeholder={"Aucun utilisateur"}
       />
     </HStack>
   );

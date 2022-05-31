@@ -7,12 +7,20 @@ import {
   InputLeftElement,
   Input,
   HStack,
+  Center,
 } from "@chakra-ui/react";
 import { React } from "react";
 
 import { SearchIcon } from "@chakra-ui/icons";
 
-export default function UserList({ title, list, search, setSearch, cardList }) {
+export default function UserList({
+  title,
+  list,
+  search,
+  setSearch,
+  cardList,
+  placeholder,
+}) {
   return (
     <Container width={"600px"} heigth={"240px"}>
       <HStack>
@@ -50,12 +58,18 @@ export default function UserList({ title, list, search, setSearch, cardList }) {
         textAlign={"center"}
         overflowY="scroll"
       >
-        <SimpleGrid
-          columns={{ base: 1, md: 2, lg: 4 }}
-          spacing={{ base: 2, lg: 2 }}
-        >
-          {cardList}
-        </SimpleGrid>
+        {cardList.length > 0 ? (
+          <SimpleGrid
+            columns={{ base: 1, md: 2, lg: 4 }}
+            spacing={{ base: 2, lg: 2 }}
+          >
+            {cardList}
+          </SimpleGrid>
+        ) : (
+          <Center>
+            <Text fontSize={"xl"}>{placeholder}</Text>
+          </Center>
+        )}
       </Box>
     </Container>
   );
