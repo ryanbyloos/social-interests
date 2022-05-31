@@ -6,6 +6,14 @@ var bcrypt = require("bcrypt");
 
 exports.signup = async (req, res) => {
   const { username, password } = req.body;
+  try {
+    const existingUser = await User.findOne({ username });
+    if (existingUser) {
+      return res.status(409).json({ message: "Username already exists" });
+    }
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
+  }
   if (username.match(/^[a-zA-Z0-9_]{3,20}$/) !== null && password.length >= 8) {
     try {
       await User.create({

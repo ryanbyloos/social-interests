@@ -25,6 +25,9 @@ exports.signUp = async (username, password) => {
   });
   if (res.status === 200) {
     return res.json();
+  } else if (res.status === 409) {
+    alert("Nom d'utilisateur déjà pris");
+    throw new Error("Nom d'utilisateur déjà pris");
   }
   throw new Error(res.statusText);
 };
