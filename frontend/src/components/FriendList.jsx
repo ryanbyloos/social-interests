@@ -11,7 +11,7 @@ import {
   HStack,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect, React } from "react";
+import { useState, useLayoutEffect, React } from "react";
 
 import { getUserByName, getUserById } from "../api/userAPI";
 import { SearchIcon } from "@chakra-ui/icons";
@@ -42,9 +42,10 @@ function FriendCard({ name, pic }) {
 }
 
 export default function FriendList({ following, followers }) {
-  let [search, setSearch] = useState("");
-  let [followingCardList, setFollowingCardList] = useState([]);
-  let [followersCardList, setFollowersCardList] = useState([]);
+  const [searchFollowing, setSearchFollowing] = useState("");
+  const [searchFollowers, setSearchFollowers] = useState("");
+  const [followingCardList, setFollowingCardList] = useState([]);
+  const [followersCardList, setFollowersCardList] = useState([]);
 
   const updateFriends = () => {
     setFollowersCardList([]);
@@ -52,26 +53,42 @@ export default function FriendList({ following, followers }) {
     for (let index = 0; index < following.length; index++) {
       const friendId = following[index];
       getUserById(friendId).then((data) => {
-        setFollowingCardList((friendCardList) => [
-          ...friendCardList,
-          <FriendCard name={data.username} pic={data.avatar} key={data._id} />,
-        ]);
+        if (
+          data.username.toLowerCase().includes(searchFollowing.toLowerCase())
+        ) {
+          setFollowingCardList((friendCardList) => [
+            ...friendCardList,
+            <FriendCard
+              name={data.username}
+              pic={data.avatar}
+              key={data._id}
+            />,
+          ]);
+        }
       });
     }
     for (let index = 0; index < followers.length; index++) {
       const friendId = followers[index];
       getUserById(friendId).then((data) => {
-        setFollowersCardList((friendCardList) => [
-          ...friendCardList,
-          <FriendCard name={data.username} pic={data.avatar} key={data._id} />,
-        ]);
+        if (
+          data.username.toLowerCase().includes(searchFollowers.toLowerCase())
+        ) {
+          setFollowersCardList((friendCardList) => [
+            ...friendCardList,
+            <FriendCard
+              name={data.username}
+              pic={data.avatar}
+              key={data._id}
+            />,
+          ]);
+        }
       });
     }
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     updateFriends();
-  }, [following, followers]);
+  }, [following, followers, searchFollowing, searchFollowers]);
 
   return (
     <HStack width={"80%"} maxW={"900px"}>
@@ -97,8 +114,8 @@ export default function FriendList({ following, followers }) {
           <Input
             type="tel"
             placeholder="Chercher un ami"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            value={searchFollowing}
+            onChange={(e) => setSearchFollowing(e.target.value)}
           />
         </InputGroup>
         <Box
@@ -139,8 +156,8 @@ export default function FriendList({ following, followers }) {
           <Input
             type="tel"
             placeholder="Chercher un ami"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            value={searchFollowers}
+            onChange={(e) => setSearchFollowers(e.target.value)}
           />
         </InputGroup>
         <Box

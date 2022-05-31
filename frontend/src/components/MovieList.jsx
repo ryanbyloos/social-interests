@@ -62,17 +62,19 @@ export default function MovieList({ movies }) {
       console.log("movies[index]", movies[index]);
       const movieId = movies[index];
       getMovies(movieId).then((data) => {
-        setMovieCardList((movieCardList) => [
-          ...movieCardList,
-          <MovieCard name={data.title} pic={data.image} key={data.title} />,
-        ]);
+        if (data.title.toLowerCase().includes(search.toLowerCase())) {
+          setMovieCardList((movieCardList) => [
+            ...movieCardList,
+            <MovieCard name={data.title} pic={data.image} key={data.title} />,
+          ]);
+        }
       });
     }
   };
 
   useEffect(() => {
     updateMovies();
-  }, [movies]);
+  }, [movies, search]);
 
   return (
     <Container maxW={"900px"} maxH={"270px"}>

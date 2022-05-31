@@ -40,7 +40,7 @@ function BookCard({ name, author, pic, id, refresh, setRefresh }) {
           color: "red.500",
         }}
         onClick={() => {
-          handleDeleteBook(id)
+          handleDeleteBook(id);
         }}
       />
       <Container centerContent>
@@ -70,25 +70,27 @@ export default function BookList({ books }) {
     for (let index = 0; index < books.length; index++) {
       const bookId = books[index];
       getBooks(bookId).then((data) => {
-        setBookCardList((bookCardList) => [
-          ...bookCardList,
-          <BookCard
-            name={data.title}
-            author={data.author[0]}
-            pic={data.image}
-            id={data._id}
-            key={data.title}
-            setRefresh={setRefresh}
-            refresh={refresh}
-          />,
-        ]);
+        if (data.title.toLowerCase().includes(search.toLowerCase())) {
+          setBookCardList((bookCardList) => [
+            ...bookCardList,
+            <BookCard
+              name={data.title}
+              author={data.author[0]}
+              pic={data.image}
+              id={data._id}
+              key={data.title}
+              setRefresh={setRefresh}
+              refresh={refresh}
+            />,
+          ]);
+        }
       });
     }
   };
 
   useEffect(() => {
     updateBooks();
-  }, [books, refresh]);
+  }, [books, refresh, search]);
 
   return (
     <Container maxW={"900px"} maxH={"270px"}>
