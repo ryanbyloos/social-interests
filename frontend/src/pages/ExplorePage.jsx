@@ -221,6 +221,9 @@ function ExplorePage() {
 
   useEffect(() => {
     updateSuggestions();
+    if (!("token" in localStorage)) {
+      navigate("/");
+    }
   }, []);
 
   return (

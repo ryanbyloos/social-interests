@@ -7,6 +7,7 @@ import FriendList from "../components/FriendList";
 import BookList from "../components/BookList";
 import Footer from "../components/Footer";
 import MovieList from "../components/MovieList";
+import { useNavigate } from "react-router-dom";
 
 import { getUserById, whoami } from "../api/userAPI";
 
@@ -14,6 +15,8 @@ function ProfilePage() {
   const { id } = useParams();
   const [myProfile, setMyProfile] = React.useState(false);
   const [refresh, setRefresh] = React.useState(false);
+
+  const navigate = useNavigate();
 
   const [user, setUser] = React.useState({
     id: "",
@@ -46,6 +49,12 @@ function ProfilePage() {
   React.useEffect(() => {
     getUser();
   }, [id, refresh]);
+
+  React.useEffect(() => {
+    if (!("token" in localStorage)) {
+      navigate("/");
+    }
+  }, []);
 
   return (
     <>

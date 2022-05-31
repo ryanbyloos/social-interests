@@ -13,10 +13,12 @@ import {
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { getAllUsers, deleteUser } from "../api/userAPI";
+import { useNavigate } from "react-router-dom";
 
 function MyProfilePage() {
   const [tr, setTr] = React.useState([]);
   const [refresh, setRefresh] = React.useState(false);
+  const navigate = useNavigate();
 
   const handleClick = (id) => {
     setRefresh(!refresh);
@@ -39,6 +41,12 @@ function MyProfilePage() {
       });
     });
   }, [refresh]);
+
+  React.useEffect(() => {
+    if (!("token" in localStorage)) {
+      navigate("/");
+    }
+  }, []);
 
   return (
     <>

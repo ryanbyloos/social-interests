@@ -6,20 +6,20 @@ var bcrypt = require("bcrypt");
 
 exports.signup = async (req, res) => {
   const { username, password } = req.body;
-  if (!username || !password) {
-    return res.status(400).send({ message: "Username or password is empty" });
-  }
-
-  try {
-    await User.create({
-      username,
-      password: bcrypt.hashSync(password, 8),
-      roles: [await Role.findOne({ name: "user" })],
-      bio: "",
-    });
-    res.send({ message: "User created successfully" });
-  } catch (err) {
-    res.status(500).send({ message: err.message });
+  if (username.match(/^[a-zA-Z0-9_]{3,20}$/) !== null && password.length >= 8) {
+    try {
+      await User.create({
+        username,
+        password: bcrypt.hashSync(password, 8),
+        roles: [await Role.findOne({ name: "user" })],
+        bio: "",
+      });
+      res.send({ message: "User created successfully" });
+    } catch (err) {
+      res.status(500).send({ message: err.message });
+    }
+  } else {
+    res.status(400).send({ message: "Username or password is invalid" });
   }
 };
 
@@ -29,7 +29,7 @@ exports.signin = async (req, res) => {
   })
     .then((user) => {
       if (!user) {
-        return res.status(404).send({ message: "User not found" });
+        return res.status(401).send({ message: "Invalid credentials" });
       }
       if (bcrypt.compareSync(req.body.password, user.password)) {
         const token = jwt.sign(
@@ -50,7 +50,7 @@ exports.signin = async (req, res) => {
           username: user.username,
         });
       } else {
-        return res.status(401).send({ message: "Invalid password" });
+        return res.status(401).send({ message: "Invalid credentials" });
       }
     })
     .catch((err) => {

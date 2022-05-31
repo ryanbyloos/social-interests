@@ -22,10 +22,17 @@ export default function SimpleCard() {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    logIn(username, password).then((data) => {
-      localStorage.setItem("token", data.token);
-      navigate(`/u/${data.userId}`);
-    });
+    if (
+      username.match(/^[a-zA-Z0-9_]{3,20}$/) !== null &&
+      password.length >= 8
+    ) {
+      logIn(username, password).then((data) => {
+        localStorage.setItem("token", data.token);
+        navigate(`/u/${data.userId}`);
+      });
+    } else {
+      alert("Nom d'utilisateur ou mot de passe invalide");
+    }
   };
 
   return (

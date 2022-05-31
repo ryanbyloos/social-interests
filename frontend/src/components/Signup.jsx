@@ -3,6 +3,7 @@ import {
   Box,
   FormControl,
   FormLabel,
+  FormHelperText,
   Input,
   InputGroup,
   InputRightElement,
@@ -23,9 +24,16 @@ export default function SignupCard() {
 
   const handleSignup = (e) => {
     e.preventDefault();
-    signUp(username, password).then((data) => {
-      navigate(`/`);
-    });
+    if (
+      username.match(/^[a-zA-Z0-9_]{3,20}$/) !== null &&
+      password.length >= 8
+    ) {
+      signUp(username, password).then((data) => {
+        navigate(`/`);
+      });
+    } else {
+      alert("Nom d'utilisateur ou mot de passe invalide");
+    }
   };
 
   return (
@@ -45,6 +53,11 @@ export default function SignupCard() {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
+              <FormHelperText>
+                Le nom d'utilisateur doit être unique et ne peut contenir que
+                des lettres, des chiffres et des tirets bas. Il ne peut contenir
+                qu'entre 3 et 20 caractères.
+              </FormHelperText>
             </FormControl>
             <FormControl id="password" isRequired>
               <FormLabel>Mot de passe</FormLabel>
@@ -65,6 +78,9 @@ export default function SignupCard() {
                   </Button>
                 </InputRightElement>
               </InputGroup>
+              <FormHelperText>
+                Le mot de passe doit contenir au moins 8 caractères.
+              </FormHelperText>
             </FormControl>
             <Stack spacing={10} pt={2}>
               <Button shadow={"md"} onClick={(e) => handleSignup(e)}>
