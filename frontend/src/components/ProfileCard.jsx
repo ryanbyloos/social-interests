@@ -5,9 +5,14 @@ import { useParams } from "react-router-dom";
 import { whoami, addFriend, hasFriend, removeFriend } from "../api/userAPI";
 import { useLocation } from "react-router-dom";
 
-export default function ProfileCard({ username, bio, myProfile }) {
+export default function ProfileCard({
+  username,
+  bio,
+  myProfile,
+  refresh,
+  setRefresh,
+}) {
   const [friendButton, setFriendButton] = useState(null);
-  const [refresh, setRefresh] = useState(false);
   const location = useLocation();
 
   const { id } = useParams();
@@ -41,13 +46,21 @@ export default function ProfileCard({ username, bio, myProfile }) {
         console.log("res", res);
         if (res) {
           return (
-            <Button onClick={() => handleRemoveFriend(friendId)}>
+            <Button
+              marginTop={".5em"}
+              onClick={() => handleRemoveFriend(friendId)}
+            >
               Arrêter de suivre
             </Button>
           );
         } else {
           return (
-            <Button onClick={() => handleAddFriend(friendId)}>Suivre</Button>
+            <Button
+              marginTop={".5em"}
+              onClick={() => handleAddFriend(friendId)}
+            >
+              Suivre
+            </Button>
           );
         }
       })

@@ -26,9 +26,8 @@ function FriendCard({ name, pic }) {
     });
   }
   return (
-    <Box width={"6em"} shadow={"md"} rounded={"lg"}>
+    <Box shadow={"md"} rounded={"lg"}>
       <Avatar
-        size={"lg"}
         src={pic}
         alt={"Avatar Alt"}
         mb={4}
@@ -129,7 +128,10 @@ export default function FriendList({ following, followers }) {
           textAlign={"center"}
           overflowY="scroll"
         >
-          <SimpleGrid minChildWidth={"5.6em"} spacing={1}>
+          <SimpleGrid
+            columns={{ base: 1, md: 2, lg: 4 }}
+            spacing={{ base: 2, lg: 2 }}
+          >
             {followingCardList}
           </SimpleGrid>
         </Box>
@@ -171,7 +173,10 @@ export default function FriendList({ following, followers }) {
           textAlign={"center"}
           overflowY="scroll"
         >
-          <SimpleGrid minChildWidth={"5.6em"} spacing={1}>
+          <SimpleGrid
+            columns={{ base: 1, md: 2, lg: 4 }}
+            spacing={{ base: 2, lg: 2 }}
+          >
             {followersCardList}
           </SimpleGrid>
         </Box>

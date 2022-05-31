@@ -65,6 +65,8 @@ function ProfilePage() {
             username={user.userName}
             bio={user.bio}
             myProfile={myProfile}
+            refresh={refresh}
+            setRefresh={setRefresh}
           />
         </Box>
         <VStack spacing={16}>

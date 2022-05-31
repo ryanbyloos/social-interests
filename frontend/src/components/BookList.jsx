@@ -9,6 +9,7 @@ import {
   Input,
   CloseButton,
   HStack,
+  Tooltip,
 } from "@chakra-ui/react";
 
 import { getBooks, removeBook, whoami } from "../api/userAPI";
@@ -17,7 +18,13 @@ import { SearchIcon } from "@chakra-ui/icons";
 
 function BookCard({ name, author, pic, id, handleDeleteBook }) {
   return (
-    <Box px={{ base: 2, md: 4 }} py={"5"} shadow={"md"} rounded={"lg"}>
+    <Box
+      px={{ base: 2, md: 4 }}
+      py={"5"}
+      shadow={"md"}
+      rounded={"lg"}
+      // width={"12em"}
+    >
       <CloseButton
         float={"right"}
         size="sm"
@@ -37,7 +44,11 @@ function BookCard({ name, author, pic, id, handleDeleteBook }) {
           mb={4}
           pos={"relative"}
         ></Image>
-        <Text>{name}</Text>
+        <Tooltip hasArrow label={name}>
+          <Text>
+            {name.length <= 20 ? name : name.substring(0, 17) + "..."}
+          </Text>
+        </Tooltip>
         <Text fontSize={"xs"} color={"gray.500"}>
           {author}
         </Text>
@@ -83,7 +94,7 @@ export default function BookList({ books, refresh, setRefresh }) {
   }, [books, search]);
 
   return (
-    <Container maxW={"900px"} maxH={"270px"}>
+    <Container maxW={"900px"}>
       <HStack>
         <Text
           fontSize={"2xl"}
@@ -111,7 +122,7 @@ export default function BookList({ books, refresh, setRefresh }) {
       </InputGroup>
       <Box
         maxW={"900px"}
-        maxH={"230px"}
+        height={"300px"}
         w={"full"}
         bg={"white"}
         boxShadow={"md"}
@@ -120,7 +131,7 @@ export default function BookList({ books, refresh, setRefresh }) {
         textAlign={"center"}
         overflowY="scroll"
       >
-        <SimpleGrid columns={{ base: 4, md: 6 }} spacing={{ base: 2, lg: 2 }}>
+        <SimpleGrid columns={{ base: 2, md: 4 }} spacing={{ base: 2, lg: 2 }}>
           {bookCardList}
         </SimpleGrid>
       </Box>
