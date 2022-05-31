@@ -10,40 +10,20 @@ import {
   CloseButton,
   HStack,
 } from "@chakra-ui/react";
-
 import { SearchIcon } from "@chakra-ui/icons";
-
-import { getMovies, removeMovie, whoami } from "../api/userAPI";
-
 import { useState, useEffect, React } from "react";
+import { getMovies, removeMovie, whoami } from "../api/userAPI";
+import ItemCard from "./ItemCard";
 
-function MovieCard({ name, id, handleDeleteMovie }) {
+function MovieCard({ name, author, id, handleDeleteMovie }) {
   return (
-    <Box px={{ base: 2, md: 4 }} py={"5"} shadow={"md"} rounded={"lg"}>
-      <CloseButton
-        float={"right"}
-        size="sm"
-        color={"gray.300"}
-        _hover={{
-          color: "red.500",
-        }}
-        onClick={() => {
-          handleDeleteMovie(id);
-        }}
-      />
-      <Container centerContent>
-        <Image
-          size={"md"}
-          src={`${window.location.origin}/movieplaceholder.png`}
-          alt={"Book Alt"}
-          mb={4}
-          pos={"relative"}
-        />
-        <Box>
-          <Text>{name}</Text>
-        </Box>
-      </Container>
-    </Box>
+    <ItemCard
+      name={name}
+      author={author}
+      pic={`${window.location.origin}/movieplaceholder.png`}
+      id={id}
+      handleDelete={handleDeleteMovie}
+    />
   );
 }
 
@@ -69,6 +49,7 @@ export default function MovieList({ movies, refresh, setRefresh }) {
             ...movieCardList,
             <MovieCard
               name={data.title}
+              author={data.author[0]}
               id={data._id}
               key={data.title}
               handleDeleteMovie={handleDeleteMovie}
@@ -84,7 +65,7 @@ export default function MovieList({ movies, refresh, setRefresh }) {
   }, [movies, search]);
 
   return (
-    <Container maxW={"900px"} maxH={"270px"}>
+    <Container maxW={"900px"}>
       <HStack>
         <Text
           fontSize={"2xl"}
@@ -112,7 +93,7 @@ export default function MovieList({ movies, refresh, setRefresh }) {
       </InputGroup>
       <Box
         maxW={"900px"}
-        maxH={"210px"}
+        height={"300px"}
         w={"full"}
         bg={"white"}
         boxShadow={"md"}
@@ -121,7 +102,7 @@ export default function MovieList({ movies, refresh, setRefresh }) {
         textAlign={"center"}
         overflowY="scroll"
       >
-        <SimpleGrid columns={{ base: 4, md: 6 }} spacing={{ base: 2, lg: 2 }}>
+        <SimpleGrid columns={{ base: 2, md: 4 }} spacing={{ base: 2, lg: 2 }}>
           {movieCardList}
         </SimpleGrid>
       </Box>

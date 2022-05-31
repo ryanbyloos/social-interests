@@ -1,59 +1,28 @@
 import {
   Box,
   SimpleGrid,
-  Image,
   Container,
   Text,
   InputGroup,
   InputLeftElement,
   Input,
-  CloseButton,
   HStack,
-  Tooltip,
 } from "@chakra-ui/react";
 
-import { getBooks, removeBook, whoami } from "../api/userAPI";
 import { useState, useEffect, React } from "react";
 import { SearchIcon } from "@chakra-ui/icons";
+import { getBooks, removeBook, whoami } from "../api/userAPI";
+import ItemCard from "./ItemCard";
 
 function BookCard({ name, author, pic, id, handleDeleteBook }) {
   return (
-    <Box
-      px={{ base: 2, md: 4 }}
-      py={"5"}
-      shadow={"md"}
-      rounded={"lg"}
-      // width={"12em"}
-    >
-      <CloseButton
-        float={"right"}
-        size="sm"
-        color={"gray.300"}
-        _hover={{
-          color: "red.500",
-        }}
-        onClick={() => {
-          handleDeleteBook(id);
-        }}
-      />
-      <Container centerContent>
-        <Image
-          size={"md"}
-          src={`https://covers.openlibrary.org/b/id/${pic}-S.jpg`}
-          alt={"Book Alt"}
-          mb={4}
-          pos={"relative"}
-        ></Image>
-        <Tooltip hasArrow label={name}>
-          <Text>
-            {name.length <= 20 ? name : name.substring(0, 17) + "..."}
-          </Text>
-        </Tooltip>
-        <Text fontSize={"xs"} color={"gray.500"}>
-          {author}
-        </Text>
-      </Container>
-    </Box>
+    <ItemCard
+      name={name}
+      author={author}
+      pic={`https://covers.openlibrary.org/b/id/${pic}-S.jpg`}
+      id={id}
+      handleDelete={handleDeleteBook}
+    />
   );
 }
 

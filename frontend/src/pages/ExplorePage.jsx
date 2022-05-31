@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  Box,
   VStack,
   Input,
   Spacer,
@@ -36,6 +35,8 @@ import {
 } from "../api/userAPI";
 import { getBookByName } from "../api/bookAPI";
 import { getMovieByName } from "../api/movieAPI";
+import FriendCard from "../components/FriendCard";
+import UserList from "../components/UserList";
 import { useNavigate } from "react-router-dom";
 
 function ExplorePage() {
@@ -92,10 +93,16 @@ function ExplorePage() {
         res.map((user) => {
           setSuggestions((prev) => [
             ...prev,
-            <Tr key={user.id}>
-              <Td>{user.username}</Td>
-              <Td>{user.similarity}</Td>
-            </Tr>,
+            // <Tr key={user.id}>
+            //   <Td>{user.username}</Td>
+            //   <Td>{user.similarity}</Td>
+            // </Tr>,
+            <FriendCard
+              name={user.username}
+              pic={""}
+              similarity={user.similarity}
+              key={user.id}
+            />,
           ]);
         });
       });
@@ -231,18 +238,11 @@ function ExplorePage() {
       <Navbar />
       <>
         <VStack paddingTop="15vh">
-          <Text fontSize={"xl"}>Suggestions</Text>
-          <TableContainer>
-            <Table variant="stripped" size="sm">
-              <Thead>
-                <Tr>
-                  <Th>Utilisateurs</Th>
-                  <Th>Score de similarité</Th>
-                </Tr>
-              </Thead>
-              <Tbody>{suggestions}</Tbody>
-            </Table>
-          </TableContainer>
+          <UserList
+            title="Suggestions"
+            list={suggestions}
+            cardList={suggestions}
+          />
           <Spacer />
           <HStack textAlign="center" fontSize="md" paddingTop={"4em"}>
             <Menu>
@@ -277,7 +277,7 @@ function ExplorePage() {
               </MenuList>
             </Menu>
             <Input
-              placeholder="Cherchez ..."
+              placeholder="Chercher ..."
               size="lg"
               shadow={"md"}
               value={search}
