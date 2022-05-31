@@ -1,6 +1,5 @@
 const db = require("../models");
 const User = db.user;
-var jwt = require("jsonwebtoken");
 var bcrypt = require("bcrypt");
 
 exports.getUser = async (req, res) => {
@@ -345,5 +344,4 @@ exports.getTenMostSimilar = async (req, res) => {
   } catch (err) {
     res.status(500).send({ message: "Similarity computation failed" });
   }
-}
-  
+};
