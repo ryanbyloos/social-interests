@@ -1,5 +1,7 @@
 FROM node:alpine
 
+ENV API_HOST=$API_HOST
+
 COPY . /usr/src/app
 WORKDIR /usr/src/app
 
