@@ -1,5 +1,7 @@
-exports.logIn = async (username, password) => {
-  const res = await fetch(`http://localhost:8080/api/auth/signin`, {
+import { API_HOST } from "./userAPI";
+
+export async function logIn(username, password) {
+  const res = await fetch(`${API_HOST}/api/auth/signin`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -13,10 +15,10 @@ exports.logIn = async (username, password) => {
     throw new Error("Nom d'utilisateur ou mot de passe incorrect");
   }
   throw new Error(res.statusText);
-};
+}
 
-exports.signUp = async (username, password) => {
-  const res = await fetch(`http://localhost:8080/api/auth/signup`, {
+export async function signUp(username, password) {
+  const res = await fetch(`${API_HOST}/api/auth/signup`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -30,4 +32,4 @@ exports.signUp = async (username, password) => {
     throw new Error("Nom d'utilisateur déjà pris");
   }
   throw new Error(res.statusText);
-};
+}
