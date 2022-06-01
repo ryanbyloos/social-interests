@@ -35,6 +35,5 @@ services:
       dockerfile: ./Dockerfile
     environment:
       PORT: 3000
-      REACT_APP_API_HOST: http://webtechno-backend:8080
     ports:
       - 3000:3000
