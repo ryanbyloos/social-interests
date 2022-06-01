@@ -1,11 +1,5 @@
 FROM node:alpine
 
-# ARG MONGODB_URI
-# ARG FRONTEND_URL
-
-# ENV MONGODB_URI=$MONGODB_URI
-# ENV FRONTEND_URL=$FRONTEND_URL
-
 COPY . /usr/src/app
 WORKDIR /usr/src/app
 
