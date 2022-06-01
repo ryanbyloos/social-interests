@@ -24,7 +24,7 @@ services:
     environment:
       PORT: 8080
       MONGODB_URI: mongodb://db:27017/social
-      FRONTEND_URL: http://nginx:80
+      FRONTEND_URL: http://frontend:3000
     ports:
       - 8080:8080
     depends_on:
