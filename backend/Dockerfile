@@ -1,6 +1,6 @@
-FROM node:17.6.0-alpine
+FROM node:alpine
 
-COPY ./backend /usr/src/app
+COPY . /usr/src/app
 WORKDIR /usr/src/app
 
 RUN npm install
