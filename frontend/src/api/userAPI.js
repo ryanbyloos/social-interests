@@ -212,6 +212,50 @@ export async function removeBook(id, bookId) {
   throw new Error(res.statusText);
 }
 
+export async function hasBook(id, bookId) {
+  return fetch(`${API_HOST}/api/user/${id}/books/${bookId}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "x-access-token": localStorage.getItem("token"),
+    },
+  })
+    .then((res) => {
+      return res.text();
+    })
+    .then((res) => {
+      if (res === "true") {
+        return true;
+      }
+      return false;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+export async function hasMovie(id, movieId) {
+  return fetch(`${API_HOST}/api/user/${id}/movies/${movieId}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "x-access-token": localStorage.getItem("token"),
+    },
+  })
+    .then((res) => {
+      return res.text();
+    })
+    .then((res) => {
+      if (res === "true") {
+        return true;
+      }
+      return false;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
 export async function getMovies(id) {
   console.log("getMovies");
   const res = await fetch(`${API_HOST}/api/movie?id=${id}`, {

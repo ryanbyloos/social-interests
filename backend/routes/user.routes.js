@@ -13,6 +13,8 @@ module.exports = (app) => {
   app.get("/api/user/:id/friends/:friendId", controller.areFriends);
   app.get("/api/user/:id/books", controller.getUserBooks);
   app.get("/api/user/:id/movies", controller.getUserMovies);
+  app.get("/api/user/:id/books/:bookId", controller.hasBook);
+  app.get("/api/user/:id/movies/:movieId", controller.hasMovie);
 
   app.get("/api/user/similarity", controller.getSimilarity);
   app.get("/api/user/mostsimilar", controller.getTenMostSimilar);

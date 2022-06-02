@@ -233,6 +233,40 @@ exports.deleteMovie = async (req, res) => {
   }
 };
 
+exports.hasBook = async (req, res) => {
+  try {
+    const user = await User.findOne({
+      _id: req.params.id,
+    });
+    if (!user) {
+      return res.status(404).send({ message: "User not found" });
+    }
+    const hasBook = user.books.some((book) =>
+      book._id.equals(req.params.bookId)
+    );
+    res.status(200).send(hasBook);
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+};
+
+exports.hasMovie = async (req, res) => {
+  try {
+    const user = await User.findOne({
+      _id: req.params.id,
+    });
+    if (!user) {
+      return res.status(404).send({ message: "User not found" });
+    }
+    const hasMovie = user.movies.some((movie) =>
+      movie._id.equals(req.params.movieId)
+    );
+    res.status(200).send(hasMovie);
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+};
+
 exports.deleteFriend = async (req, res) => {
   try {
     const user = await User.findOne({

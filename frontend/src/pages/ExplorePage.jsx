@@ -29,6 +29,8 @@ import {
   getMostSimilar,
   addFriend,
   hasFriend,
+  hasBook,
+  hasMovie,
   whoami,
   addBook,
   addMovie,
@@ -81,6 +83,16 @@ function ExplorePage() {
     return res;
   };
 
+  const handleHasBook = async (id, bookId) => {
+    const res = await hasBook(id, bookId);
+    return res;
+  };
+
+  const handleHasMovie = async (id, movieId) => {
+    const res = await hasMovie(id, movieId);
+    return res;
+  };
+
   const handleSimilarity = async (id, friendId) => {
     const res = await getSimilarity(id, friendId);
     return res.result;
@@ -93,10 +105,6 @@ function ExplorePage() {
         res.map((user) => {
           setSuggestions((prev) => [
             ...prev,
-            // <Tr key={user.id}>
-            //   <Td>{user.username}</Td>
-            //   <Td>{user.similarity}</Td>
-            // </Tr>,
             <FriendCard
               name={user.username}
               pic={""}
@@ -110,13 +118,13 @@ function ExplorePage() {
   };
 
   const updateResults = () => {
-    if (filter === "Utilisateurs") {
-      whoami()
-        .then((user) => {
-          return user;
-        })
-        .then((me) => {
-          setResults([]);
+    whoami()
+      .then((user) => {
+        return user;
+      })
+      .then((me) => {
+        setResults([]);
+        if (filter === "Utilisateurs") {
           getAllUsers().then((res) => {
             res.map((user) => {
               handleHasFriend(me.userId, user._id).then((res) => {
@@ -150,76 +158,85 @@ function ExplorePage() {
               });
             });
           });
-        });
-    } else if (filter === "Livres" && search !== "") {
-      getBookByName(search).then((res) => {
-        setResults([]);
-        console.log(res);
-        res.map((book) => {
-          setResults((results) => [
-            ...results,
-            <Tr key={book._id}>
-              <Td>
-                <Image
-                  src={`https://covers.openlibrary.org/b/id/${book.image}-S.jpg`}
-                  alt={book.title}
-                />
-              </Td>
-              <Td>
-                {book.title.length > 40
-                  ? book.title.substring(0, 36) + "..."
-                  : book.title}
-              </Td>
-              <Td>
-                {book.author.length < 1
-                  ? ""
-                  : book.author[0].length > 24
-                  ? book.author[0].substring(0, 20) + "..."
-                  : book.author[0]}
-              </Td>
-              <Td>
-                <Button onClick={() => handleAddBook(book._id)}>
-                  <AddIcon />
-                </Button>
-              </Td>
-            </Tr>,
-          ]);
-        });
+        } else if (filter === "Livres" && search !== "") {
+          getBookByName(search).then((res) => {
+            res.map((book) => {
+              handleHasBook(me.userId, book._id).then((hasBook) => {
+                setResults((results) => [
+                  ...results,
+                  <Tr key={book._id}>
+                    <Td>
+                      <Image
+                        src={`https://covers.openlibrary.org/b/id/${book.image}-S.jpg`}
+                        alt={book.title}
+                      />
+                    </Td>
+                    <Td>
+                      {book.title.length > 40
+                        ? book.title.substring(0, 36) + "..."
+                        : book.title}
+                    </Td>
+                    <Td>
+                      {book.author.length < 1
+                        ? ""
+                        : book.author[0].length > 24
+                        ? book.author[0].substring(0, 20) + "..."
+                        : book.author[0]}
+                    </Td>
+                    <Td>
+                      {!hasBook ? (
+                        <Button onClick={() => handleAddBook(book._id)}>
+                          <AddIcon />
+                        </Button>
+                      ) : (
+                        <Text>Déjà ajouté</Text>
+                      )}
+                    </Td>
+                  </Tr>,
+                ]);
+              });
+            });
+          });
+        } else if (filter === "Films" && search !== "") {
+          getMovieByName(search).then((res) => {
+            res.map((movie) => {
+              handleHasMovie(me.userId, movie._id).then((hasMovie) => {
+                setResults((results) => [
+                  ...results,
+                  <Tr key={movie._id}>
+                    <Td>
+                      <Image
+                        src={`movieplaceholder.png`}
+                        maxWidth="48px"
+                        alt={movie.title}
+                      />
+                    </Td>
+                    <Td>
+                      {movie.title.length > 40
+                        ? movie.title.substring(0, 36) + "..."
+                        : movie.title}
+                    </Td>
+                    <Td>
+                      {movie.author[0] > 30
+                        ? movie.author[0].substring(0, 36) + "..."
+                        : movie.author[0]}
+                    </Td>
+                    <Td>
+                      {!hasMovie ? (
+                        <Button onClick={() => handleAddMovie(movie._id)}>
+                          <AddIcon />
+                        </Button>
+                      ) : (
+                        <Text>Déjà ajouté</Text>
+                      )}
+                    </Td>
+                  </Tr>,
+                ]);
+              });
+            });
+          });
+        }
       });
-    } else if (filter === "Films" && search !== "") {
-      getMovieByName(search).then((res) => {
-        setResults([]);
-        res.map((movie) => {
-          setResults((results) => [
-            ...results,
-            <Tr key={movie._id}>
-              <Td>
-                <Image
-                  src={`movieplaceholder.png`}
-                  maxWidth="48px"
-                  alt={movie.title}
-                />
-              </Td>
-              <Td>
-                {movie.title.length > 40
-                  ? movie.title.substring(0, 36) + "..."
-                  : movie.title}
-              </Td>
-              <Td>
-                {movie.author[0] > 30
-                  ? movie.author[0].substring(0, 36) + "..."
-                  : movie.author[0]}
-              </Td>
-              <Td>
-                <Button onClick={() => handleAddMovie(movie._id)}>
-                  <AddIcon />
-                </Button>
-              </Td>
-            </Tr>,
-          ]);
-        });
-      });
-    }
   };
 
   useLayoutEffect(() => {
