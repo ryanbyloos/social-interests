@@ -1,14 +1,1 @@
-{
-    "options": {},
-    "indexes": [
-        {
-            "v": 2,
-            "key": {
-                "_id": 1
-            },
-            "name": "_id_",
-            "ns": "social.movies"
-        }
-    ],
-    "uuid": "d87d5af975f84faca2b23fa53a2167b6"
-}
+{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"social.movies"}],"uuid":"b645cfa5add44fbfa247a602035d120e"}
