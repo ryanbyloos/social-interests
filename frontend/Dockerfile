@@ -11,6 +11,8 @@
 
 FROM nginx:alpine
 
+ENV PROXY_API=$PROXY_API
+
 COPY . /app
 WORKDIR /app
 
