@@ -15,7 +15,7 @@ import { SearchIcon } from "@chakra-ui/icons";
 import { getBooks, removeBook, whoami } from "../api/userAPI";
 import ItemCard from "./ItemCard";
 
-function BookCard({ name, author, pic, id, handleDeleteBook }) {
+function BookCard({ name, author, pic, id, handleDeleteBook, myProfile }) {
   return (
     <ItemCard
       name={name}
@@ -23,11 +23,12 @@ function BookCard({ name, author, pic, id, handleDeleteBook }) {
       pic={`https://covers.openlibrary.org/b/id/${pic}-S.jpg`}
       id={id}
       handleDelete={handleDeleteBook}
+      myProfile={myProfile}
     />
   );
 }
 
-export default function BookList({ books, refresh, setRefresh }) {
+export default function BookList({ books, refresh, setRefresh, myProfile }) {
   const [search, setSearch] = useState("");
   const [bookCardList, setBookCardList] = useState([]);
 
@@ -52,6 +53,7 @@ export default function BookList({ books, refresh, setRefresh }) {
               id={data._id}
               key={data.title}
               handleDeleteBook={handleDeleteBook}
+              myProfile={myProfile}
             />,
           ]);
         }

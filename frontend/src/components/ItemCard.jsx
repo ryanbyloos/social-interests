@@ -7,20 +7,29 @@ import {
   Tooltip,
 } from "@chakra-ui/react";
 
-export default function ItemCard({ name, author, pic, id, handleDelete }) {
+export default function ItemCard({
+  name,
+  author,
+  pic,
+  id,
+  handleDelete,
+  myProfile,
+}) {
   return (
     <Box px={{ base: 2, md: 4 }} py={"5"} shadow={"md"} rounded={"lg"}>
-      <CloseButton
-        float={"right"}
-        size="sm"
-        color={"gray.300"}
-        _hover={{
-          color: "red.500",
-        }}
-        onClick={() => {
-          handleDelete(id);
-        }}
-      />
+      {myProfile ? (
+        <CloseButton
+          float={"right"}
+          size="sm"
+          color={"gray.300"}
+          _hover={{
+            color: "red.500",
+          }}
+          onClick={() => {
+            handleDelete(id);
+          }}
+        />
+      ) : null}
       <Container centerContent>
         <Image
           size={"md"}

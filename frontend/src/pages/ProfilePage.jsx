@@ -76,11 +76,13 @@ function ProfilePage() {
             books={user.books}
             refresh={refresh}
             setRefresh={setRefresh}
+            myProfile={myProfile}
           />
           <MovieList
             movies={user.movies}
             refresh={refresh}
             setRefresh={setRefresh}
+            myProfile={myProfile}
           />
           <Footer />
         </VStack>

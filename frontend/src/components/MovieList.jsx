@@ -15,7 +15,7 @@ import { useState, useEffect, React } from "react";
 import { getMovies, removeMovie, whoami } from "../api/userAPI";
 import ItemCard from "./ItemCard";
 
-function MovieCard({ name, author, id, handleDeleteMovie }) {
+function MovieCard({ name, author, id, handleDeleteMovie, myProfile }) {
   return (
     <ItemCard
       name={name}
@@ -23,11 +23,12 @@ function MovieCard({ name, author, id, handleDeleteMovie }) {
       pic={`${window.location.origin}/movieplaceholder.png`}
       id={id}
       handleDelete={handleDeleteMovie}
+      myProfile={myProfile}
     />
   );
 }
 
-export default function MovieList({ movies, refresh, setRefresh }) {
+export default function MovieList({ movies, refresh, setRefresh, myProfile }) {
   let [search, setSearch] = useState("");
   let [movieCardList, setMovieCardList] = useState([]);
 
@@ -53,6 +54,7 @@ export default function MovieList({ movies, refresh, setRefresh }) {
               id={data._id}
               key={data.title}
               handleDeleteMovie={handleDeleteMovie}
+              myProfile={myProfile}
             />,
           ]);
         }
