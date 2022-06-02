@@ -16,7 +16,7 @@ To deploy the application on Docker, you have to install Docker and [Docker Comp
 Then :
 
 - Configure nginx to serve the application. A sample config file is provided in `./frontend/nginx/conf/frontend.conf`.
-- Modify the `config.js` in `./frontend/` to match your needs.
+- Modify the `config.js` in `./frontend/src/` to match your needs.
 - Modify the environment variables in `docker-compose.yml` to match your needs.
 - Launch `docker-compose up` to start the application.
 
