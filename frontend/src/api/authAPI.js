@@ -1,5 +1,11 @@
 import { API_HOST } from "../config";
 
+/**
+ * @description Post to the API endpoint to login the user
+ * @param {String} username
+ * @param {String} password
+ * @returns {Promise<any>}
+ */
 export async function logIn(username, password) {
   const res = await fetch(`${API_HOST}/api/auth/signin`, {
     method: "POST",
@@ -17,6 +23,12 @@ export async function logIn(username, password) {
   throw new Error(res.statusText);
 }
 
+/**
+ * @description Post to the API endpoint to register the user
+ * @param {String} username
+ * @param {String} password
+ * @returns {Promise<any>}
+ */
 export async function signUp(username, password) {
   const res = await fetch(`${API_HOST}/api/auth/signup`, {
     method: "POST",
@@ -34,6 +46,10 @@ export async function signUp(username, password) {
   throw new Error(res.statusText);
 }
 
+/**
+ * @description Get wether the user is an admin from the API endpoint
+ * @returns {Promise<String>}
+ */
 export async function isAdmin() {
   const res = await fetch(`${API_HOST}/api/role/isadmin`, {
     method: "GET",

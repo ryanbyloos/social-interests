@@ -12,7 +12,8 @@ import {
 
 import { useState, useEffect, React } from "react";
 import { SearchIcon } from "@chakra-ui/icons";
-import { getBooks, removeBook, whoami } from "../api/userAPI";
+import { removeBook, whoami } from "../api/userAPI";
+import { getBooks } from "../api/bookAPI";
 import ItemCard from "./ItemCard";
 
 function BookCard({ name, author, pic, id, handleDeleteBook, myProfile }) {

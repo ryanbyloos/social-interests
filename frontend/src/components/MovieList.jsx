@@ -10,7 +10,8 @@ import {
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import { useState, useEffect, React } from "react";
-import { getMovies, removeMovie, whoami } from "../api/userAPI";
+import { removeMovie, whoami } from "../api/userAPI";
+import { getMovies } from "../api/movieAPI";
 import ItemCard from "./ItemCard";
 
 function MovieCard({ name, author, id, handleDeleteMovie, myProfile }) {
