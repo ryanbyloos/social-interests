@@ -4,6 +4,10 @@ mongoose.Promise = global.Promise;
 
 const db = {};
 
+/**
+ * @description
+ * Initialize the database connector and
+ */
 db.mongoose = mongoose;
 db.user = require("./user.model");
 db.role = require("./role.model");

@@ -1,7 +1,13 @@
+const express = require("express");
 const db = require("../models");
 const Role = db.role;
 const jwt = require("jsonwebtoken");
 
+/**
+ * Get all the roles
+ * @param {express.Request} req
+ * @param {express.Response} res
+ */
 exports.getRoles = async (req, res) => {
   try {
     const roles = await Role.find({});
@@ -14,6 +20,11 @@ exports.getRoles = async (req, res) => {
   }
 };
 
+/**
+ * Get wether the user is an admin or not
+ * @param {express.Request} req
+ * @param {express.Response} res
+ */
 exports.isAdmin = async (req, res) => {
   const role = await Role.findOne({ name: "admin" });
   const token = req.headers["x-access-token"];

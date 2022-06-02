@@ -1,9 +1,15 @@
+const express = require("express");
 const db = require("../models");
 const User = db.user;
 const Role = db.role;
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcrypt");
 
+/**
+ * Create a new user when the user is registering
+ * @param {express.Request} req
+ * @param {express.Response} res
+ */
 exports.signup = async (req, res) => {
   const { username, password } = req.body;
   try {
@@ -31,6 +37,11 @@ exports.signup = async (req, res) => {
   }
 };
 
+/**
+ * Log a user in when the user is logging in
+ * @param {express.Request} req
+ * @param {express.Response} res
+ */
 exports.signin = async (req, res) => {
   User.findOne({
     username: req.body.username,
@@ -67,10 +78,20 @@ exports.signin = async (req, res) => {
     });
 };
 
+/**
+ * Log a user out when the user is logging out
+ * @param {express.Request} req
+ * @param {express.Response} res
+ */
 exports.signout = async (req, res) => {
   res.status(200).send({ message: "Signout successful" });
 };
 
+/**
+ * Get the user's profile
+ * @param {express.Request} req
+ * @param {express.Response} res
+ */
 exports.whoami = async (req, res) => {
   const token = req.headers["x-access-token"];
   if (!token) {

@@ -1,10 +1,12 @@
 const mongoose = require("mongoose");
+
+/**
+ * @description
+ * The schema for the user model
+ */
 const User = mongoose.model(
   "User",
   new mongoose.Schema({
-    // firstname: String,
-    // lastname: String,
-    // email: String,
     username: {
       type: String,
       required: true,

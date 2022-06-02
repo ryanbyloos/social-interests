@@ -32,6 +32,10 @@ roleRoutes(app);
 
 app.listen(port, () => console.log(`App listening on port ${port}!`));
 
+/**
+ * @description
+ * Connect to the database
+ */
 db.mongoose
   .connect(process.env.MONGODB_URI || config.MONGODB_URI, {
     useNewUrlParser: true,
@@ -46,6 +50,10 @@ db.mongoose
     process.exit();
   });
 
+/**
+ * @description
+ * Initialize the database with some data
+ */
 const dbInit = () => {
   db.role.estimatedDocumentCount((err, count) => {
     if (!err && count === 0) {

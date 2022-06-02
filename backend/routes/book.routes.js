@@ -1,4 +1,10 @@
+const express = require("express");
 const controller = require("../controllers/book.controller");
+
+/**
+ * The routes for the books
+ * @param {express.Application} app The express application
+ */
 module.exports = (app) => {
   app.use((req, res, next) => {
     res.header(

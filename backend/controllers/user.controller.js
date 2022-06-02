@@ -1,7 +1,13 @@
+const express = require("express");
 const db = require("../models");
 const User = db.user;
 var bcrypt = require("bcrypt");
 
+/**
+ * Get all users, a user by id, or a user by username
+ * @param {express.Request} req
+ * @param {express.Response} res
+ */
 exports.getUser = async (req, res) => {
   if (req.query.id) {
     User.findById(req.query.id)
@@ -41,6 +47,11 @@ exports.getUser = async (req, res) => {
   }
 };
 
+/**
+ * Get all books from a user
+ * @param {express.Request} req
+ * @param {express.Response} res
+ */
 exports.getUserBooks = async (req, res) => {
   try {
     const user = await User.findOne({
@@ -55,6 +66,11 @@ exports.getUserBooks = async (req, res) => {
   }
 };
 
+/**
+ * Get all movies from a user
+ * @param {express.Request} req
+ * @param {express.Response} res
+ */
 exports.getUserMovies = async (req, res) => {
   try {
     const user = await User.findOne({
@@ -69,6 +85,11 @@ exports.getUserMovies = async (req, res) => {
   }
 };
 
+/**
+ * Get all users that the user is following
+ * @param {express.Request} req
+ * @param {express.Response} res
+ */
 exports.getUserFriends = async (req, res) => {
   try {
     const user = await User.findOne({
@@ -83,6 +104,11 @@ exports.getUserFriends = async (req, res) => {
   }
 };
 
+/**
+ * Update a user
+ * @param {express.Request} req
+ * @param {express.Response} res
+ */
 exports.updateUser = async (req, res) => {
   try {
     const newUser = req.body;
@@ -105,6 +131,11 @@ exports.updateUser = async (req, res) => {
   }
 };
 
+/**
+ * Add a book to a user
+ * @param {express.Request} req
+ * @param {express.Response} res
+ */
 exports.addBook = async (req, res) => {
   try {
     const user = await User.findOne({
@@ -121,6 +152,11 @@ exports.addBook = async (req, res) => {
   }
 };
 
+/**
+ * Add a movie to a user
+ * @param {express.Request} req
+ * @param {express.Response} res
+ */
 exports.addMovie = async (req, res) => {
   try {
     const user = await User.findOne({
@@ -137,6 +173,11 @@ exports.addMovie = async (req, res) => {
   }
 };
 
+/**
+ * Add a user to the following list of another user and vice versa to its follower list
+ * @param {express.Request} req
+ * @param {express.Response} res
+ */
 exports.followFriend = async (req, res) => {
   try {
     const user = await User.findOne({
@@ -163,6 +204,11 @@ exports.followFriend = async (req, res) => {
   }
 };
 
+/**
+ * Remove a user
+ * @param {express.Request} req
+ * @param {express.Response} res
+ */
 exports.deleteUser = async (req, res) => {
   try {
     const user = await User.findOne({
@@ -200,6 +246,11 @@ exports.deleteUser = async (req, res) => {
   }
 };
 
+/**
+ * Remove a book from a user
+ * @param {express.Request} req
+ * @param {express.Response} res
+ */
 exports.deleteBook = async (req, res) => {
   try {
     const user = await User.findOne({
@@ -216,6 +267,11 @@ exports.deleteBook = async (req, res) => {
   }
 };
 
+/**
+ * Remove a movie from a user
+ * @param {express.Request} req
+ * @param {express.Response} res
+ */
 exports.deleteMovie = async (req, res) => {
   try {
     const user = await User.findOne({
@@ -232,6 +288,11 @@ exports.deleteMovie = async (req, res) => {
   }
 };
 
+/**
+ * Get wether a user have a book or not
+ * @param {express.Request} req
+ * @param {express.Response} res
+ */
 exports.hasBook = async (req, res) => {
   try {
     const user = await User.findOne({
@@ -249,6 +310,11 @@ exports.hasBook = async (req, res) => {
   }
 };
 
+/**
+ * Get wether a user have a movie or not
+ * @param {express.Request} req
+ * @param {express.Response} res
+ */
 exports.hasMovie = async (req, res) => {
   try {
     const user = await User.findOne({
@@ -266,6 +332,11 @@ exports.hasMovie = async (req, res) => {
   }
 };
 
+/**
+ * Unfollow a user
+ * @param {express.Request} req
+ * @param {express.Response} res
+ */
 exports.deleteFriend = async (req, res) => {
   try {
     const user = await User.findOne({
@@ -292,6 +363,11 @@ exports.deleteFriend = async (req, res) => {
   }
 };
 
+/**
+ * Get if a user is following another user
+ * @param {express.Request} req
+ * @param {express.Response} res
+ */
 exports.areFriends = async (req, res) => {
   try {
     const user = await User.findOne({
@@ -315,6 +391,11 @@ exports.areFriends = async (req, res) => {
   }
 };
 
+/**
+ * Get the similarity between two users
+ * @param {express.Request} req
+ * @param {express.Response} res
+ */
 exports.getSimilarity = async (req, res) => {
   try {
     const user = await User.findOne({
@@ -342,6 +423,11 @@ exports.getSimilarity = async (req, res) => {
   }
 };
 
+/**
+ * Get the ten most similar users to a user
+ * @param {express.Request} req
+ * @param {express.Response} res
+ */
 exports.getTenMostSimilar = async (req, res) => {
   try {
     const user = await User.findOne({

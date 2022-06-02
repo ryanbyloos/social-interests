@@ -1,4 +1,10 @@
+const express = require("express");
 const controller = require("../controllers/auth.controller");
+
+/**
+ * The routes for the auth
+ * @param {express.Application} app The express application
+ */
 module.exports = (app) => {
   app.use((req, res, next) => {
     res.header(
