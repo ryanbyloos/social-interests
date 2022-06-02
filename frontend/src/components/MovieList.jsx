@@ -1,13 +1,11 @@
 import {
   Box,
   SimpleGrid,
-  Image,
   Container,
   Text,
   InputGroup,
   InputLeftElement,
   Input,
-  CloseButton,
   HStack,
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
@@ -39,10 +37,8 @@ export default function MovieList({ movies, refresh, setRefresh, myProfile }) {
     });
 
   const updateMovies = () => {
-    console.log("updateMovies", movies);
     setMovieCardList([]);
     for (let index = 0; index < movies.length; index++) {
-      console.log("movies[index]", movies[index]);
       const movieId = movies[index];
       getMovies(movieId).then((data) => {
         if (data.title.toLowerCase().includes(search.toLowerCase())) {

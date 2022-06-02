@@ -257,7 +257,6 @@ export async function hasMovie(id, movieId) {
 }
 
 export async function getMovies(id) {
-  console.log("getMovies");
   const res = await fetch(`${API_HOST}/api/movie?id=${id}`, {
     method: "GET",
     headers: {

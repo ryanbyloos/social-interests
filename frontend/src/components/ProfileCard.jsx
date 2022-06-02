@@ -20,7 +20,6 @@ export default function ProfileCard({
   const handleAddFriend = (friendId) =>
     whoami().then((me) => {
       addFriend(me.userId, friendId).then(() => {
-        console.log("friend added", friendId);
         setRefresh(!refresh);
       });
     });
@@ -28,7 +27,6 @@ export default function ProfileCard({
   const handleRemoveFriend = (friendId) => {
     whoami().then((me) => {
       removeFriend(me.userId, friendId).then(() => {
-        console.log("friend removed", friendId);
         setRefresh(!refresh);
       });
     });
@@ -43,7 +41,6 @@ export default function ProfileCard({
   const handleFriendButton = (friendId) => {
     return handleHasFriend(friendId)
       .then((res) => {
-        console.log("res", res);
         if (res) {
           return (
             <Button

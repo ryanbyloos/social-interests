@@ -7,7 +7,6 @@ export default function FriendCard({ name, pic, similarity }) {
 
   function goToProfile(username) {
     getUserByName(username).then((data) => {
-      console.log(data._id);
       navigate(`/u/${data._id}`);
     });
   }

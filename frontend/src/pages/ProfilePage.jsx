@@ -7,7 +7,7 @@ import FriendList from "../components/FriendList";
 import BookList from "../components/BookList";
 import Footer from "../components/Footer";
 import MovieList from "../components/MovieList";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { getUserById, whoami } from "../api/userAPI";
 
@@ -17,7 +17,6 @@ function ProfilePage() {
   const [refresh, setRefresh] = React.useState(false);
 
   const navigate = useNavigate();
-  const location = useLocation();
 
   const [user, setUser] = React.useState({
     id: "",
@@ -33,7 +32,6 @@ function ProfilePage() {
     whoami().then((data) => {
       setMyProfile(id === data.userId);
       getUserById(id).then((data) => {
-        console.log(data);
         setUser({
           id: data.userId,
           userName: data.username,

@@ -27,8 +27,6 @@ exports.isAdmin = async (req, res) => {
     if (decoded.roles.includes(role._id.toString())) {
       return res.status(200).send({ isAdmin: true });
     } else {
-      console.log(decoded.roles);
-      console.log(role._id);
       return res.status(200).send({ isAdmin: false });
     }
   });

@@ -38,7 +38,6 @@ export default function Navbar({ id, myProfile }) {
   useEffect(() => {
     isAdmin().then((data) => {
       setAdmin(data.isAdmin);
-      console.log("admin :", data.isAdmin);
     });
   }, []);
 
