@@ -4,7 +4,7 @@ const Role = db.role;
 const jwt = require("jsonwebtoken");
 
 /**
- * Get all the roles
+ * @description Get all the roles
  * @param {express.Request} req
  * @param {express.Response} res
  */
@@ -21,7 +21,7 @@ exports.getRoles = async (req, res) => {
 };
 
 /**
- * Get wether the user is an admin or not
+ * @description Get wether the user is an admin or not
  * @param {express.Request} req
  * @param {express.Response} res
  */

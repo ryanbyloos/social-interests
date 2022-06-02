@@ -6,7 +6,7 @@ var jwt = require("jsonwebtoken");
 var bcrypt = require("bcrypt");
 
 /**
- * Create a new user when the user is registering
+ * @description Create a new user when the user is registering
  * @param {express.Request} req
  * @param {express.Response} res
  */
@@ -38,7 +38,7 @@ exports.signup = async (req, res) => {
 };
 
 /**
- * Log a user in when the user is logging in
+ * @description Log a user in when the user is logging in
  * @param {express.Request} req
  * @param {express.Response} res
  */
@@ -79,7 +79,7 @@ exports.signin = async (req, res) => {
 };
 
 /**
- * Log a user out when the user is logging out
+ * @description Log a user out when the user is logging out
  * @param {express.Request} req
  * @param {express.Response} res
  */
@@ -88,7 +88,7 @@ exports.signout = async (req, res) => {
 };
 
 /**
- * Get the user's profile
+ * @description Get the user's profile
  * @param {express.Request} req
  * @param {express.Response} res
  */

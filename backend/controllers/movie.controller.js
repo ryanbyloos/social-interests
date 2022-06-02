@@ -3,7 +3,7 @@ const db = require("../models");
 const Movie = db.movie;
 
 /**
- * Get all the movies, a movie by id, or a movie by title
+ * @description Get all the movies, a movie by id, or a movie by title
  * @param {express.Request} req
  * @param {express.Response} res
  */

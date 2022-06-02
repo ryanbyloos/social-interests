@@ -4,7 +4,7 @@ const User = db.user;
 var bcrypt = require("bcrypt");
 
 /**
- * Get all users, a user by id, or a user by username
+ * @description Get all users, a user by id, or a user by username
  * @param {express.Request} req
  * @param {express.Response} res
  */
@@ -48,7 +48,7 @@ exports.getUser = async (req, res) => {
 };
 
 /**
- * Get all books from a user
+ * @description Get all books from a user
  * @param {express.Request} req
  * @param {express.Response} res
  */
@@ -67,7 +67,7 @@ exports.getUserBooks = async (req, res) => {
 };
 
 /**
- * Get all movies from a user
+ * @description Get all movies from a user
  * @param {express.Request} req
  * @param {express.Response} res
  */
@@ -86,7 +86,7 @@ exports.getUserMovies = async (req, res) => {
 };
 
 /**
- * Get all users that the user is following
+ * @description Get all users that the user is following
  * @param {express.Request} req
  * @param {express.Response} res
  */
@@ -105,7 +105,7 @@ exports.getUserFriends = async (req, res) => {
 };
 
 /**
- * Update a user
+ * @description Update a user
  * @param {express.Request} req
  * @param {express.Response} res
  */
@@ -132,7 +132,7 @@ exports.updateUser = async (req, res) => {
 };
 
 /**
- * Add a book to a user
+ * @description Add a book to a user
  * @param {express.Request} req
  * @param {express.Response} res
  */
@@ -153,7 +153,7 @@ exports.addBook = async (req, res) => {
 };
 
 /**
- * Add a movie to a user
+ * @description Add a movie to a user
  * @param {express.Request} req
  * @param {express.Response} res
  */
@@ -174,7 +174,7 @@ exports.addMovie = async (req, res) => {
 };
 
 /**
- * Add a user to the following list of another user and vice versa to its follower list
+ * @description Add a user to the following list of another user and vice versa to its follower list
  * @param {express.Request} req
  * @param {express.Response} res
  */
@@ -205,7 +205,7 @@ exports.followFriend = async (req, res) => {
 };
 
 /**
- * Remove a user
+ * @description Remove a user
  * @param {express.Request} req
  * @param {express.Response} res
  */
@@ -247,7 +247,7 @@ exports.deleteUser = async (req, res) => {
 };
 
 /**
- * Remove a book from a user
+ * @description Remove a book from a user
  * @param {express.Request} req
  * @param {express.Response} res
  */
@@ -268,7 +268,7 @@ exports.deleteBook = async (req, res) => {
 };
 
 /**
- * Remove a movie from a user
+ * @description Remove a movie from a user
  * @param {express.Request} req
  * @param {express.Response} res
  */
@@ -289,7 +289,7 @@ exports.deleteMovie = async (req, res) => {
 };
 
 /**
- * Get wether a user have a book or not
+ * @description Get wether a user have a book or not
  * @param {express.Request} req
  * @param {express.Response} res
  */
@@ -311,7 +311,7 @@ exports.hasBook = async (req, res) => {
 };
 
 /**
- * Get wether a user have a movie or not
+ * @description Get wether a user have a movie or not
  * @param {express.Request} req
  * @param {express.Response} res
  */
@@ -333,7 +333,7 @@ exports.hasMovie = async (req, res) => {
 };
 
 /**
- * Unfollow a user
+ * @description Unfollow a user
  * @param {express.Request} req
  * @param {express.Response} res
  */
@@ -364,7 +364,7 @@ exports.deleteFriend = async (req, res) => {
 };
 
 /**
- * Get if a user is following another user
+ * @description Get if a user is following another user
  * @param {express.Request} req
  * @param {express.Response} res
  */
@@ -392,7 +392,7 @@ exports.areFriends = async (req, res) => {
 };
 
 /**
- * Get the similarity between two users
+ * @description Get the similarity between two users
  * @param {express.Request} req
  * @param {express.Response} res
  */
@@ -424,7 +424,7 @@ exports.getSimilarity = async (req, res) => {
 };
 
 /**
- * Get the ten most similar users to a user
+ * @description Get the ten most similar users to a user
  * @param {express.Request} req
  * @param {express.Response} res
  */

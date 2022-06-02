@@ -2,7 +2,7 @@ const express = require("express");
 const controller = require("../controllers/role.controller");
 
 /**
- * The routes for the roles
+ * @description The routes for the roles
  * @param {express.Application} app The express application
  */
 module.exports = (app) => {

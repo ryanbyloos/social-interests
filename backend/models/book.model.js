@@ -1,8 +1,7 @@
 const mongoose = require("mongoose");
 
 /**
- * @description
- * The schema for the book model
+ * @description The schema for the book model
  */
 const Book = mongoose.model(
   "Book",

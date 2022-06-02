@@ -2,7 +2,7 @@ const express = require("express");
 const controller = require("../controllers/movie.controller");
 
 /**
- * The routes for the movies
+ * @description The routes for the movies
  * @param {express.Application} app The express application
  */
 module.exports = (app) => {

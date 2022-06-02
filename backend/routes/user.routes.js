@@ -2,7 +2,7 @@ const express = require("express");
 const controller = require("../controllers/user.controller");
 
 /**
- * The routes for the users
+ * @description The routes for the users
  * @param {express.Application} app The express application
  */
 module.exports = (app) => {
