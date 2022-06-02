@@ -1,4 +1,4 @@
-import { API_HOST } from "./userAPI";
+import { API_HOST } from "../config";
 
 export async function logIn(username, password) {
   const res = await fetch(`${API_HOST}/api/auth/signin`, {
