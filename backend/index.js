@@ -7,6 +7,7 @@ const authRoutes = require("./routes/auth.routes");
 const userRoutes = require("./routes/user.routes");
 const bookRoutes = require("./routes/book.routes");
 const movieRoutes = require("./routes/movie.routes");
+const roleRoutes = require("./routes/role.routes");
 
 // const fs = require("fs");
 // const StreamArray = require("stream-json/streamers/StreamArray");
@@ -27,6 +28,7 @@ authRoutes(app);
 userRoutes(app);
 bookRoutes(app);
 movieRoutes(app);
+roleRoutes(app);
 
 app.listen(port, () => console.log(`App listening on port ${port}!`));
 

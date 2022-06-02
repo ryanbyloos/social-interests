@@ -33,3 +33,17 @@ export async function signUp(username, password) {
   }
   throw new Error(res.statusText);
 }
+
+export async function isAdmin() {
+  const res = await fetch(`${API_HOST}/api/role/isadmin`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "x-access-token": localStorage.getItem("token"),
+    },
+  });
+  if (res.status === 200) {
+    return res.json();
+  }
+  throw new Error(res.statusText);
+}

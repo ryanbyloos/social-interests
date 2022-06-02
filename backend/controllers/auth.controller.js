@@ -44,6 +44,7 @@ exports.signin = async (req, res) => {
           {
             username: user.username,
             userId: user._id,
+            roles: user.roles,
           },
           process.env.JWT_KEY || "secret",
           {

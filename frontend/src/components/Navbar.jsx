@@ -12,12 +12,16 @@ import {
   MenuDivider,
 } from "@chakra-ui/react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { whoami } from "../api/userAPI";
+import { isAdmin } from "../api/authAPI";
 
 export default function Navbar({ id, myProfile }) {
   const location = useLocation();
   const navigate = useNavigate();
   const pathname = location.pathname;
+
+  const [admin, setAdmin] = useState(false);
 
   const goToMyProfile = () => {
     whoami().then((data) => {
@@ -30,6 +34,13 @@ export default function Navbar({ id, myProfile }) {
       navigate(`/u/${data.userId}/edit`);
     });
   };
+
+  useEffect(() => {
+    isAdmin().then((data) => {
+      setAdmin(data.isAdmin);
+      console.log("admin :", data.isAdmin);
+    });
+  }, []);
 
   return (
     <>
@@ -72,18 +83,17 @@ export default function Navbar({ id, myProfile }) {
                 cursor={"pointer"}
                 minW={0}
               >
-                <Avatar
-                  size={"sm"}
-                  // src={
-                  //   'https://images.unsplash.com/photo-1520810627419-35e362c5dc07?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ'
-                  // }
-                />
+                <Avatar size={"sm"} />
               </MenuButton>
               <MenuList>
                 <MenuItem onClick={goToEditMyProfile}>Modifier profil</MenuItem>
-                <MenuItem onClick={() => navigate("/admin" + location.search)}>
-                  Interface admin
-                </MenuItem>
+                {admin ? (
+                  <MenuItem
+                    onClick={() => navigate("/admin" + location.search)}
+                  >
+                    Interface admin
+                  </MenuItem>
+                ) : null}
                 <MenuDivider />
                 <MenuItem
                   onClick={() => {
