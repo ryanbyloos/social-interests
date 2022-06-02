@@ -29,6 +29,7 @@ services:
       - PROXY-API=http://backend:8080
       - API_HOST=https://frontend:8080/api
     ports:
+      - 443:443
       - 80:80
     volumes:
       - ./frontend/nginx/conf:/etc/nginx/conf.d/:ro
