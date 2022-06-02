@@ -1,15 +1,5 @@
 version: '3'
 services:
-  nginx:
-    image: 'jc21/nginx-proxy-manager:latest'
-    restart: unless-stopped
-    ports:
-      - '80:80'
-      - '81:81'
-      - '443:443'
-    volumes:
-      - ./data:/data
-      - ./letsencrypt:/etc/letsencrypt
   db:
     image: mongo:latest
     ports:
@@ -22,10 +12,10 @@ services:
       context: ./backend
       dockerfile: ./Dockerfile
     environment:
-      PORT: 8080
-      MONGODB_URI: mongodb://db:27017/social
-      FRONTEND_URL: http://frontend:3000
-      NGINX_URL: https://nginx:80
+      - PORT=8080
+      - MONGODB_URI=mongodb://db:27017/social
+      - FRONTEND_URL=http://frontend:3000
+      # - NGINX_URL=https://nginx:80
     ports:
       - 8080:8080
     depends_on:
@@ -35,6 +25,17 @@ services:
       context: ./frontend
       dockerfile: ./Dockerfile
     environment:
-      PORT: 3000
+      - PORT=80
+      - PROXY-API=http://backend:8080
+      - API_HOST=https://frontend:8080/api
     ports:
-      - 3000:3000
+      - 80:80
+    volumes:
+      - ./frontend/nginx/conf:/etc/nginx/conf.d/:ro
+      - ./frontend/certbot/www:/var/www/certbot/:ro
+      - ./frontend/certbot/conf:/etc/nginx/ssl/:ro
+  certbot:
+    image: certbot/certbot:latest
+    volumes:
+      - ./frontend/certbot/www:/var/www/certbot/:rw
+      - ./frontend/certbot/conf:/etc/letsencrypt/:rw
