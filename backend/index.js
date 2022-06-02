@@ -16,9 +16,9 @@ const app = express();
 
 var corsOptions = {
   origin: [
-    "http://localhost:3000",
-    "http://localhost",
-    // process.env.FRONTEND_URL,
+    // "http://localhost:3000",
+    // "http://localhost",
+    process.env.FRONTEND_URL,
     // process.env.NGINX_URL,
   ],
 };

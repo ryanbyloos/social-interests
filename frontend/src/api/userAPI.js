@@ -1,7 +1,7 @@
 // export const API_HOST =
 //   process.env.REACT_APP_API_HOST || "http://social.ryanb.be:8080";
 
-export const API_HOST = "http://localhost:8080";
+export const API_HOST = "https://social.ryanb.be/api";
 
 export async function whoami() {
   const res = await fetch(`${API_HOST}/api/auth/whoami`, {

@@ -14,8 +14,7 @@ services:
     environment:
       - PORT=8080
       - MONGODB_URI=mongodb://db:27017/social
-      - FRONTEND_URL=http://frontend:3000
-      # - NGINX_URL=https://nginx:80
+      - FRONTEND_URL=https://frontend
     ports:
       - 8080:8080
     depends_on:
@@ -26,7 +25,7 @@ services:
       dockerfile: ./Dockerfile
     environment:
       - PORT=80
-      - PROXY-API=http://backend:8080
+      - PROXY_API=http://backend:8080
       - API_HOST=https://frontend:8080/api
     ports:
       - 443:443
