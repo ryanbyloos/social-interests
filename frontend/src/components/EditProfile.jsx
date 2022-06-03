@@ -11,11 +11,11 @@ import {
 
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { getUserById, updateUser } from "../api/userAPI";
+import { getUserById, getUserByName, updateUser } from "../api/userAPI";
 
 /**
  * @description EditProfile component used in the Profile component
- * @param {Object} props 
+ * @param {Object} props
  * @returns the component used to edit a user's profile
  */
 export default function EditProfile({ id }) {
@@ -36,7 +36,14 @@ export default function EditProfile({ id }) {
     }
     const updatedUser = {};
     if (username.match(/^[a-zA-Z0-9_]{3,20}$/) !== null) {
-      updatedUser.username = username;
+      getUserByName(username).then((user) => {
+        if (user !== null) {
+          alert("Ce nom d'utilisateur est déjà utilisé");
+          return;
+        } else {
+          updatedUser.username = username;
+        }
+      });
     } else if (username === "") {
     } else {
       alert("Nom d'utilisateur invalide");
