@@ -123,10 +123,10 @@ export default function EditProfile({ id }) {
         </FormControl>
         <HStack spacing={6}>
           <Button w="full" boxShadow={"md"} onClick={() => navigate(-1)}>
-            Cancel
+            Annuler
           </Button>
           <Button w="full" boxShadow={"md"} onClick={handleSubmit}>
-            Submit
+            Confirmer
           </Button>
         </HStack>
       </Stack>
