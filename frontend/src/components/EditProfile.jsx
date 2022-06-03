@@ -36,14 +36,18 @@ export default function EditProfile({ id }) {
     }
     const updatedUser = {};
     if (username.match(/^[a-zA-Z0-9_]{3,20}$/) !== null) {
-      getUserByName(username).then((user) => {
-        if (user !== null) {
-          alert("Ce nom d'utilisateur est déjà utilisé");
-          return;
-        } else {
-          updatedUser.username = username;
-        }
-      });
+      updatedUser.username = username;
+      getUserByName(username)
+        .then((user) => {
+          if (user !== null) {
+            alert("Ce nom d'utilisateur est déjà utilisé");
+            navigate(-1);
+            return;
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     } else if (username === "") {
     } else {
       alert("Nom d'utilisateur invalide");
