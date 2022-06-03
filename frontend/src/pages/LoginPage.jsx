@@ -4,7 +4,9 @@ import Footer from "../components/Footer";
 
 import { VStack } from "@chakra-ui/react";
 
-
+/**
+ * @returns the login page
+ */
 function LoginPage() {
   return (
     <>

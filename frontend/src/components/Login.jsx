@@ -14,7 +14,11 @@ import { logIn } from "../api/authAPI";
 
 import React from "react";
 
-export default function SimpleCard() {
+/**
+ * @description Login component used in the LoginPage component
+ * @returns the component to log in
+ */
+export default function Login() {
   let navigate = useNavigate();
 
   const [username, setUsername] = React.useState("");

@@ -14,6 +14,11 @@ import { removeMovie, whoami } from "../api/userAPI";
 import { getMovies } from "../api/movieAPI";
 import ItemCard from "./ItemCard";
 
+/**
+ * @description MovieCard component used in the MovieList component
+ * @param {Object} props 
+ * @returns an ItemCard for a movie
+ */
 function MovieCard({ name, author, id, handleDeleteMovie, myProfile }) {
   return (
     <ItemCard
@@ -27,6 +32,11 @@ function MovieCard({ name, author, id, handleDeleteMovie, myProfile }) {
   );
 }
 
+/**
+ * @description MovieList component used in the Profile component
+ * @param {Object} props 
+ * @returns a list of MovieCards in a Box
+ */
 export default function MovieList({ movies, refresh, setRefresh, myProfile }) {
   let [search, setSearch] = useState("");
   let [movieCardList, setMovieCardList] = useState([]);

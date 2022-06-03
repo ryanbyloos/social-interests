@@ -2,6 +2,11 @@ import { Box, Avatar, Text, Tooltip } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { getUserByName } from "../api/userAPI";
 
+/**
+ * @description FriendCard component used in the FriendList component
+ * @param {Object} props 
+ * @returns a list of users in a Box
+ */
 export default function FriendCard({ name, pic, similarity }) {
   const navigate = useNavigate();
 

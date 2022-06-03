@@ -16,6 +16,11 @@ import { removeBook, whoami } from "../api/userAPI";
 import { getBooks } from "../api/bookAPI";
 import ItemCard from "./ItemCard";
 
+/**
+ * @description BookCard component used in the BookList component
+ * @param {Object} props 
+ * @returns an ItemCard for a book
+ */
 function BookCard({ name, author, pic, id, handleDeleteBook, myProfile }) {
   return (
     <ItemCard
@@ -29,6 +34,11 @@ function BookCard({ name, author, pic, id, handleDeleteBook, myProfile }) {
   );
 }
 
+/**
+ * @description BookList component used in the Profile component
+ * @param {Object} props 
+ * @returns a list of BookCards in a Box
+ */
 export default function BookList({ books, refresh, setRefresh, myProfile }) {
   const [search, setSearch] = useState("");
   const [bookCardList, setBookCardList] = useState([]);

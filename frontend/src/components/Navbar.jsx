@@ -16,7 +16,12 @@ import { useEffect, useState } from "react";
 import { whoami } from "../api/userAPI";
 import { isAdmin } from "../api/authAPI";
 
-export default function Navbar({ id, myProfile }) {
+/**
+ * @description Navbar component used everywhere except in login and signup
+ * @param {Object} props 
+ * @returns a Box that is a navigation bar
+ */
+export default function Navbar({ myProfile }) {
   const location = useLocation();
   const navigate = useNavigate();
   const pathname = location.pathname;

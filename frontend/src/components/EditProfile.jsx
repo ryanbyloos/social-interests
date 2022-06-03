@@ -10,11 +10,14 @@ import {
 } from "@chakra-ui/react";
 
 import React from "react";
-
 import { useLocation, useNavigate } from "react-router-dom";
-
 import { getUserById, updateUser } from "../api/userAPI";
 
+/**
+ * @description EditProfile component used in the Profile component
+ * @param {Object} props 
+ * @returns the component used to edit a user's profile
+ */
 export default function EditProfile({ id }) {
   const location = useLocation();
   const navigate = useNavigate();

@@ -5,6 +5,11 @@ import { useParams } from "react-router-dom";
 import { whoami, addFriend, hasFriend, removeFriend } from "../api/userAPI";
 import { useLocation } from "react-router-dom";
 
+/**
+ * @description ProfileCard component used in the ProfilePage component
+ * @param {Object} props 
+ * @returns a box containing the user's profile information
+ */
 export default function ProfileCard({
   username,
   bio,

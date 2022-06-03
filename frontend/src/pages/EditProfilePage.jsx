@@ -6,6 +6,10 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 import { VStack } from "@chakra-ui/react";
+
+/**
+ * @returns the edit profile page
+ */
 function EditProfilePage() {
   const { id } = useParams();
   const navigate = useNavigate();

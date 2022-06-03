@@ -5,6 +5,11 @@ import { getUserById } from "../api/userAPI";
 import FriendCard from "./FriendCard";
 import UserList from "./UserList";
 
+/**
+ * @description FriendList component used in the Profile component
+ * @param {Object} props 
+ * @returns two UserLists, one for followed users and one for followers
+ */
 export default function FriendList({ following, followers }) {
   const [searchFollowing, setSearchFollowing] = useState("");
   const [searchFollowers, setSearchFollowers] = useState("");

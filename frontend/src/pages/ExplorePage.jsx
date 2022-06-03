@@ -41,6 +41,9 @@ import FriendCard from "../components/FriendCard";
 import UserList from "../components/UserList";
 import { useNavigate } from "react-router-dom";
 
+/**
+ * @returns the explore page
+ */
 function ExplorePage() {
   const [filter, setFilter] = useState("Utilisateurs");
   const [search, setSearch] = useState("");

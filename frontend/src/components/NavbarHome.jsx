@@ -2,7 +2,11 @@ import { Box, Flex, HStack, Button } from "@chakra-ui/react";
 
 import { useLocation, useNavigate } from "react-router-dom";
 
-export default function Simple() {
+/**
+ * @description Navbar component used in login and signup
+ * @returns a Box that is a navigation bar
+ */
+export default function NavbarHome() {
   const location = useLocation();
   const navigate = useNavigate();
 

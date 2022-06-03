@@ -5,7 +5,11 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-export default function SmallWithLogoLeft() {
+/**
+ * @description Footer component used everywhere
+ * @returns a Box used as a footer
+ */
+export default function Footer() {
   return (
     <Box
       // bg={"gray.50"}

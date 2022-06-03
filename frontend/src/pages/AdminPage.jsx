@@ -15,7 +15,10 @@ import Footer from "../components/Footer";
 import { getAllUsers, deleteUser } from "../api/userAPI";
 import { useNavigate } from "react-router-dom";
 
-function MyProfilePage() {
+/**
+ * @returns the admin page
+ */
+function AdminPage() {
   const [tr, setTr] = React.useState([]);
   const [refresh, setRefresh] = React.useState(false);
   const navigate = useNavigate();
@@ -69,4 +72,4 @@ function MyProfilePage() {
   );
 }
 
-export default MyProfilePage;
+export default AdminPage;

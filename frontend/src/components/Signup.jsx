@@ -16,6 +16,10 @@ import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
 import { signUp } from "../api/authAPI";
 
+/**
+ * @description SignupCard component used in the SignupPage component
+ * @returns the component to sign up
+ */
 export default function SignupCard() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);

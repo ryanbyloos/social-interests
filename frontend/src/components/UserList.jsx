@@ -13,6 +13,11 @@ import { React } from "react";
 
 import { SearchIcon } from "@chakra-ui/icons";
 
+/**
+ * @description UserList component used in the FriendList component
+ * @param {Object} props 
+ * @returns a list of FriendCard in a Container
+ */
 export default function UserList({
   title,
   list,

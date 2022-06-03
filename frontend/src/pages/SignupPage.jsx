@@ -3,6 +3,9 @@ import NavbarHome from "../components/NavbarHome";
 import Footer from "../components/Footer";
 
 import { VStack } from "@chakra-ui/react";
+/**
+ * @returns the signup page
+ */
 function SignupPage() {
   return (
     <>

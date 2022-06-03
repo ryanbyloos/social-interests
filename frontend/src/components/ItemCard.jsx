@@ -7,6 +7,11 @@ import {
   Tooltip,
 } from "@chakra-ui/react";
 
+/**
+ * @description ItemCard component used in the for BookCard and MovieCard
+ * @param {Object} props 
+ * @returns a box reprensenting an item
+ */
 export default function ItemCard({
   name,
   author,

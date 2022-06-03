@@ -11,6 +11,9 @@ import { useNavigate } from "react-router-dom";
 
 import { getUserById, whoami } from "../api/userAPI";
 
+/**
+ * @returns the profile page
+ */
 function ProfilePage() {
   const { id } = useParams();
   const [myProfile, setMyProfile] = React.useState(false);
