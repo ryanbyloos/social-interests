@@ -3,6 +3,7 @@ services:
   db:
     image: mongo:latest
     command: mongod --quiet --logpath /dev/null
+    restart: unless-stopped
     ports:
       - 27017:27017
     volumes:
@@ -12,6 +13,7 @@ services:
     build:
       context: ./backend
       dockerfile: ./Dockerfile
+    restart: unless-stopped
     environment:
       - PORT=8080
       - MONGODB_URI=mongodb://db:27017/social
@@ -24,6 +26,7 @@ services:
     build:
       context: ./frontend
       dockerfile: ./Dockerfile
+    restart: unless-stopped
     environment:
       - PORT=80
       - PROXY_API=http://backend:8080
